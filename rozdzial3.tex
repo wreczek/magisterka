@@ -115,11 +115,17 @@ Docelowym zadaniem, które będzie badane w tej pracy jest klasyfikacja wytrzyma
 \end{table}
 
 Następnie, w celu ułatwienia oceny klasyfikatora, można wprowadzić poniższe miary wydajności [32, 33]:
+
 - prawdziwie pozytywna (ang. true positive, TP),
+
 - prawdziwie negatywna (ang. true negative, TN),
-- fałszywie pozytywna (ang. false positive, FP), tzw. błąd pierwszego rodzaju
-- fałszywie negatywna (ang. false negative, FN), tzw. błąd drugiego rodzaju
+
+- fałszywie pozytywna (ang. false positive, FP), tzw. błąd pierwszego rodzaju,
+
+- fałszywie negatywna (ang. false negative, FN), tzw. błąd drugiego rodzaju.
+
 Są to podstawowe miary wydajności za pomocą których dalej zdefiniujemy bardziej rozbudowane miary. Ale wracając do tablicy pomyłek, pożądanym wynikiem jest uzyskanie wysokich liczb na głównej przekątnej tablicy pomyłek (czyli prawdziwie pozytywna oraz prawdziwie negatywna), natomiast jak najmniejsze (najlepiej zerowe) wartości na pozostałej przekątnej. Dzięki tej macierzy możemy przeanalizować w jakich przypadkach nasz klasyfikator myli się najczęściej. Dalej można wprowadzić bardziej zwięzłe metryki [32]:
+
 - dokładność (ang. accuracy, ACC)
 \begin{equation}
 ACC=\frac {TP+TN} {TP+FP+FN+TN}
@@ -148,7 +154,7 @@ Jednym z kryterium podziału systemów uczenia maszynowego może być stopień i
 \subsection{Uczenie nadzorowane}
 \label{cha:cha3.2.1}
 
-Uczenie nadzorowane (ang. supervised learning) polega na trenowaniu modelu za pomocą danych, które zostały przygotowane przez ludzkiego nadzorcę jako pary <obiekt uczący; etykieta>[24]. Celem takiego systemu jest nauczenie się przewidywania prawidłowej odpowiedzi dla danego obiektu wejściowego oraz generalizacja na przypadki, które nie są obecne w danych uczących [24]. 
+Uczenie nadzorowane (ang. supervised learning) polega na trenowaniu modelu za pomocą danych, które zostały przygotowane przez ludzkiego nadzorcę jako pary $\hbox{\it <obiekt~uczący; etykieta>}$ [24]. Celem takiego systemu jest nauczenie się przewidywania prawidłowej odpowiedzi dla danego obiektu wejściowego oraz generalizacja na przypadki, które nie są obecne w danych uczących [24]. 
 Uczenie nadzorowane można podzielić na klasyfikację oraz regresję, co jest determinowane przez etykietę danych. W przypadku, gdy każda etykieta należy do skończonego zbioru, mówimy o klasyfikacji. Jeżeli zaś etykiety mogą przyjmować np. dowolną wartość liczby rzeczywistej, wtedy mówimy o regresji. Jedne z ważniejszych przykładowych algorytmów tego rodzaju są:
 regresja liniowa (ang. linear regression),
 algorytm k-najbliższych sąsiadów (ang. k-nearest neighbors algorithm),
@@ -182,27 +188,48 @@ Uczenie przez wzmacnianie (ang. reinforcement learning, RL) polega na interakcji
 \label{cha:cha3.3}
 
 Inżynieria cech jest procesem wykorzystania wiedzy dziedzinowej w celu ekstrakcji cech z surowych danych [25]. Cecha jest własnością każdej instancji danych i jest ona wykorzystywana przez model w celu predykcji. Odpowiednio przygotowane dane zwiększają skuteczność modeli [25]. Proces tworzenia cech składa się z sześciu głównych etapów [47]:
-burza mózgów – ma na celu zebranie grupy ekspertów w celu zweryfikowania danych lub ustalenia sposobu przeprowadzenia ekstrakcji cech;
-wybór cech – w przypadku, gdy mamy wiele cech, możemy wybrać te, które niosą za sobą najwięcej informacji. Można tego dokonać z wykorzystaniem wiedzy dziedzinowej bądź za pomocą różnych technik wyboru podzbioru cech (np. symulowane wyżarzanie, optymalizacja za pomocą roju cząstek i.in.). Ten krok jest ważny, gdyż dzięki niemu potencjalnie uzyskamy prostszy model, a prostsze modele mają większą zdolność do generalizacji poprzez redukcję wariancji (tzw. kompromis między obciążeniem a wariancją). Inne korzyści, to:
-krótszy czas treningu,
-uniknięcie przekleństwa wymiarowości,
-lepsza interpretowalność;
-tworzenie nowych cech – możemy tworzyć nowe cechy za pomocą tych istniejących, np. za pomocą średniej arytmetycznej, minimum, czy innych statystyk. Można też wykorzystać normalizację (np. standaryzacja);
-testowanie wpływu cech na model – warto zautomatyzować ten proces, aby wybrać jak taki zestaw cech, który najlepiej się sprawdza na danych treningowych;
-poprawa cech w razie konieczności – dalsza modyfikacja cech wraz z obserwacją wpływu na działanie modelu;
-powtórzenie powyższych czynności – powtarzamy powyższe czynności do momentu, gdy przestaniemy uzyskiwać coraz lepsze rezultaty, bądź gdy dojdziemy do wniosku, iż dane są słabej jakości, bądź dysponujemy zbyt małą ich liczbą.
+
+\begin{enumerate}
+	\item Burza mózgów – ma na celu zebranie grupy ekspertów w celu zweryfikowania danych lub ustalenia sposobu przeprowadzenia ekstrakcji cech.
+
+	\item Wybór cech – w przypadku, gdy mamy wiele cech, możemy wybrać te, które niosą za sobą najwięcej informacji. Można tego dokonać z wykorzystaniem wiedzy dziedzinowej bądź za pomocą różnych technik wyboru podzbioru cech (np. symulowane wyżarzanie, optymalizacja za pomocą roju cząstek i.in.). Ten krok jest ważny, gdyż dzięki niemu potencjalnie uzyskamy prostszy model, a prostsze modele mają większą zdolność do generalizacji poprzez redukcję wariancji (tzw. kompromis między obciążeniem a wariancją). Inne korzyści, to:
+
+	- krótszy czas treningu,
+
+	- uniknięcie przekleństwa wymiarowości,
+
+	- lepsza interpretowalność.
+
+	\item Tworzenie nowych cech – możemy tworzyć nowe cechy za pomocą tych istniejących, np. za pomocą średniej arytmetycznej, minimum, czy innych statystyk. Można też wykorzystać normalizację (np. standaryzacja).
+
+	\item Testowanie wpływu cech na model – warto zautomatyzować ten proces, aby wybrać jak taki zestaw cech, który najlepiej się sprawdza na danych treningowych.
+
+	\item Poprawa cech w razie konieczności – dalsza modyfikacja cech wraz z obserwacją wpływu na działanie modelu.
+
+	\item Powtórzenie powyższych czynności – powtarzamy powyższe czynności do momentu, gdy przestaniemy uzyskiwać coraz lepsze rezultaty, bądź gdy dojdziemy do wniosku, iż dane są słabej jakości, bądź dysponujemy zbyt małą ich liczbą.
+\end{enumerate}
+
 Cechy mogą się różnić pod względem znaczenia. Dodatkowo odpowiednio skomponowany zbiór cech może zapobiec nadmiernemu dopasowaniu się modelu do danych uczących. 
 
 \section{Augmentacja danych}
 \label{cha:cha3.4}
 
 Augmentacja danych to zbiór technik służących zwiększaniu ilości danych poprzez dodanie do zbioru danych zmodyfikowanych kopii istniejących danych bądź nowo utworzonych danych syntetycznych z istniejących danych [26]. Dzięki temu zabiegowi możemy zapobiec nadmiernemu dopasowaniu się modelu do danych treningowych. Jest to szczególnie przydatne kiedy nie dysponujemy zbiorem danych rzędu dziesiątek tysięcy przykładów. Ponieważ nasze dane to zdjęcia mikrostruktur, dlatego w tym rozdziale zajmiemy się tylko rozszerzaniem danych w celu klasyfikacji obrazów. Możemy wymienić kilka głównych strategii:
-odwrócenie – możemy odwracać obrazy w pionie i w poziomie, zachowując przy okazji oryginalne rozmiary oryginalnego zdjęcia;
-rotacja – możemy obracać obrazy o 90° w każdym kierunku, otrzymując tym samym trzy nowe obrazy. W tym przypadku natomiast otrzymane obrazy mogą mieć inne rozmiary niż oryginalny obraz, w przypadku gdy nie jest on kwadratem;
-skalowanie – obraz może być przeskalowany na zewnątrz lub do wewnątrz. W przypadku skalowania na zewnątrz otrzymujemy obraz o większym rozmiarze, a więc wycinając odpowiedni obszar możemy otrzymać obraz o takim samym rozmiarze jak oryginalny obraz;
-wycinanie – inną możliwością jest wycinanie losowych fragmentów z obrazu. Gdy chcemy zachować oryginalny rozmiar, trzeba jeszcze przeskalować zmodyfikowany obrazek;
-translacja – polega na przesuwaniu obrazu wzdłuż osi. Działa szczególnie dobrze, gdy mamy do czynienia z obrazami, które posiadają jednolite tło;
-nałożenie szumu – dzięki tej technice możemy zapobiec nadmiernemu dopasowaniu się modelu do danych. 
+
+\begin{enumerate}
+	\item Odwrócenie – możemy odwracać obrazy w pionie i w poziomie, zachowując przy okazji oryginalne rozmiary oryginalnego zdjęcia.
+
+	\item Rotacja – możemy obracać obrazy o 90° w każdym kierunku, otrzymując tym samym trzy nowe obrazy. W tym przypadku natomiast otrzymane obrazy mogą mieć inne rozmiary niż oryginalny obraz, w przypadku gdy nie jest on kwadratem.
+
+	\item Skalowanie – obraz może być przeskalowany na zewnątrz lub do wewnątrz. W przypadku skalowania na zewnątrz otrzymujemy obraz o większym rozmiarze, a więc wycinając odpowiedni obszar możemy otrzymać obraz o takim samym rozmiarze jak oryginalny obraz.
+
+	\item Wycinanie – inną możliwością jest wycinanie losowych fragmentów z obrazu. Gdy chcemy zachować oryginalny rozmiar, trzeba jeszcze przeskalować zmodyfikowany obrazek.
+
+	\item Translacja – polega na przesuwaniu obrazu wzdłuż osi. Działa szczególnie dobrze, gdy mamy do czynienia z obrazami, które posiadają jednolite tło.
+
+	\item Nałożenie szumu – dzięki tej technice możemy zapobiec nadmiernemu dopasowaniu się modelu do danych. 
+\end{enumerate}
+
 Wśród innych metod, które również mogą się sprawdzić, można wymienić przekształcenia geometryczne, modyfikację kolorów czy losowe wymazywanie [26]. Istnieje też wiele innych, bardziej zaawansowanych metod augmentacji danych [27]. Przykładowo można zastosować tzw. generatywne sieci współzawodniczące (GAN od ang. generative adversarial network). Mogą one m.in. zmieniać domenę obrazu, jak pokazano na rysunku 6. Inną zaawansowaną techniką jest interpolacja. Może ona zostać wykorzystana w przypadku, gdy chcemy skorzystać z translacji – możemy wtedy brakujący fragment obrazu interpolować. Przyda się również, gdy chcemy skorzystać ze skalowania do wewnątrz jednocześnie zachowując oryginalny rozmiar obrazu [27]. 
 
 \begin{figure}[h]
@@ -231,7 +258,7 @@ Maszyna wektorów nośnych (ang. Support Vector Machine, SVM) to model nadzorowa
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=1\textwidth]{rys.7.svm.png}
+    \includegraphics[width=0.5\textwidth]{rys.7.svm.png}
     \caption{Działanie SVM. H1 nie separuje klas, H2 separuje, lecz z małym marginesem, natomiast H3 separuje z maksymalnym marginesem (Źródło: wikipedia)}
     \label{fig:mesh7}
 \end{figure}
@@ -242,22 +269,32 @@ Jednym z problemów, które można napotkać w trakcie korzystania z SVM jest ic
 \label{cha:Drzewo decyzyjne}
 
 Drzewo decyzyjne (ang. decision tree) to algorytm uczenia maszynowego stosowany w celu pozyskiwania wiedzy na podstawie przykładów [36]. Mają wiele zastosowań i służą zarówno do zadań klasyfikacji, jak i regresji. Jest to struktura, która kształtem przypomina drzewo (stąd nazwa), a każda ścieżka w tym drzewie przedstawia możliwą ścieżkę decyzyjną wraz z jej skutkami [35]. Składa się ono z węzłów (które jednocześnie oznaczają jakąś decyzję, stan) i gałęzi (wybór, możliwość). Drzewo konstruowane jest od korzenia i z każdą kolejną decyzją do podjęcia jest budowany w dół, to tzw. liści (ang. leaf), które oznaczają etykietę klasy. Istnieje wiele algorytmów generowania drzew decyzyjnych. Najbardziej znane z nich, to ID3 (Iterative Dichotomiser 3), czy też C4.5. Algorytm ID3 polega na tym, że w każdej iteracji jest wybierany niewykorzystany atrybut, który daje największy wzrost informacji (bądź np. najmniejszą miarę zanieczyszczenia), a zbiór danych jest dzielony według wartości tego atrybutu. Natomiast algorytm C4.5 jest rozszerzeniem wcześniejszego algorytmu i wprowadza takie usprawnienia, jak [37]:
-obsługa atrybutów ciągłych i dyskretnych,
-obsługa danych z brakującymi wartościami atrybutów,
-przycinanie drzew po ich utworzeniu.
 
-Wśród największych zalet drzew decyzyjnych wymienia się [38]:
-prosty algorytm,
-łatwo interpretowalne wyniki,
-działają nawet dla niewielkiej liczby danych,
-nie wymagają przygotowywania danych (w szczególności skalowania) [32].
+- obsługa atrybutów ciągłych i dyskretnych,
 
-Natomiast posiadają też wady, takie jak [38]:
-niestabilność (niewielka zmiana danych może prowadzić do dużej zmiany struktury drzewa,
-często są stosunkowo niedokładne (inne klasyfikatory zazwyczaj radzą sobie lepiej),
-może wystąpić problem nadmiernego dopasowania się do danych.
-Pomimo tych wad klasyfikator ten zostanie wykorzystany w badaniach, głównie ze względu właśnie na jego bardzo łatwą interpretowalność.
+- obsługa danych z brakującymi wartościami atrybutów,
 
+- przycinanie drzew po ich utworzeniu.
+
+\noindent Wśród największych zalet drzew decyzyjnych wymienia się [38]:
+
+- prosty algorytm,
+
+-łatwo interpretowalne wyniki,
+
+- działają nawet dla niewielkiej liczby danych,
+
+- nie wymagają przygotowywania danych (w szczególności skalowania) [32].
+
+\noindent Natomiast posiadają też wady, takie jak [38]:
+
+- niestabilność (niewielka zmiana danych może prowadzić do dużej zmiany struktury drzewa,
+
+- często są stosunkowo niedokładne (inne klasyfikatory zazwyczaj radzą sobie lepiej),
+
+- może wystąpić problem nadmiernego dopasowania się do danych.
+
+\noindent Pomimo tych wad klasyfikator ten zostanie wykorzystany w badaniach, głównie ze względu właśnie na jego bardzo łatwą interpretowalność.
 Jako ciekawostkę można dodać, że drzewa decyzyjne składają się na algorytm lasu losowego (ang. random forest), który zostanie omówiony w podrozdziale 3.6.3. 
 
 \subsection{Las losowy}
@@ -276,7 +313,7 @@ Algorytm k najbliższych sąsiadów (ang. k-nearest neighbors algorithm, k-NN) j
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=1\textwidth]{rys.8.knn.png}
+    \includegraphics[width=0.5\textwidth]{rys.8.knn.png}
     \caption{Schemat działania algorytmu k-NN. Szary punkt, w zależności od wartości k i odległości od najbliższych punktów, będzie miał przypisaną jedną z trzech dostępnych klas (źródło: Madison Scott, medium.com)}
     \label{fig:mesh8}
 \end{figure}
@@ -293,13 +330,13 @@ Regresja logistyczna (ang. logistic regression) to model używany w statystyce d
 logit(p_{i}) = ln( \frac {p_{i}} {1-p_{i}}) = \beta_{1}x_{1, i}+\dots+\beta_{k}x_{k, i}
 \end{equation}
 
-gdzie pi to nieznane prawdopodobieństwo sukcesu w próbie i, xk,i to wartość k-tego predyktora próby i, natomiast k to nieznany parametr k-tego predyktora, który jest optymalizowany (najczęściej za pomocą metody największej wiarygodności) [50]. Następnie zwracana jest wartość funkcji logistycznej z tego rezultatu (wzór 7) [32], co jest równoznaczne z oszacowaniem prawdopodobieństwa: 
+\noindent gdzie pi to nieznane prawdopodobieństwo sukcesu w próbie i, xk,i to wartość k-tego predyktora próby i, natomiast k to nieznany parametr k-tego predyktora, który jest optymalizowany (najczęściej za pomocą metody największej wiarygodności) [50]. Następnie zwracana jest wartość funkcji logistycznej z tego rezultatu (wzór 7) [32], co jest równoznaczne z oszacowaniem prawdopodobieństwa: 
 
 \begin{equation}
 \hat p = \sigma(t)=\frac {1} {1+exp(-t)}
 \end{equation}
 
-Następnie prognoza modelu regresji logistycznej jest wyliczana za pomocą wzoru 8.
+\noindent Następnie prognoza modelu regresji logistycznej jest wyliczana za pomocą wzoru 8.
 
 \begin{equation}
 \hat {y} =
@@ -309,7 +346,7 @@ Następnie prognoza modelu regresji logistycznej jest wyliczana za pomocą wzoru
  \end{cases}       
 \end{equation}
 
-Model ten może zostać rozszerzony tak, aby przewidywał kilka klas zdarzeń w taki sposób, iż każdemu zdarzeniu jest przypisywane prawdopodobieństwo, a suma wszystkich tych prawdopodobieństw wynosi jeden. W tym celu wykorzystuje się funkcję softmax (wzór 9), przekazując jej prawdopodobieństwa wystąpienia każdej klasy (nie muszą się sumować do jedynki), następnie dla każdej jest liczona eksponenta, po czym następuje normalizacja (dzieląc wyniki przez sumę wszystkich eksponent) [32].  
+\noindent Model ten może zostać rozszerzony tak, aby przewidywał kilka klas zdarzeń w taki sposób, iż każdemu zdarzeniu jest przypisywane prawdopodobieństwo, a suma wszystkich tych prawdopodobieństw wynosi jeden. W tym celu wykorzystuje się funkcję softmax (wzór 9), przekazując jej prawdopodobieństwa wystąpienia każdej klasy (nie muszą się sumować do jedynki), następnie dla każdej jest liczona eksponenta, po czym następuje normalizacja (dzieląc wyniki przez sumę wszystkich eksponent) [32].  
 
 %\begin{equation}
 \begin{align*}
@@ -318,7 +355,7 @@ Model ten może zostać rozszerzony tak, aby przewidywał kilka klas zdarzeń w 
 \end{align*}
 %\end{equation}
 
-gdzie zto wektor zawierający wyniki każdej klasy, ito ustalona klasa. Jak wspomniano wcześniej, współczynniki są estymowane za pomocą metody największej wiarygodności, gdzie w sposób iteracyjny (np. metoda Newtona) modyfikowane są wartości współczynników [50]. Ostatnim elementem jest uczenie modelu. Jego celem jest uzyskanie modelu, który zwraca wysokie prawdopodobieństwo dla klasy docelowej. W tym celu minimalizuje się funkcję kosztu zwaną entropią krzyżową (ang. cross entropy), przedstawioną poniżej (wzór 10). 
+\noindent gdzie zto wektor zawierający wyniki każdej klasy, ito ustalona klasa. Jak wspomniano wcześniej, współczynniki są estymowane za pomocą metody największej wiarygodności, gdzie w sposób iteracyjny (np. metoda Newtona) modyfikowane są wartości współczynników [50]. Ostatnim elementem jest uczenie modelu. Jego celem jest uzyskanie modelu, który zwraca wysokie prawdopodobieństwo dla klasy docelowej. W tym celu minimalizuje się funkcję kosztu zwaną entropią krzyżową (ang. cross entropy), przedstawioną poniżej (wzór 10). 
 
 %\begin{equation}
 \begin{align*}
@@ -326,8 +363,9 @@ H=-\sum_{c=1}^{M}y_{o,c}log(p_{o,c})
 \end{align*}
 %\end{equation}
 
-gdzie M oznacza liczbę klas, y to wskaźnik binarny (0 lub 1 w zależności czy etykieta c jest zgodna z klasą obserwacji o oraz p to przewidywane prawdopodobieństwo przypisania klasy c obserwacji o.
-    Regresja logistyczna jest bardzo skuteczna dla prostych zbiorów danych a także w przypadku zbiorów liniowo separowalnych. Dodatkowo jej współczynniki mogą być interpretowane jako wskaźniki ważności cech, dlatego również zostanie uwzględniona w badaniach.
+\noindent gdzie M oznacza liczbę klas, y to wskaźnik binarny (0 lub 1 w zależności czy etykieta c jest zgodna z klasą obserwacji o oraz p to przewidywane prawdopodobieństwo przypisania klasy c obserwacji o.
+
+Regresja logistyczna jest bardzo skuteczna dla prostych zbiorów danych a także w przypadku zbiorów liniowo separowalnych. Dodatkowo jej współczynniki mogą być interpretowane jako wskaźniki ważności cech, dlatego również zostanie uwzględniona w badaniach.
 
 
 \subsection{Naiwny klasyfikator bayesowski}
@@ -339,13 +377,13 @@ Naiwny klasyfikator bayesowski (ang. naive Bayes classifier) należy do rodziny 
 p(C|F_1,\dots,F_n)=\frac 1 Zp(C)\prod_{i=1}^{n}p(F_i|C)
 \end{equation}
 
-gdzie C to dana klasa zmiennej zależnej, n to liczba zmiennych niezależnych, F1,...,Fnto zmienne niezależne, natomiast Zjest współczynnikiem skalowania zależnym od predyktorów [45]. Klasyfikacja odbywa według poniższej funkcji (wzór 12):
+\noindent gdzie C to dana klasa zmiennej zależnej, n to liczba zmiennych niezależnych, F1,...,Fnto zmienne niezależne, natomiast Zjest współczynnikiem skalowania zależnym od predyktorów [45]. Klasyfikacja odbywa według poniższej funkcji (wzór 12):
 
 \begin{equation}
 \hat y=\underset{k}{\arg\max}\ p(C_k)\prod_{i=1}^{n}p(x_i|C_k)
 \end{equation}
 
-gdzie ŷ to przewidywana klasa, nto liczba zmiennych niezależnych. Pomimo faktu, że wymogi niezależności są często łamane, naiwny klasyfikator bayesowski posiada szereg cech, które w rzeczywistości są zaskakująco korzystne. Klasyfikacja jest słuszna, podobnie jak w przypadku wszystkich klasyfikatorów probabilistycznych, które wykorzystują decyzyjną MAP, o ile właściwa klasa jest bardziej prawdopodobna niż pozostałe. A więc klasyfikator jest wystarczająco silny, aby zignorować główne wady naiwnego modelu probabilistycznego [45].
+\noindent gdzie ŷ to przewidywana klasa, nto liczba zmiennych niezależnych. Pomimo faktu, że wymogi niezależności są często łamane, naiwny klasyfikator bayesowski posiada szereg cech, które w rzeczywistości są zaskakująco korzystne. Klasyfikacja jest słuszna, podobnie jak w przypadku wszystkich klasyfikatorów probabilistycznych, które wykorzystują decyzyjną MAP, o ile właściwa klasa jest bardziej prawdopodobna niż pozostałe. A więc klasyfikator jest wystarczająco silny, aby zignorować główne wady naiwnego modelu probabilistycznego [45].
 
 \subsection{Wzmacnianie}
 \label{cha:Wzmacnianie}
@@ -362,30 +400,30 @@ Ideą tego modelu jest uczenie sekwencyjne kolejnych klasyfikatorów w taki spos
 w^{(i)}=\frac 1 m
 \end{equation}
 
-gdzie m to liczba próbek. Należy również pamiętać, że suma wszystkich wag wynosi zawsze 1. Po wytrenowaniu pierwszego klasyfikatora zostanie mu przypisany ważony współczynnik błędu rj, gdzie joznacza liczbę porządkową klasyfikatora:
+\noindent gdzie m to liczba próbek. Należy również pamiętać, że suma wszystkich wag wynosi zawsze 1. Po wytrenowaniu pierwszego klasyfikatora zostanie mu przypisany ważony współczynnik błędu rj, gdzie joznacza liczbę porządkową klasyfikatora:
 
 \begin{equation}
 r_j = \frac { \sum\limits_{\substack{i=1
 \hat y_j^{(i)} \neq y^{(i)}}}^{m} w^{(i)}}{{\sum\limits_{i=1}^{m} w^{(i)}}}
 \end{equation}
 
-gdzie ŷj(i)jest prognozą j-tego klasyfikatora dla i-tego przykładu. Następnie zgodnie z  równaniem 15 wyliczana jest waga dla j-tego klasyfikatora:
+\noindent gdzie ŷj(i) jest prognozą j-tego klasyfikatora dla i-tego przykładu. Następnie zgodnie z  równaniem 15 wyliczana jest waga dla j-tego klasyfikatora:
 
 \begin{equation}
 \alpha_j=\eta log\frac {1-r_j} {r_j}
 \end{equation}
 
-gdzie to współczynnik uczenia. W ten sposób dokładniejsze klasyfikatory dostają 
+\noindent gdzie to współczynnik uczenia. W ten sposób dokładniejsze klasyfikatory dostają 
 większe wagi, natomiast te mniej dokładne – mniejsze. Dla zobrazowania wykres tego równania został przedstawiony na rysunku 9.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=1\textwidth]{rys.9.png}
+    \includegraphics[width=0.6\textwidth]{rys.9.png}
     \caption{Wykres równania 15. Widać, że dla błędów zerowych waga klasyfikatora zbiega się do nieskończoności, natomiast dla błędów dążących do jedynki, waga zbiega się do minus nieskończoności}
     \label{fig:mesh9}
 \end{figure}
 
-W kolejnym etapie następuje aktualizacja wag próbek (równanie 16):
+\noindent W kolejnym etapie następuje aktualizacja wag próbek (równanie 16):
 
 \begin{equation}
 w^{(i+1)} =
@@ -395,7 +433,7 @@ w^{(i+1)} =
 \end{cases}
 \end{equation}
 
-Cały ten proces jest powtarzany wielokrotnie, iteracyjnie, aż osiągniemy ustaloną liczbę klasyfikatorów, bądź też wyniki zwracane przez model będą na odpowiednim
+\noindent  Cały ten proces jest powtarzany wielokrotnie, iteracyjnie, aż osiągniemy ustaloną liczbę klasyfikatorów, bądź też wyniki zwracane przez model będą na odpowiednim
 poziomie (zazwyczaj uczenie zatrzymuje się przy 100\%) [32]. Ostatecznie, w celu klasyfikacji jest liczona średnia ważona (przy użyciu wag z równania 15) z predykcji wszystkich klasyfikatorów składających się na model i wybierana jest odpowiedź, która otrzyma tym sposobem najwięcej głosów (równanie 17).
 
 \begin{equation}
@@ -403,21 +441,67 @@ poziomie (zazwyczaj uczenie zatrzymuje się przy 100\%) [32]. Ostatecznie, w cel
 \hat y_j(x)=k}}^N \alpha_j
 \end{equation}
 
-gdzie N to liczba klasyfikatorów. 
-    Podsumowując, AdaBoost ma wiele zalet. Wśród nich znajduje się ta, iż AdaBoost nie wymaga modyfikowania parametrów w celu osiągnięcia optymalnego modelu (w przeciwieństwie do np. SVM). Dodatkowo, AdaBoost może być stosowany, gdy chcemy poprawić dokładność słabego klasyfikatora [46]. Jednak trzeba pamiętać o tym, iż metody wzmacniania działają progresywnie, a więc wymagane są dane wysokiej jakości. Dodatkowo należy się wcześniej upewnić, że usunięto wszystkie wartości odstające (ang. outliers), na które ten model również jest wrażliwy [46]. 
+\noindent gdzie N to liczba klasyfikatorów. 
+
+Podsumowując, AdaBoost ma wiele zalet. Wśród nich znajduje się ta, iż AdaBoost nie wymaga modyfikowania parametrów w celu osiągnięcia optymalnego modelu (w przeciwieństwie do np. SVM). Dodatkowo, AdaBoost może być stosowany, gdy chcemy poprawić dokładność słabego klasyfikatora [46]. Jednak trzeba pamiętać o tym, iż metody wzmacniania działają progresywnie, a więc wymagane są dane wysokiej jakości. Dodatkowo należy się wcześniej upewnić, że usunięto wszystkie wartości odstające (ang. outliers), na które ten model również jest wrażliwy [46]. 
 
 \subsubsection{Wzmacnianie gradientowe}
 \label{cha:Wzmacnianie gradientowe}
 
 Wzmacnianie gradientowe (ang. gradient boosting) to inna bardzo popularna technika wzmacniania [32]. Nadaje się zarówno do klasyfikacji, jak i regresji. Podobnie do poprzedniej metody, polega na dodawaniu kolejnych klasyfikatorów do zespołu w sposób sekwencyjny w taki sposób, że następnik poprawia poprzednika. Różnicą między tą techniką a AdaBoost jest to, że tutaj nie aktualizujemy wag przykładów po każdym przebiegu, lecz próbujemy dopasować predyktor do błędu resztowego (ang. residual error) popełnionego przez poprzedni klasyfikator [32]. Zwyczajowo jako słabych predyktorów używa się drzew decyzyjnych, a otrzymany algorytm jest nazywany gradientowo wzmocnionym drzewem (ang. gradient boosted tree). Wyniki uzyskiwane za pomocą tej techniki zazwyczaj są lepsze od tych uzyskiwanych za pomocą lasów losowych [51]. Jedno z prostszych wyjaśnień tej metody przedstawił Cheng Li na przykładzie regresji [52]. Załóżmy, że chcemy nauczyć model Fprzewidywać wartości postaci:
-
 \begin{equation}
 \hat y = F(x)
 \end{equation}
 
+\noindent minimalizując błąd średniokwadratowy:
+\begin{equation}
+L=\frac 1 n \sum_{i=1}^n(\hat y_i-y_i)^2
+\end{equation}
+gdzie n oznacza liczbę próbek w zbiorze uczącym y, ŷioznacza wartość przewidywaną F(x), oraz yi oznacza obserwowaną wartość. Zakładając, iż algorytm składa się z M etapów, w każdym etapie m (1mM) wzmacniania istnieje niedoskonały model Fm. W celu poprawienia jakości modelu Fm dodaje się pewien estymator hm(x) (równanie 20):
+\begin{equation}
+h_m(x)=y-F_m(x)
+\end{equation}
+W ten sposób h dopasowuje się reszty y-Fm(x) (zwanej błędem resztowym), przyczyniając się do polepszania wyników osiąganych przez kolejne modele. Rozszerzenie tej idei do klasyfikacji polega na obserwacji, iż reszty hm(x) to tak naprawdę ujemny gradient błędu średniokwadratowego (równanie 21, 22):
+\begin{equation}
+L_{MSE}=\frac 1 2(y-F(x))^2
+\end{equation}
+\begin{equation}
+h_m(x)=-\frac {\partial L_{MSE}} {\partial F}=y-F(x)
+\end{equation}
+Wzmacnianie gradientowe to szeroko używany algorytm. Jednak trzeba pamiętać, iż mimo że zazwyczaju podnosi dokładność modelu, to jednak tracimy na interpretowalności, dodatkowo rośnie czas uczenia.
 
+\subsection{Sieci neuronowe}
+\label{cha:Siecineuronowe}
 
+Sztuczne sieci neuronowe (ang. artificial neural networks), zwykle nazywane po prostu sieciami neuronowymi (ang. neural networks), to systemy komputerowe inspirowane biologicznymi sieciami neuronowymi, na które się składają mózgi zwierząt [53]. Główną zaletą tych systemów jest ich możliwość rozwiązywania problemów, nie będąc bezpośrednio do tego zaprogramowanymi. Najprostszym elementem sieci neuronowych jest sztuczny neuron. Każdy neuron posiada wiele wejść i pojedyncze wyjście, które może być przesyłane do wielu pozostałych neuronów. Wejściem mogą być jakieś cechy (np. wiek, wzrost), natomiast wyjściem ostatnich neuronów, które realizują jakieś zadanie, może być np. wynik klasyfikacji (np. płeć). Aby obliczyć wyjście neuronu, każde jego wejście jest przemnożone przez wagę połączenia z poprzednim neuronem, następnie dodawana jest wartość zwana obciążeniem (ang. bias), a na końcu ta wartość jest przekazywana do tzw. funkcji aktywacji (ang. activation function), której wynik jest jednocześnie wyjściem neuronu. Schemat neuronu został przedstawiony na rysunku 10.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.6\textwidth]{rys.10.neuron.png}
+    \caption{Schemat neuronu McCullocha-Pittsa (źródło: Krzysztof Zajączkowski, wikipedia)}
+    \label{fig:mesh10}
+\end{figure}
 
+Kolejnym elementem są połączenia (ang. connections) oraz wagi (ang. weights). Sieć składa się z połączeń, które łączą neurony z poszczególnych warstw, dostarczając wyjście neuronów z warstwy poprzedniej. Jak wcześniej zostało napisane, neuron może mieć tylko jedno wyjście, tzn. jedną wartość wyjścia, natomiast może przekazywać tę wartość wielu neuronom w kolejnej warstwie. Za pomocą wag i połączeń są przekazywane wartości z warstw poprzedzających do warstw następnych. Wykorzystuje się tutaj mechanizm zwany funkcją propagacji (ang. propagation function). Jak wspomniano wcześniej, neurony znajdują się w warstwach (ang. layers). Neurony z danej warstwy łączą się tylko z neuronami z warstwy poprzedniej oraz neuronami z warstwy następnej (w standardowych implementacjach). Warstwa, która na wejściu otrzymuje dane jest nazywana warstwą wejściową (ang. input layer), natomiast warstwa, która zwraca wyniki jest nazywana warstwą wyjściową (ang. output layer). Pomiędzy tymi warstwami może być zero lub więcej warstw, które są nazywane warstwami ukrytymi (ang. hidden layers). Schemat sieci neuronowej został przedstawiony na poniższym obrazku (rys. 11). 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\textwidth]{rys.11.sieć.png}
+    \caption{Schemat sieci neuronowej (źródło: https://www.controlengineering.pl, Jimmy W. Key)}
+    \label{fig:mesh11}
+\end{figure}
+Uczenie takich sieci polega na modyfikacji wag połączeń w taki sposób, aby sieć coraz lepiej dopasowywała się do danych uczących. Wagi modyfikowane są tak, aby zmniejszać błąd zwracany przez tak zwaną funkcję straty (ang. loss function), która zwraca błąd sieci dla każdej pojedynczej instancji wejściowej (bądź partii wejściowej). Odbywa się to za pomocą propagacji wstecznej (ang. backpropagation). Polega ona na obliczeniu gradientu z funkcji kosztu (ang. cost function, jest to średnia obliczona z funkcji straty dla wielu próbek) dla danych próbek wejściowych względem wag. 
+
+Każdą sieć definiuje zestaw hiperparametrów (ang. hyperparameters). Są to stałe wartości ustalane przed procesem uczenia. Odpowiednio manipulując wartościami hiperparametrów możemy uzyskać lepsze modele. Najważniejszymi hiperparametrami są:
+
+- szybkość uczenia się (ang. \textit{learning rate}) – gdy sieć popełnia błąd, modyfikowane są wagi połączeń w taki sposób, aby zbliżyć się do poprawnego wyniku. Ten hiperparametr określa jak duży krok powinna wykonać sieć w kierunku minimalizacji błędu,
+
+- liczba ukrytych warstw (ang. \textit{hidden layers}) – za pomocą tego hiperparametru możemy zdecydować jaka powinna być architektura sieci (głębsza, dla wielkich i skomplikowanych danych, bądź płytsza, dla prostych danych),
+
+- wielkość partii (ang. \textit{batch size}) – określa liczbę próbek, które są propagowane przez sieć. Ma to wpływ na wykorzystywaną pamięć, prędkość uczenia się, a także na finalną dokładność. 
+
+\noindent Tak jak w przypadku klasycznych metod uczenia maszynowego, tak samo w przypadku sieci neuronowych można skorzystać z różnych typów uczenia (patrz rozdział 3.2.). 
+
+\subsection{VGG19}
+\label{cha:VGG19}
 
 
 
