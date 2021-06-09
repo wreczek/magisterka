@@ -114,6 +114,354 @@ Docelowym zadaniem, które będzie badane w tej pracy jest klasyfikacja wytrzyma
 	\end{threeparttable}
 \end{table}
 
+Następnie, w celu ułatwienia oceny klasyfikatora, można wprowadzić poniższe miary wydajności [32, 33]:
+- prawdziwie pozytywna (ang. true positive, TP),
+- prawdziwie negatywna (ang. true negative, TN),
+- fałszywie pozytywna (ang. false positive, FP), tzw. błąd pierwszego rodzaju
+- fałszywie negatywna (ang. false negative, FN), tzw. błąd drugiego rodzaju
+Są to podstawowe miary wydajności za pomocą których dalej zdefiniujemy bardziej rozbudowane miary. Ale wracając do tablicy pomyłek, pożądanym wynikiem jest uzyskanie wysokich liczb na głównej przekątnej tablicy pomyłek (czyli prawdziwie pozytywna oraz prawdziwie negatywna), natomiast jak najmniejsze (najlepiej zerowe) wartości na pozostałej przekątnej. Dzięki tej macierzy możemy przeanalizować w jakich przypadkach nasz klasyfikator myli się najczęściej. Dalej można wprowadzić bardziej zwięzłe metryki [32]:
+- dokładność (ang. accuracy, ACC)
+\begin{equation}
+ACC=\frac {TP+TN} {TP+FP+FN+TN}
+\end{equation}
+%Wzór na dokładność (ang. accuracy, ACC)
+
+- precyzja (ang. precision, PPV)
+\begin{equation}
+PPV=\frac {TP} {TP+FP}
+\end{equation}
+%Wzór na precyzję
+
+- czułość (ang recall, TPR)
+\begin{equation}
+TPR=\frac {TP} {TP+FN}
+\end{equation}
+%Wzór na czułosć
+
+Dokładność mówi nam jaki odsetek predykcji stanowią poprawne predykcje (patrz wzór 3). Kolejną miarą jest precyzja, która mówi nam jaka jest dokładność pozytywnych prognoz (4). Ostatnią przedstawioną tutaj miarą jest czułość i jest to odsetek pozytywnych przykładów, które zostały poprawnie zaklasyfikowane (5). Macierz pomyłek można również rozszerzyć do klasyfikacji wieloklasowej, co zostało uczynione w badaniach (rozdział 5). Bardziej zaawansowane pojęcia i metody będą wyjaśniane w dalszych rozdziałach niniejszej pracy (w miejscu ich zastosowania).
+
+\section{Typy uczenia maszynowego}
+\label{cha:cha3.2}
+
+Jednym z kryterium podziału systemów uczenia maszynowego może być stopień i rodzaj nadzorowania procesu uczenia [32]. Pod tym względem możemy wyróżnić cztery główne rodzaje, przedstawione w poniższych podrozdziałach.
+
+\subsection{Uczenie nadzorowane}
+\label{cha:cha3.2.1}
+
+Uczenie nadzorowane (ang. supervised learning) polega na trenowaniu modelu za pomocą danych, które zostały przygotowane przez ludzkiego nadzorcę jako pary <obiekt uczący; etykieta>[24]. Celem takiego systemu jest nauczenie się przewidywania prawidłowej odpowiedzi dla danego obiektu wejściowego oraz generalizacja na przypadki, które nie są obecne w danych uczących [24]. 
+Uczenie nadzorowane można podzielić na klasyfikację oraz regresję, co jest determinowane przez etykietę danych. W przypadku, gdy każda etykieta należy do skończonego zbioru, mówimy o klasyfikacji. Jeżeli zaś etykiety mogą przyjmować np. dowolną wartość liczby rzeczywistej, wtedy mówimy o regresji. Jedne z ważniejszych przykładowych algorytmów tego rodzaju są:
+regresja liniowa (ang. linear regression),
+algorytm k-najbliższych sąsiadów (ang. k-nearest neighbors algorithm),
+regresja logistyczna (ang. logistic regression),
+drzewa decyzyjne (ang. decision tree),
+lasy losowe (ang. random decision forest),
+maszyny wektorów nośnych (ang. support-vector machine),
+sieci neuronowe.
+Te metody i inne zostały opisane w podrozdziale 3.6. 
+
+\subsection{Uczenie częściowo nadzorowane}
+\label{cha:cha3.2.2}
+
+Uczenie częściowo nadzorowane (ang. semi-supervised learning) polega na trenowaniu modelu za pomocą danych zarówno oznakowanych, jak i nieoznakowanych. Wykorzystuje się go wtedy, gdy liczba danych jest ogromna i system sam może zaproponować odpowiedzi. Często algorytmy tego rodzaju stanowią kombinację algorytmów uczenia nadzorowanego i nienadzorowanego [32].
+
+\subsection{Uczenie nienadzorowane}
+\label{cha:cha3.2.3}
+
+Uczenie nienadzorowane (ang. unsupervised learning) polega na wykrywaniu wzorców, relacji na podstawie nieoznaczonych danych, możliwie maksymalnie bez ingerencji człowieka. Im większa liczba danych, tym bardziej precyzyjne wyniki. Jedne z ważniejszych algorytmów uczenia nienadzorowanego, to:
+metoda k-średnich (ang. k-means clustering),
+analiza głównych składowych (ang. principal component analysis, PCA),
+stochastyczne osadzanie sąsiadów przy użyciu rozkładu t (ang. t-distributed stochastic neighbor embedding, t-SNE).
+Jednym z przykładów użycia uczenia nienadzorowanego może być wizualizacja danych, m.in. przy pomocy algorytmów PCA bądź t-SNE. Ten typ uczenia maszynowego nie został wykorzystany w niniejszej pracy, dlatego nie będzie głębiej analizowany.
+
+\subsection{Uczenie przez wzmacnianie}
+\label{cha:cha3.2.4}
+
+Uczenie przez wzmacnianie (ang. reinforcement learning, RL) polega na interakcji ze środowiskiem za pomocą polityki, mając do dyspozycji zestaw dozwolonych akcji (działań). Model dokonuje analizy środowiska i automatycznie zbiera z niego dane. Celem jest maksymalizacja nagrody. W uczeniu przez wzmacnianie wyróżnia się trzy główne elementy jak środowisko, agenta oraz bufor. System uczący, czyli agent, może obserwować środowisko, na tej podstawie wykonywać pewne czynności, następnie odbierać nagrody, lub kary. W następnym zaś kroku musi nauczyć się najlepszej strategii, zwanej polityką, co prowadzi do maksymalizacji nagrody [32]. Ze względu na charakterystykę tego nurtu uczenia maszynowego jest ono często stosowanie do uczenia modeli grania w gry [24].
+
+\section{Inżynieria cech}
+\label{cha:cha3.3}
+
+Inżynieria cech jest procesem wykorzystania wiedzy dziedzinowej w celu ekstrakcji cech z surowych danych [25]. Cecha jest własnością każdej instancji danych i jest ona wykorzystywana przez model w celu predykcji. Odpowiednio przygotowane dane zwiększają skuteczność modeli [25]. Proces tworzenia cech składa się z sześciu głównych etapów [47]:
+burza mózgów – ma na celu zebranie grupy ekspertów w celu zweryfikowania danych lub ustalenia sposobu przeprowadzenia ekstrakcji cech;
+wybór cech – w przypadku, gdy mamy wiele cech, możemy wybrać te, które niosą za sobą najwięcej informacji. Można tego dokonać z wykorzystaniem wiedzy dziedzinowej bądź za pomocą różnych technik wyboru podzbioru cech (np. symulowane wyżarzanie, optymalizacja za pomocą roju cząstek i.in.). Ten krok jest ważny, gdyż dzięki niemu potencjalnie uzyskamy prostszy model, a prostsze modele mają większą zdolność do generalizacji poprzez redukcję wariancji (tzw. kompromis między obciążeniem a wariancją). Inne korzyści, to:
+krótszy czas treningu,
+uniknięcie przekleństwa wymiarowości,
+lepsza interpretowalność;
+tworzenie nowych cech – możemy tworzyć nowe cechy za pomocą tych istniejących, np. za pomocą średniej arytmetycznej, minimum, czy innych statystyk. Można też wykorzystać normalizację (np. standaryzacja);
+testowanie wpływu cech na model – warto zautomatyzować ten proces, aby wybrać jak taki zestaw cech, który najlepiej się sprawdza na danych treningowych;
+poprawa cech w razie konieczności – dalsza modyfikacja cech wraz z obserwacją wpływu na działanie modelu;
+powtórzenie powyższych czynności – powtarzamy powyższe czynności do momentu, gdy przestaniemy uzyskiwać coraz lepsze rezultaty, bądź gdy dojdziemy do wniosku, iż dane są słabej jakości, bądź dysponujemy zbyt małą ich liczbą.
+Cechy mogą się różnić pod względem znaczenia. Dodatkowo odpowiednio skomponowany zbiór cech może zapobiec nadmiernemu dopasowaniu się modelu do danych uczących. 
+
+\section{Augmentacja danych}
+\label{cha:cha3.4}
+
+Augmentacja danych to zbiór technik służących zwiększaniu ilości danych poprzez dodanie do zbioru danych zmodyfikowanych kopii istniejących danych bądź nowo utworzonych danych syntetycznych z istniejących danych [26]. Dzięki temu zabiegowi możemy zapobiec nadmiernemu dopasowaniu się modelu do danych treningowych. Jest to szczególnie przydatne kiedy nie dysponujemy zbiorem danych rzędu dziesiątek tysięcy przykładów. Ponieważ nasze dane to zdjęcia mikrostruktur, dlatego w tym rozdziale zajmiemy się tylko rozszerzaniem danych w celu klasyfikacji obrazów. Możemy wymienić kilka głównych strategii:
+odwrócenie – możemy odwracać obrazy w pionie i w poziomie, zachowując przy okazji oryginalne rozmiary oryginalnego zdjęcia;
+rotacja – możemy obracać obrazy o 90° w każdym kierunku, otrzymując tym samym trzy nowe obrazy. W tym przypadku natomiast otrzymane obrazy mogą mieć inne rozmiary niż oryginalny obraz, w przypadku gdy nie jest on kwadratem;
+skalowanie – obraz może być przeskalowany na zewnątrz lub do wewnątrz. W przypadku skalowania na zewnątrz otrzymujemy obraz o większym rozmiarze, a więc wycinając odpowiedni obszar możemy otrzymać obraz o takim samym rozmiarze jak oryginalny obraz;
+wycinanie – inną możliwością jest wycinanie losowych fragmentów z obrazu. Gdy chcemy zachować oryginalny rozmiar, trzeba jeszcze przeskalować zmodyfikowany obrazek;
+translacja – polega na przesuwaniu obrazu wzdłuż osi. Działa szczególnie dobrze, gdy mamy do czynienia z obrazami, które posiadają jednolite tło;
+nałożenie szumu – dzięki tej technice możemy zapobiec nadmiernemu dopasowaniu się modelu do danych. 
+Wśród innych metod, które również mogą się sprawdzić, można wymienić przekształcenia geometryczne, modyfikację kolorów czy losowe wymazywanie [26]. Istnieje też wiele innych, bardziej zaawansowanych metod augmentacji danych [27]. Przykładowo można zastosować tzw. generatywne sieci współzawodniczące (GAN od ang. generative adversarial network). Mogą one m.in. zmieniać domenę obrazu, jak pokazano na rysunku 6. Inną zaawansowaną techniką jest interpolacja. Może ona zostać wykorzystana w przypadku, gdy chcemy skorzystać z translacji – możemy wtedy brakujący fragment obrazu interpolować. Przyda się również, gdy chcemy skorzystać ze skalowania do wewnątrz jednocześnie zachowując oryginalny rozmiar obrazu [27]. 
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\textwidth]{rys.6.transfer.png}
+    \caption{Zmiana pór roku przy użyciu CycleGAN. Żródło: https://junyanz.github.io/CycleGAN/}
+    \label{fig:mesh6}
+\end{figure}
+
+\section{Uczenie się przez transfer}
+\label{cha:cha3.5}
+
+Ludzie mają wrodzoną zdolność wykorzystywania wiedzy, którą zdobyli w trakcie wykonywania innego zadania. To znaczy, wiedzę, którą zdobywamy, ucząc się pewnej rzeczy, możemy wykorzystać, wykonując inne, aczkolwiek powiązane zadanie. Im bardziej powiązane są te zadania, tym łatwiej jest nam przenieść naszą wiedzę [29]. A więc w najprostszych słowach, uczenie się przez transfer to idea wykorzystania wiedzy zdobytej w ramach jednego zadania do rozwiązywania zadań pokrewnych. W ostatnich latach uczenie się przez transfer również zaczęto stosować w uczeniu maszynowym, czy też w głębokim uczeniu [31]. W tym przypadku najczęściej polega ono na wykorzystaniu już istniejącego modelu do nowego problemu. Jakie wynikają z tego korzyści? Przede wszystkim to podejście pozwala nam na osiągnięcie zamierzonych rezultatów (np. wysoka skuteczność klasyfikacji) przy użyciu mniejszej ilości danych niż w przypadku trenowania całkowicie nowego modelu. 
+Uczenie się przez transfer dobrze można zilustrować na przykładzie rozpoznawania obrazów (tym lepiej, że właśnie w tym celu wykorzystano tę metodologię w niniejszej pracy), a mianowicie sieci neuronowe w początkowych warstwach wykrywają krawędzie, w kolejnych warstwach wykrywają kształty, natomiast w ostatnich warstwach wykrywają specyficzne zależności dla danego zadania [31]. A więc w celu klasyfikacji danych obiektów można skorzystać z ogólnie znanych, dobrze wytrenowanych, na wielkich zbiorach danych, głębokich sieci neuronowych (np. VGG19) w ten sposób, że budujemy nowy model, który kopiuje początkowe warstwy wcześniej wytrenowanej sieci, a następnie przyłączamy nowe warstwy, które zostaną dotrenowane w tym konkretnym celu. Oprócz wykorzystania uczenia transferowego do klasyfikacji obrazów skutecznie stosowano to podejście również w takich zadaniach, jak klasyfikacja tekstów czy filtrowanie spamu [30]. 
+
+
+\section{Wykorzystane metody uczenia maszynowego}
+\label{cha:Wykorzystane metody uczenia maszynowego}
+
+W tym rozdziale zostaną przedstawione metody uczenia maszynowego, które zostały wykorzystane w trakcie realizacji pracy. Większość z nich to algorytmy uczenia nadzorowanego ze względu na charakterystykę danych.
+
+\subsection{Maszyna wektorów nośnych}
+\label{cha:Maszyna wektorów nośnych}
+
+Maszyna wektorów nośnych (ang. Support Vector Machine, SVM) to model nadzorowanego uczenia maszynowego, która wyznacza hiperpłaszczyznę w celu rozdzielenia przykładów należących do dwóch klas z maksymalnym marginesem [24]. SVM to potężny i wszechstronny model uczenia maszynowego, który jest w stanie przeprowadzić klasyfikację liniową, nieliniową oraz regresję [32]. Rysunek 7 przedstawia koncepcję działania SVM. Model ten mapuje przykłady uczące do punktów w przestrzeni tak, aby maksymalizować odległość między dwiema kategoriami. Następnie nowe przykłady są mapowane do tej samej przestrzeni i w zależności, po której stronie marginesu się znajdują, tak są klasyfikowane. Tak jak wspomniano wyżej, za pomocą SVM również można skutecznie przeprowadzać klasyfikację nieliniową, co jest możliwe dzięki tzw. sztuczce z funkcją jądra (ang. kernel trick). Polega ona na tym, iż dane wejściowe są niejawnie odwzorowywane do przestrzeni cech o wyższym wymiarze [34]. 
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\textwidth]{rys.7.svm.png}
+    \caption{Działanie SVM. H1 nie separuje klas, H2 separuje, lecz z małym marginesem, natomiast H3 separuje z maksymalnym marginesem (Źródło: wikipedia)}
+    \label{fig:mesh7}
+\end{figure}
+
+Jednym z problemów, które można napotkać w trakcie korzystania z SVM jest ich czułość na skalę cech. Jednakże łatwo jest to obejść przy pomocy przeskalowania cech (np. standaryzacja). Innym problemem jest konieczność posiadania całkowicie oznaczonych danych [48]. Dodatkowo parametry tego modelu są trudne do zinterpretowania. Mimo wszystko wady te nie są zbyt uciążliwe, a nawet istnieją rozwiązania, które je obchodzą. Istnieje taki model, jak SVC (ang. support-vector clustering), który można wykorzystać w celu uczenia nienadzorowanego). Dodatkowo istnieją rozszerzenia modelu SVM, dzięki którym można wykorzystać ten model do klasyfikacji wieloklasowej. Polegają one m.in. na takich strategiach, jak rozpatrywanie danej etykiety przeciwko wszystkim pozostałym (i tak dla każdej etykiety). Algorytm SVM jest jednym z najczęściej stosowanych w przemyśle, dlatego jego efektywność zostanie przetestowana na tle innych algorytmów.
+
+\subsection{Drzewo decyzyjne}
+\label{cha:Drzewo decyzyjne}
+
+Drzewo decyzyjne (ang. decision tree) to algorytm uczenia maszynowego stosowany w celu pozyskiwania wiedzy na podstawie przykładów [36]. Mają wiele zastosowań i służą zarówno do zadań klasyfikacji, jak i regresji. Jest to struktura, która kształtem przypomina drzewo (stąd nazwa), a każda ścieżka w tym drzewie przedstawia możliwą ścieżkę decyzyjną wraz z jej skutkami [35]. Składa się ono z węzłów (które jednocześnie oznaczają jakąś decyzję, stan) i gałęzi (wybór, możliwość). Drzewo konstruowane jest od korzenia i z każdą kolejną decyzją do podjęcia jest budowany w dół, to tzw. liści (ang. leaf), które oznaczają etykietę klasy. Istnieje wiele algorytmów generowania drzew decyzyjnych. Najbardziej znane z nich, to ID3 (Iterative Dichotomiser 3), czy też C4.5. Algorytm ID3 polega na tym, że w każdej iteracji jest wybierany niewykorzystany atrybut, który daje największy wzrost informacji (bądź np. najmniejszą miarę zanieczyszczenia), a zbiór danych jest dzielony według wartości tego atrybutu. Natomiast algorytm C4.5 jest rozszerzeniem wcześniejszego algorytmu i wprowadza takie usprawnienia, jak [37]:
+obsługa atrybutów ciągłych i dyskretnych,
+obsługa danych z brakującymi wartościami atrybutów,
+przycinanie drzew po ich utworzeniu.
+
+Wśród największych zalet drzew decyzyjnych wymienia się [38]:
+prosty algorytm,
+łatwo interpretowalne wyniki,
+działają nawet dla niewielkiej liczby danych,
+nie wymagają przygotowywania danych (w szczególności skalowania) [32].
+
+Natomiast posiadają też wady, takie jak [38]:
+niestabilność (niewielka zmiana danych może prowadzić do dużej zmiany struktury drzewa,
+często są stosunkowo niedokładne (inne klasyfikatory zazwyczaj radzą sobie lepiej),
+może wystąpić problem nadmiernego dopasowania się do danych.
+Pomimo tych wad klasyfikator ten zostanie wykorzystany w badaniach, głównie ze względu właśnie na jego bardzo łatwą interpretowalność.
+
+Jako ciekawostkę można dodać, że drzewa decyzyjne składają się na algorytm lasu losowego (ang. random forest), który zostanie omówiony w podrozdziale 3.6.3. 
+
+\subsection{Las losowy}
+\label{cha:Las losowy}
+
+Jak zostało wspomniane wyżej, drzewa decyzyjne mogą zbyt mocno dopasować się do danych treningowych. Jednym z rozwiązań jest technika lasów losowych (ang. random forest), która polega na tworzeniu wielu drzew decyzyjnych, a następnie klasyfikacji w drodze głosowania [35], a więc jako odpowiedź jest generowana dominanta klas (klasyfikacja) lub średnia przewidywana wartość (regresja) [39]. Istnieje kilka różnych algorytmów tworzenia lasów losowych. Jednym z nich jest agregacja (ang. bagging, bootstrap aggregating). Polega on na tym, iż wielokrotnie wybiera się losowe podzbiory zestawu uczącego ze zwracaniem (ang. sampling with replacement) w celu dopasowania do każdego takiego zbioru nowego drzewa [32]. Dzięki temu podejściu zmniejsza się wariancja modelu, bez zwiększania obciążenia [49], gdyż pojedyncze drzewa decyzyjne nie są ze sobą skorelowane (dzięki uczeniu ich na różnych zbiorach danych). Następnie, w celu klasyfikacji, wszystkie pojedyncze drzewa zwracają wynik, który jest uśredniony. Dodatkowo, aby jeszcze mocniej zmniejszyć korelację między drzewami, w przypadku lasów losowych korzysta się ze zmodyfikowanego algorytmu trenowania drzewa, gdzie przy każdym kolejnym węźle jest wybierany losowy podzbiór cech. Dzięki temu, jeśli w danych występuje cecha, która jest silnym predyktorem dla zmiennej przewidywanej, jej wykorzystanie w różnych drzewach zostanie ograniczone, tym samym dalej zmniejszając korelację między nimi.
+Innym podejściem jest wzmacnianie (ang. boosting) [40]. Główną różnicą między agregacją a wzmacnianiem jest to, iż w przypadku tego pierwszego każde drzewo jest uczone niezależnie od pozostałych i ten etap może być przeprowadzony równolegle. Natomiast w przypadku drugiego algorytmu uczenie pojedynczych drzew następuje sekwencyjnie i każdy kolejny klasyfikator bierze pod uwagę wyniki poprzedniego klasyfikatora. Danym błędnie sklasyfikowanym przypisuje się większą wagę, tym samym kolejne modele zwracają większą uwagę trudnym danym. Jednakże w przypadku wzmacniania klasyfikacja odbywa się nieco inaczej, gdyż tutaj również mamy wagi, które są przypisywane klasyfikatorom w trakcie uczenia – im lepszy klasyfikator, tym większe wagi otrzymuje. Dzięki zastosowaniu jednego z tych dwóch podejść zwiększa się stabilność modelu. Jednakże jeżeli mamy do czynienia z danymi, dla których pojedyncze drzewo osiąga słabe wyniki, wtedy rozwiązaniem może być zastosowanie wzmacniania. Jeżeli zaś problemem jest nadmierne dopasowanie się drzewa do danych, wtedy pomocne może się okazać zastosowanie agregacji.
+
+
+\subsection{K najbliższych sąsiadów}
+\label{cha:K najbliższych sąsiadów}
+
+Algorytm k najbliższych sąsiadów (ang. k-nearest neighbors algorithm, k-NN) jest jednym z najprostszych modeli predyktywnych [35]. Można go użyć zarówno do klasyfikacji, jak i regresji. Jedynym wymaganiem tej metody jest wybór jakiejś miary odległości, a więc jest metodą nieparametryczną. Jego działanie opiera się na założeniu, że im bliżej siebie znajdują się punkty, tym są bardziej do siebie podobne. Tak więc, dla przykładowej obserwacji liczona jest odległość (według z góry ustalonej metryki) od pozostałych punktów i wybieranych jest k najbliższych (ustalona z góry liczba). Następnie wybór najczęściej występującej (bądź uśrednienie wartości zmiennej objaśnianej) jako wynik klasyfikacji. Najczęściej stosuje się metrykę euklidesową, bądź też metrykę Mahalanobisa [41]. Jeżeli cechy danych znacznie różnią się w skali, bądź reprezentują inne jednostki, wtedy normalizacja może znacząco poprawić dokładność [42]. Innym ciekawym usprawnieniem może być przypisanie wag sąsiadom w taki sposób, aby najbliżsi sąsiedzi mieli największy wpływ na wynik klasyfikacji (często stosowana jest odwrotność odległości) [43]. k-NN odnotowuje dobre wyniki w zakresie spójności, jest łatwy w implementacji, natomiast może być wymagający obliczeniowo w przypadku dużych zbiorów danych [43]. Jego użyteczność jest największa w przypadku, gdy zależność między zmiennymi objaśniającymi a objaśnianymi jest złożona [43]. Na poniższym rysunku zostało przedstawione schematycznie działanie k-NN (rys. 8). 
+
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\textwidth]{rys.8.knn.png}
+    \caption{Schemat działania algorytmu k-NN. Szary punkt, w zależności od wartości k i odległości od najbliższych punktów, będzie miał przypisaną jedną z trzech dostępnych klas (źródło: Madison Scott, medium.com)}
+    \label{fig:mesh8}
+\end{figure}
+
+\subsection{Regresja logistyczna}
+\label{Regresja logistyczna}
+
+Regresja logistyczna (ang. logistic regression) to model używany w statystyce do przewidywania prawdopodobieństwa pewnej klasy, bądź zdarzenia, które może przyjmować tylko dwie wartości [44]. Mechanizm działania tej metody jest podobny do regresji liniowej, tyle że tutaj wyliczamy ważoną sumę cech wejściowych (wzór 6)
+
+
+
+
+\begin{equation}
+logit(p_{i}) = ln( \frac {p_{i}} {1-p_{i}}) = \beta_{1}x_{1, i}+\dots+\beta_{k}x_{k, i}
+\end{equation}
+
+gdzie pi to nieznane prawdopodobieństwo sukcesu w próbie i, xk,i to wartość k-tego predyktora próby i, natomiast k to nieznany parametr k-tego predyktora, który jest optymalizowany (najczęściej za pomocą metody największej wiarygodności) [50]. Następnie zwracana jest wartość funkcji logistycznej z tego rezultatu (wzór 7) [32], co jest równoznaczne z oszacowaniem prawdopodobieństwa: 
+
+\begin{equation}
+\hat p = \sigma(t)=\frac {1} {1+exp(-t)}
+\end{equation}
+
+Następnie prognoza modelu regresji logistycznej jest wyliczana za pomocą wzoru 8.
+
+\begin{equation}
+\hat {y} =
+    \begin{cases}
+      0 & \text{jeśli $\hat {p} < 0.5$}\\
+      1 & \text{wpp.}
+ \end{cases}       
+\end{equation}
+
+Model ten może zostać rozszerzony tak, aby przewidywał kilka klas zdarzeń w taki sposób, iż każdemu zdarzeniu jest przypisywane prawdopodobieństwo, a suma wszystkich tych prawdopodobieństw wynosi jeden. W tym celu wykorzystuje się funkcję softmax (wzór 9), przekazując jej prawdopodobieństwa wystąpienia każdej klasy (nie muszą się sumować do jedynki), następnie dla każdej jest liczona eksponenta, po czym następuje normalizacja (dzieląc wyniki przez sumę wszystkich eksponent) [32].  
+
+%\begin{equation}
+\begin{align*}
+\sigma(z)_i=\frac {e^{z_i}} { 
+    \sum_{j=1}^{K} e^{z_j}}
+\end{align*}
+%\end{equation}
+
+gdzie zto wektor zawierający wyniki każdej klasy, ito ustalona klasa. Jak wspomniano wcześniej, współczynniki są estymowane za pomocą metody największej wiarygodności, gdzie w sposób iteracyjny (np. metoda Newtona) modyfikowane są wartości współczynników [50]. Ostatnim elementem jest uczenie modelu. Jego celem jest uzyskanie modelu, który zwraca wysokie prawdopodobieństwo dla klasy docelowej. W tym celu minimalizuje się funkcję kosztu zwaną entropią krzyżową (ang. cross entropy), przedstawioną poniżej (wzór 10). 
+
+%\begin{equation}
+\begin{align*}
+H=-\sum_{c=1}^{M}y_{o,c}log(p_{o,c})
+\end{align*}
+%\end{equation}
+
+gdzie M oznacza liczbę klas, y to wskaźnik binarny (0 lub 1 w zależności czy etykieta c jest zgodna z klasą obserwacji o oraz p to przewidywane prawdopodobieństwo przypisania klasy c obserwacji o.
+    Regresja logistyczna jest bardzo skuteczna dla prostych zbiorów danych a także w przypadku zbiorów liniowo separowalnych. Dodatkowo jej współczynniki mogą być interpretowane jako wskaźniki ważności cech, dlatego również zostanie uwzględniona w badaniach.
+
+
+\subsection{Naiwny klasyfikator bayesowski}
+\label{cha:Naiwny klasyfikator bayesowski}
+
+Naiwny klasyfikator bayesowski (ang. naive Bayes classifier) należy do rodziny prostych probabilistycznych klasyfikatorów, które opierają się na twierdzeniu Bayesa [45]. Istotnym założeniem tego modelu jest wzajemna niezależność predyktorów. Naiwne klasyfikatory bayesowskie są wysoce skalowalne, aczkolwiek wymagają wielu parametrów liniowych w stosunku do liczby zmiennych) [45]. Dużym atutem tego modelu jest zastosowanie metody największej wiarygodności, przez co czas uczenia jest liniowy (w przeciwieństwie do wielu innych typów klasyfikatorów) [45], dodatkowo nie trzeba akceptować prawdopodobieństwa bayesowskiego. Kolejną przewagą nad innymi modelami jest niska wymagana liczba danych uczących, aby model mógł wyestymować parametry potrzebne do klasyfikacji [45]. Korzystając z twierdzenia Bayesa można wyprowadzić wzór, który stoi za naiwnym modelem probabilistycznym Bayesa (wzór 11).
+
+\begin{equation}
+p(C|F_1,\dots,F_n)=\frac 1 Zp(C)\prod_{i=1}^{n}p(F_i|C)
+\end{equation}
+
+gdzie C to dana klasa zmiennej zależnej, n to liczba zmiennych niezależnych, F1,...,Fnto zmienne niezależne, natomiast Zjest współczynnikiem skalowania zależnym od predyktorów [45]. Klasyfikacja odbywa według poniższej funkcji (wzór 12):
+
+\begin{equation}
+\hat y=\underset{k}{\arg\max}\ p(C_k)\prod_{i=1}^{n}p(x_i|C_k)
+\end{equation}
+
+gdzie ŷ to przewidywana klasa, nto liczba zmiennych niezależnych. Pomimo faktu, że wymogi niezależności są często łamane, naiwny klasyfikator bayesowski posiada szereg cech, które w rzeczywistości są zaskakująco korzystne. Klasyfikacja jest słuszna, podobnie jak w przypadku wszystkich klasyfikatorów probabilistycznych, które wykorzystują decyzyjną MAP, o ile właściwa klasa jest bardziej prawdopodobna niż pozostałe. A więc klasyfikator jest wystarczająco silny, aby zignorować główne wady naiwnego modelu probabilistycznego [45].
+
+\subsection{Wzmacnianie}
+\label{cha:Wzmacnianie}
+
+Wzmacnianie (ang. boosting) zostało już pokrótce omówione przy okazji lasów losowych (rozdział 3.6.3.). Pokrótce, polega ono na pracy zespołowej wielu słabych klasyfikatorów, otrzymując w ten sposób zespół będący silnym klasyfikatorem. Istotą wzmacniania jest sekwencyjne uczenie predyktorów w taki sposób, że każdy kolejny próbuje poprawiać błędy poprzednika [32]. W poniższych podrozdziałach zostaną przedstawione dwa najpopularniejsze algorytmy wzmacniania: AdaBoost oraz wzmacnianie gradientowe (ang. gradient boosting). 
+
+\subsubsection{AdaBoost}
+\label{AdaBoost}
+
+Ideą tego modelu jest uczenie sekwencyjne kolejnych klasyfikatorów w taki sposób, że każdy kolejny próbuje korygować błędy swojego poprzednika. To znaczy, każdy kolejny klasyfikator przykłada większą wagę przykładom uczącym, dla których poprzedni algorytm został niedotrenowany [32]. W ten sposób do zespołu są dołączane coraz bardziej dokładne klasyfikatory, tym samym zwiększając jego skuteczność. Ostatecznie prognoza jest średnią ważoną wyników poszczególnych klasyfikatorów. Ogólny schemat jest przedstawiony poniżej.
+    Początkowo każdej próbce jest przypisywana waga:
+
+\begin{equation}
+w^{(i)}=\frac 1 m
+\end{equation}
+
+gdzie m to liczba próbek. Należy również pamiętać, że suma wszystkich wag wynosi zawsze 1. Po wytrenowaniu pierwszego klasyfikatora zostanie mu przypisany ważony współczynnik błędu rj, gdzie joznacza liczbę porządkową klasyfikatora:
+
+\begin{equation}
+r_j = \frac { \sum\limits_{\substack{i=1
+\hat y_j^{(i)} \neq y^{(i)}}}^{m} w^{(i)}}{{\sum\limits_{i=1}^{m} w^{(i)}}}
+\end{equation}
+
+gdzie ŷj(i)jest prognozą j-tego klasyfikatora dla i-tego przykładu. Następnie zgodnie z  równaniem 15 wyliczana jest waga dla j-tego klasyfikatora:
+
+\begin{equation}
+\alpha_j=\eta log\frac {1-r_j} {r_j}
+\end{equation}
+
+gdzie to współczynnik uczenia. W ten sposób dokładniejsze klasyfikatory dostają 
+większe wagi, natomiast te mniej dokładne – mniejsze. Dla zobrazowania wykres tego równania został przedstawiony na rysunku 9.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\textwidth]{rys.9.png}
+    \caption{Wykres równania 15. Widać, że dla błędów zerowych waga klasyfikatora zbiega się do nieskończoności, natomiast dla błędów dążących do jedynki, waga zbiega się do minus nieskończoności}
+    \label{fig:mesh9}
+\end{figure}
+
+W kolejnym etapie następuje aktualizacja wag próbek (równanie 16):
+
+\begin{equation}
+w^{(i+1)} =
+\begin{cases}
+  w^{(i)} & \text{gdy } \hat {y}_j^{(i)} = y^{(i)}\\
+  w^{(i)}exp(\alpha_j) & \text{wpp.}
+\end{cases}
+\end{equation}
+
+Cały ten proces jest powtarzany wielokrotnie, iteracyjnie, aż osiągniemy ustaloną liczbę klasyfikatorów, bądź też wyniki zwracane przez model będą na odpowiednim
+poziomie (zazwyczaj uczenie zatrzymuje się przy 100\%) [32]. Ostatecznie, w celu klasyfikacji jest liczona średnia ważona (przy użyciu wag z równania 15) z predykcji wszystkich klasyfikatorów składających się na model i wybierana jest odpowiedź, która otrzyma tym sposobem najwięcej głosów (równanie 17).
+
+\begin{equation}
+\hat y (x) = \underset{k}{\arg\max} \sum_{\substack{j=1
+\hat y_j(x)=k}}^N \alpha_j
+\end{equation}
+
+gdzie N to liczba klasyfikatorów. 
+    Podsumowując, AdaBoost ma wiele zalet. Wśród nich znajduje się ta, iż AdaBoost nie wymaga modyfikowania parametrów w celu osiągnięcia optymalnego modelu (w przeciwieństwie do np. SVM). Dodatkowo, AdaBoost może być stosowany, gdy chcemy poprawić dokładność słabego klasyfikatora [46]. Jednak trzeba pamiętać o tym, iż metody wzmacniania działają progresywnie, a więc wymagane są dane wysokiej jakości. Dodatkowo należy się wcześniej upewnić, że usunięto wszystkie wartości odstające (ang. outliers), na które ten model również jest wrażliwy [46]. 
+
+\subsubsection{Wzmacnianie gradientowe}
+\label{cha:Wzmacnianie gradientowe}
+
+Wzmacnianie gradientowe (ang. gradient boosting) to inna bardzo popularna technika wzmacniania [32]. Nadaje się zarówno do klasyfikacji, jak i regresji. Podobnie do poprzedniej metody, polega na dodawaniu kolejnych klasyfikatorów do zespołu w sposób sekwencyjny w taki sposób, że następnik poprawia poprzednika. Różnicą między tą techniką a AdaBoost jest to, że tutaj nie aktualizujemy wag przykładów po każdym przebiegu, lecz próbujemy dopasować predyktor do błędu resztowego (ang. residual error) popełnionego przez poprzedni klasyfikator [32]. Zwyczajowo jako słabych predyktorów używa się drzew decyzyjnych, a otrzymany algorytm jest nazywany gradientowo wzmocnionym drzewem (ang. gradient boosted tree). Wyniki uzyskiwane za pomocą tej techniki zazwyczaj są lepsze od tych uzyskiwanych za pomocą lasów losowych [51]. Jedno z prostszych wyjaśnień tej metody przedstawił Cheng Li na przykładzie regresji [52]. Załóżmy, że chcemy nauczyć model Fprzewidywać wartości postaci:
+
+\begin{equation}
+\hat y = F(x)
+\end{equation}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

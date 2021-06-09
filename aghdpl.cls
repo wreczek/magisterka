@@ -27,10 +27,11 @@
 \RequirePackage{url}
 \RequirePackage{titlesec}
 \RequirePackage{tocloft}
-\usepackage{tabularx}
+\RequirePackage{tabularx}
 
 % tego nie bylo oryginalnie
 \RequirePackage{afterpage}
+\RequirePackage{amsmath}
 %\RequirePackage[hidelinks]{hyperref}
 
 \RequirePackage[font=small, labelfont=bf, labelsep=period]{caption}
