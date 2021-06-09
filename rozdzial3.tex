@@ -1,72 +1,139 @@
-\chapter{Przykłady elementów pracy dyplomowej}
+%\chapter{Przykłady elementów pracy dyplomowej}
+%
+%\section{Liczba}
+%
+%Pakiet \texttt{siunitx} zadba o to, by liczba została poprawnie sformatowana: \\
+%\begin{center}
+%	\num{1234567890.0987654321}
+%\end{center}
+%
+%
+%\section{Rysunek}
+%
+%Pakiet \texttt{subcaption} pozwala na umieszczanie w podpisie rysunku odnośników do ,,podilustracji'': \\
+%
+%\begin{figure}[h]
+%	\centering
+%	\begin{subfigure}{0.35\textwidth}
+%		\centering
+%		\framebox[2.0\width]{A}
+%		\subcaption{\label{subfigure_a}}
+%	\end{subfigure}
+%	\begin{subfigure}{0.35\textwidth}
+%		\centering
+%		\framebox[2.0\width]{B}
+%		\subcaption{\label{subfigure_b}}
+%	\end{subfigure}
+%	
+%	\caption{\label{fig:subcaption_example}Przykład użycia \texttt{\textbackslash subcaption}: \protect\subref{subfigure_a} litera A, \protect\subref{subfigure_b} litera B.}
+%\end{figure}
+%
+%\section{Tabela}
+%
+%Pakiet \texttt{threeparttable} umożliwia dodanie do tabeli adnotacji: \\
+%
+%\begin{table}[h]
+%	\centering
+%	
+%	\begin{threeparttable}
+%		\caption{Przykład tabeli}
+%		\label{tab:table_example}
+%		
+%		\begin{tabularx}{0.6\textwidth}{C{1}}
+%			\toprule
+%			\thead{Nagłówek\tnote{a}} \\
+%			\midrule
+%			Tekst 1 \\
+%			Tekst 2 \\
+%			\bottomrule
+%		\end{tabularx}
+%		
+%		\begin{tablenotes}
+%			\footnotesize
+%			\item[a] Jakiś komentarz\textellipsis
+%		\end{tablenotes}
+%		
+%	\end{threeparttable}
+%\end{table}
+%
+%\section{Wzory matematyczne}
+%
+%Czasem zachodzi potrzeba wytłumaczenia znaczenia symboli użytych w równaniu. Można to zrobić z użyciem zdefiniowanego na potrzeby niniejszej klasy środowiska \texttt{eqwhere}.
+%
+%\begin{equation}
+%E = mc^2
+%\end{equation}
+%gdzie
+%\begin{eqwhere}[2cm]
+%	\item[$m$] masa
+%	\item[$c$] prędkość światła w próżni
+%\end{eqwhere}
+%
+%Odległość półpauzy od lewego marginesu należy dobrać pod kątem najdłuższego symbolu (bądź listy symboli) poprzez odpowiednie ustawienie parametru tego środowiska (domyślnie: 2 cm).
 
-\section{Liczba}
+\chapter{Uczenie maszynowej}
+\label{cha:cha3}
 
-Pakiet \texttt{siunitx} zadba o to, by liczba została poprawnie sformatowana: \\
-\begin{center}
-	\num{1234567890.0987654321}
-\end{center}
+Uczenie maszynowe (ML, od ang. machine learning) to nauka o algorytmach komputerowych, które automatycznie ulepszają się dzięki doświadczeniu i wykorzystaniu danych [22]. Algorytmy uczenia maszynowego są budowane na podstawie przykładowych danych, zwanych „danymi szkoleniowymi”, w celu prognozowania lub podejmowania decyzji bez bezpośredniego zaprogramowania do tego [23]. Natomiast nieco bardziej techniczną definicję uczenia maszynowego przedstawił Tom Mitchell w 1997 roku: Mówimy, że program komputerowy uczy się na podstawie doświadczenia E w odniesieniu do jakiegoś zadania T i pewnej miary wydajności P, jeśli jego wydajność (mierzona przez P) wobec zadania T wzrasta wraz z nabywaniem doświadczenia E.
+    Dyscyplina uczenia maszynowego wykorzystuje różne podejścia do uczenia modeli wykonywania zadań, w przypadku których nie jest dostępny w pełni zadowalający algorytm. Wstęp do uczenia maszynowego wraz z wyjaśnieniem pojęć podstawowych został przedstawiony w rozdziale 3.1. Główne nurty zostały zaprezentowane w rozdziale 3.2.
 
+\section{Pojęcia podstawowe}
+\label{cha:cha3.1}
 
-\section{Rysunek}
-
-Pakiet \texttt{subcaption} pozwala na umieszczanie w podpisie rysunku odnośników do ,,podilustracji'': \\
-
-\begin{figure}[h]
-	\centering
-	\begin{subfigure}{0.35\textwidth}
-		\centering
-		\framebox[2.0\width]{A}
-		\subcaption{\label{subfigure_a}}
-	\end{subfigure}
-	\begin{subfigure}{0.35\textwidth}
-		\centering
-		\framebox[2.0\width]{B}
-		\subcaption{\label{subfigure_b}}
-	\end{subfigure}
-	
-	\caption{\label{fig:subcaption_example}Przykład użycia \texttt{\textbackslash subcaption}: \protect\subref{subfigure_a} litera A, \protect\subref{subfigure_b} litera B.}
-\end{figure}
-
-\section{Tabela}
-
-Pakiet \texttt{threeparttable} umożliwia dodanie do tabeli adnotacji: \\
+Jednym z podstawowych terminów w uczeniu maszynowym jest atrybut (ang. attribute). Oznacza on konkretny typ danych (np. wiek). Innym terminem jest cecha (ang. feature), która oznacza atrybut wraz z jego wartością. Mają one zastosowanie między innymi w przypadku danych w postaci plików csv. Aby móc skorzystać z mocy uczenia maszynowego, musimy wybrać jakiś model, który wytrenujemy. Modele zostały opisane w rozdziale 3.6., natomiast ogólne typy uczenia maszynowego w rozdziale 3.2. Jednakże, zanim ostatecznie zdecydujemy się który model powinien być wykorzystany, należy porównać istniejące modele. W tym celu zazwyczaj wykorzystuje się funkcję kosztu, która mówi nam jak duży błąd popełnia model podczas predykcji [32]. 
+    Innym aspektem związanym z modelami uczenia maszynowego jest to, jakie wyniki osiąga dany model (również względem posiadanych danych). Jednym z problemów z tym związanych jest tzw. przetrenowanie, bądź też inaczej, nadmierne dopasowanie (ang. overfitting). Oznacza to, iż model bardzo dobrze sobie radzi na danych uczących, natomiast dla danych testowych wyniki są już o wiele gorsze. Jest to równoznaczne z tym, iż model nie uogólnia danych zbyt dobrze. Zdarza się to najczęściej, gdy mamy zbyt małą ilość danych i dodatkowo użyjemy zbyt skomplikowanego modelu. Jest to dosyć znany problem, który występuje w literaturze pod nazwą kompromis między obciążeniem a wariancją (ang. bias-variance tradeoff). Istnieje wiele rozwiązań, które zapobiegają przetrenowaniu. Jednym z nich jest regularyzacja. To, jak bardzo chcemy regularyzować proces uczenia zależy od tego, jakie wartości przypiszemy hiperparametrom (ang. hyperparameters). 
+Analogicznym problemem jest niedotrenowanie (ang. underfitting), jednakże w tym przypadku chodzi o dokładnie przeciwne zjawisko, tzn. gdy model jest zbyt prosty (w stosunku do danych). W tym przypadku istnieje kilka rozwiązań, jak [32]:
+wybór mocniejszego modelu (który posiada większą liczbę parametrów),
+zmodyfikowanie danych w taki sposób, aby posiadały większą liczbę cech (patrz rozdział 3.3.: inżynieria cech),
+redukcja regularyzacji (bądź innych ograniczeń modelu).
+    Kolejnym problemem związanym ze słabymi wynikami modelu jest aspekt dotyczący danych. Pierwsze utrudnienie to zbyt mała liczba danych. W zależności od zagadnienia wymagana liczba przykładów uczących może się wahać między setkami (np. predykcja obecności choroby u pacjenta na podstawie danych zdrowotnych) a milionami (np. rozpoznawanie mowy, klasyfikacja tekstu). Kolejnym problemem związanym z danymi jest zaszumienie danych. Innymi słowy, mamy z taką sytuacją do czynienia, gdy dane nie odzwierciedlają rzeczywistości (a przynajmniej nie całkowicie poprawnie). Wtedy, niezależnie od zastosowanego modelu nie ma możliwości, aby system, mając do dyspozycji niereprezentatywne dane, radził sobie dobrze na danych testowych. Dotyczy to również przypadków, gdy dane są błędne. Rozwiązaniem tego problemu może być przykładowo [32]:
+odrzucenie elementów odstających,
+odrzucenie, bądź uzupełnienie brakujących danych,
+rozpoznanie i odrzucenie błędnych danych.
+Ostatnim poruszonym problemem związanym z danymi są nieistotne cechy. Mogą one działać jak szum i obniżać jakość posiadanych danych. W tym przypadku rozwiązaniem może być odrzucenie nadmiarowych cech i uproszczenie danych. Kwestia ta zazwyczaj jest poruszana w trakcie wykonywania inżynierii cech (patrz rozdział 3.3.).
+Gdy już posiadamy wyuczony model, dobrze byłoby upewnić się, iż działa on tak, jak powinien. Podejście, które się utrwaliło jest podział posiadanych danych na zbiory danych uczących oraz danych testowych (czasami również odkłada się jeszcze jeden zbiór danych walidacyjnych, aby we wczesnej fazie wyszukiwania odpowiedniego modelu sprawdzać wyniki właśnie na tych danych, a po wybraniu ostatecznego modelu, przetestować jego skuteczność na danych testowych). Zazwyczaj 80\% wszystkich danych przeznacza się na dane uczące [32].
+Docelowym zadaniem, które będzie badane w tej pracy jest klasyfikacja wytrzymałości odlewów na podstawie mikrostruktur. Dane, jakimi dysponujemy posiadają dwie etykiety: niska oraz wysoka wytrzymałość (bądź też inny wskaźnik). A więc trzeba będzie skorzystać z klasyfikatora binarnego. Jak natomiast zweryfikować jak dobrze sobie radzi dany klasyfikator? Aby to stwierdzić w statystyce używa się wielu miar, które pokrótce zostaną tutaj przedstawione. Zacznijmy od wyjaśnienia takiego pojęcia jak tablica pomyłek. W klasyfikacji binarnej dane są oznaczone dwiema etykietami, dla uproszczenia nazwijmy je pozytywną i negatywną. Podczas klasyfikacji są im przypisywane przewidywane etykiety i istnieje możliwość, że etykieta zostanie źle przypisana. Ilustruje to poniższa tabela (tab. 2).
 
 \begin{table}[h]
 	\centering
 	
 	\begin{threeparttable}
-		\caption{Przykład tabeli}
-		\label{tab:table_example}
-		
-		\begin{tabularx}{0.6\textwidth}{C{1}}
-			\toprule
-			\thead{Nagłówek\tnote{a}} \\
-			\midrule
-			Tekst 1 \\
-			Tekst 2 \\
-			\bottomrule
+		\caption{Schemat tablicy pomyłek (wikipedia)}
+		\label{tab:tab2}
+				
+		\begin{tabularx}{1\textwidth}{ |c|c|X|X| }\hline
+		  \multicolumn{2}{|c|}{\multirow{2}{*}{}} & \multicolumn{2}{|c|}{\textbf{Klasa rzeczywista}}\\ \cline{3-4}
+      
+		  \multicolumn{2}{|c|}{} & \multicolumn{1}{|c|}{\textbf{pozytywna}} & \multicolumn{1}{c|}{\textbf{negatywna}}\\ \hline
+       
+		  \multirow{2}{*}{\textbf{Klasa predykowana}} & \textbf{pozytywna} & prawdziwie pozytywna (TP) & fałszywie pozytywna (FP)\\ \cline{2-4}
+      
+		   & \textbf{negatywna} & fałszywie negatywna (FN) & prawdziwie negatywna (TN)\\ \hline
 		\end{tabularx}
-		
-		\begin{tablenotes}
-			\footnotesize
-			\item[a] Jakiś komentarz\textellipsis
-		\end{tablenotes}
-		
+
 	\end{threeparttable}
 \end{table}
 
-\section{Wzory matematyczne}
 
-Czasem zachodzi potrzeba wytłumaczenia znaczenia symboli użytych w równaniu. Można to zrobić z użyciem zdefiniowanego na potrzeby niniejszej klasy środowiska \texttt{eqwhere}.
 
-\begin{equation}
-E = mc^2
-\end{equation}
-gdzie
-\begin{eqwhere}[2cm]
-	\item[$m$] masa
-	\item[$c$] prędkość światła w próżni
-\end{eqwhere}
 
-Odległość półpauzy od lewego marginesu należy dobrać pod kątem najdłuższego symbolu (bądź listy symboli) poprzez odpowiednie ustawienie parametru tego środowiska (domyślnie: 2 cm).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

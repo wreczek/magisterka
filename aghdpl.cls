@@ -27,7 +27,7 @@
 \RequirePackage{url}
 \RequirePackage{titlesec}
 \RequirePackage{tocloft}
-
+\usepackage{tabularx}
 
 % tego nie bylo oryginalnie
 \RequirePackage{afterpage}
