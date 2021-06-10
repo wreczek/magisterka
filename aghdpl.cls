@@ -32,7 +32,8 @@
 % tego nie bylo oryginalnie
 \RequirePackage{afterpage}
 \RequirePackage{amsmath}
-%\RequirePackage[hidelinks]{hyperref}
+\RequirePackage[hidelinks]{hyperref}
+%\RequirePackage[nobiblatex]{xurl}
 
 \RequirePackage[font=small, labelfont=bf, labelsep=period]{caption}
 \RequirePackage{subcaption}
