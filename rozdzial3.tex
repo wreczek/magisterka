@@ -71,28 +71,40 @@
 %
 %Odległość półpauzy od lewego marginesu należy dobrać pod kątem najdłuższego symbolu (bądź listy symboli) poprzez odpowiednie ustawienie parametru tego środowiska (domyślnie: 2 cm).
 
-\chapter{Uczenie maszynowej}
+\chapter{Uczenie maszynowe}
 \label{cha:cha3}
 
-Uczenie maszynowe (ML, od ang. machine learning) to nauka o algorytmach komputerowych, które automatycznie ulepszają się dzięki doświadczeniu i wykorzystaniu danych [22]. Algorytmy uczenia maszynowego są budowane na podstawie przykładowych danych, zwanych „danymi szkoleniowymi”, w celu prognozowania lub podejmowania decyzji bez bezpośredniego zaprogramowania do tego [23]. Natomiast nieco bardziej techniczną definicję uczenia maszynowego przedstawił Tom Mitchell w 1997 roku: Mówimy, że program komputerowy uczy się na podstawie doświadczenia E w odniesieniu do jakiegoś zadania T i pewnej miary wydajności P, jeśli jego wydajność (mierzona przez P) wobec zadania T wzrasta wraz z nabywaniem doświadczenia E.
-    Dyscyplina uczenia maszynowego wykorzystuje różne podejścia do uczenia modeli wykonywania zadań, w przypadku których nie jest dostępny w pełni zadowalający algorytm. Wstęp do uczenia maszynowego wraz z wyjaśnieniem pojęć podstawowych został przedstawiony w rozdziale 3.1. Główne nurty zostały zaprezentowane w rozdziale 3.2.
+Uczenie maszynowe (ML, od ang. \textit{machine learning}) to nauka o algorytmach komputerowych, które automatycznie ulepszają się dzięki doświadczeniu i wykorzystaniu danych [22]. Algorytmy uczenia maszynowego są budowane na podstawie przykładowych danych, zwanych „danymi szkoleniowymi”, w celu prognozowania lub podejmowania decyzji bez bezpośredniego zaprogramowania do tego [23]. Natomiast nieco bardziej techniczną definicję uczenia maszynowego przedstawił Tom Mitchell w 1997 roku: \textit{Mówimy, że program komputerowy uczy się na podstawie doświadczenia $E$ w odniesieniu do jakiegoś zadania $T$ i pewnej miary wydajności $P$, jeśli jego wydajność (mierzona przez $P$) wobec zadania $T$ wzrasta wraz z nabywaniem doświadczenia $E$}.
+
+Dyscyplina uczenia maszynowego wykorzystuje różne podejścia do uczenia modeli wykonywania zadań, w przypadku których nie jest dostępny w pełni zadowalający algorytm. Wstęp do uczenia maszynowego wraz z wyjaśnieniem pojęć podstawowych został przedstawiony w rozdziale 3.1. Główne nurty zostały zaprezentowane w rozdziale 3.2.
 
 \section{Pojęcia podstawowe}
 \label{cha:cha3.1}
 
-Jednym z podstawowych terminów w uczeniu maszynowym jest atrybut (ang. attribute). Oznacza on konkretny typ danych (np. wiek). Innym terminem jest cecha (ang. feature), która oznacza atrybut wraz z jego wartością. Mają one zastosowanie między innymi w przypadku danych w postaci plików csv. Aby móc skorzystać z mocy uczenia maszynowego, musimy wybrać jakiś model, który wytrenujemy. Modele zostały opisane w rozdziale 3.6., natomiast ogólne typy uczenia maszynowego w rozdziale 3.2. Jednakże, zanim ostatecznie zdecydujemy się który model powinien być wykorzystany, należy porównać istniejące modele. W tym celu zazwyczaj wykorzystuje się funkcję kosztu, która mówi nam jak duży błąd popełnia model podczas predykcji [32]. 
-    Innym aspektem związanym z modelami uczenia maszynowego jest to, jakie wyniki osiąga dany model (również względem posiadanych danych). Jednym z problemów z tym związanych jest tzw. przetrenowanie, bądź też inaczej, nadmierne dopasowanie (ang. overfitting). Oznacza to, iż model bardzo dobrze sobie radzi na danych uczących, natomiast dla danych testowych wyniki są już o wiele gorsze. Jest to równoznaczne z tym, iż model nie uogólnia danych zbyt dobrze. Zdarza się to najczęściej, gdy mamy zbyt małą ilość danych i dodatkowo użyjemy zbyt skomplikowanego modelu. Jest to dosyć znany problem, który występuje w literaturze pod nazwą kompromis między obciążeniem a wariancją (ang. bias-variance tradeoff). Istnieje wiele rozwiązań, które zapobiegają przetrenowaniu. Jednym z nich jest regularyzacja. To, jak bardzo chcemy regularyzować proces uczenia zależy od tego, jakie wartości przypiszemy hiperparametrom (ang. hyperparameters). 
-Analogicznym problemem jest niedotrenowanie (ang. underfitting), jednakże w tym przypadku chodzi o dokładnie przeciwne zjawisko, tzn. gdy model jest zbyt prosty (w stosunku do danych). W tym przypadku istnieje kilka rozwiązań, jak [32]:
-wybór mocniejszego modelu (który posiada większą liczbę parametrów),
-zmodyfikowanie danych w taki sposób, aby posiadały większą liczbę cech (patrz rozdział 3.3.: inżynieria cech),
-redukcja regularyzacji (bądź innych ograniczeń modelu).
-    Kolejnym problemem związanym ze słabymi wynikami modelu jest aspekt dotyczący danych. Pierwsze utrudnienie to zbyt mała liczba danych. W zależności od zagadnienia wymagana liczba przykładów uczących może się wahać między setkami (np. predykcja obecności choroby u pacjenta na podstawie danych zdrowotnych) a milionami (np. rozpoznawanie mowy, klasyfikacja tekstu). Kolejnym problemem związanym z danymi jest zaszumienie danych. Innymi słowy, mamy z taką sytuacją do czynienia, gdy dane nie odzwierciedlają rzeczywistości (a przynajmniej nie całkowicie poprawnie). Wtedy, niezależnie od zastosowanego modelu nie ma możliwości, aby system, mając do dyspozycji niereprezentatywne dane, radził sobie dobrze na danych testowych. Dotyczy to również przypadków, gdy dane są błędne. Rozwiązaniem tego problemu może być przykładowo [32]:
-odrzucenie elementów odstających,
-odrzucenie, bądź uzupełnienie brakujących danych,
-rozpoznanie i odrzucenie błędnych danych.
+Jednym z podstawowych terminów w uczeniu maszynowym jest \textbf{atrybut} (ang. \textit{attribute}). Oznacza on konkretny typ danych (np. wiek). Innym terminem jest \textbf{cecha} (ang. \textit{feature}), która oznacza atrybut wraz z jego wartością. Mają one zastosowanie między innymi w przypadku danych w postaci plików csv. Aby móc skorzystać z mocy uczenia maszynowego, musimy wybrać jakiś model, który wytrenujemy. Modele zostały opisane w rozdziale 3.6., natomiast ogólne typy uczenia maszynowego w rozdziale 3.2. Jednakże, zanim ostatecznie zdecydujemy się który model powinien być wykorzystany, należy porównać istniejące modele. W tym celu zazwyczaj wykorzystuje się \textbf{funkcję kosztu}, która mówi nam jak duży błąd popełnia model podczas predykcji [32]. 
+
+Innym aspektem związanym z modelami uczenia maszynowego jest to, jakie wyniki osiąga dany model (również względem posiadanych danych). Jednym z problemów z tym związanych jest tzw. \textbf{przetrenowanie}, bądź też inaczej, \textbf{nadmierne dopasowanie} (ang. \textit{overfitting}). Oznacza to, iż model bardzo dobrze sobie radzi na danych uczących, natomiast dla danych testowych wyniki są już o wiele gorsze. Jest to równoznaczne z tym, iż model nie uogólnia danych zbyt dobrze. Zdarza się to najczęściej, gdy mamy zbyt małą ilość danych i dodatkowo użyjemy zbyt skomplikowanego modelu. Jest to dosyć znany problem, który występuje w literaturze pod nazwą kompromis między obciążeniem a wariancją (ang. \textit{bias-variance tradeoff}). Istnieje wiele rozwiązań, które zapobiegają przetrenowaniu. Jednym z nich jest \textbf{regularyzacja}. To, jak bardzo chcemy regularyzować proces uczenia zależy od tego, jakie wartości przypiszemy \textbf{hiperparametrom} (ang. \textit{hyperparameters}). 
+
+Analogicznym problemem jest niedotrenowanie (ang. \textit{underfitting}), jednakże w tym przypadku chodzi o dokładnie przeciwne zjawisko, tzn. gdy model jest zbyt prosty (w stosunku do danych). W tym przypadku istnieje kilka rozwiązań, jak [32]:
+
+- wybór mocniejszego modelu (który posiada większą liczbę parametrów),
+
+- zmodyfikowanie danych w taki sposób, aby posiadały większą liczbę cech (patrz rozdział 3.3.: inżynieria cech),
+
+- redukcja regularyzacji (bądź innych ograniczeń modelu).
+  
+Kolejnym problemem związanym ze słabymi wynikami modelu jest aspekt dotyczący danych. Pierwsze utrudnienie to zbyt mała liczba danych. W zależności od zagadnienia wymagana liczba przykładów uczących może się wahać między setkami (np. predykcja obecności choroby u pacjenta na podstawie danych zdrowotnych) a milionami (np. rozpoznawanie mowy, klasyfikacja tekstu). Kolejnym problemem związanym z danymi jest zaszumienie danych. Innymi słowy, mamy z taką sytuacją do czynienia, gdy dane nie odzwierciedlają rzeczywistości (a przynajmniej nie całkowicie poprawnie). Wtedy, niezależnie od zastosowanego modelu nie ma możliwości, aby system, mając do dyspozycji niereprezentatywne dane, radził sobie dobrze na danych testowych. Dotyczy to również przypadków, gdy dane są błędne. Rozwiązaniem tego problemu może być przykładowo [32]:
+
+- odrzucenie elementów odstających,
+
+- odrzucenie, bądź uzupełnienie brakujących danych,
+
+- rozpoznanie i odrzucenie błędnych danych.
+
 Ostatnim poruszonym problemem związanym z danymi są nieistotne cechy. Mogą one działać jak szum i obniżać jakość posiadanych danych. W tym przypadku rozwiązaniem może być odrzucenie nadmiarowych cech i uproszczenie danych. Kwestia ta zazwyczaj jest poruszana w trakcie wykonywania inżynierii cech (patrz rozdział 3.3.).
-Gdy już posiadamy wyuczony model, dobrze byłoby upewnić się, iż działa on tak, jak powinien. Podejście, które się utrwaliło jest podział posiadanych danych na zbiory danych uczących oraz danych testowych (czasami również odkłada się jeszcze jeden zbiór danych walidacyjnych, aby we wczesnej fazie wyszukiwania odpowiedniego modelu sprawdzać wyniki właśnie na tych danych, a po wybraniu ostatecznego modelu, przetestować jego skuteczność na danych testowych). Zazwyczaj 80\% wszystkich danych przeznacza się na dane uczące [32].
-Docelowym zadaniem, które będzie badane w tej pracy jest klasyfikacja wytrzymałości odlewów na podstawie mikrostruktur. Dane, jakimi dysponujemy posiadają dwie etykiety: niska oraz wysoka wytrzymałość (bądź też inny wskaźnik). A więc trzeba będzie skorzystać z klasyfikatora binarnego. Jak natomiast zweryfikować jak dobrze sobie radzi dany klasyfikator? Aby to stwierdzić w statystyce używa się wielu miar, które pokrótce zostaną tutaj przedstawione. Zacznijmy od wyjaśnienia takiego pojęcia jak tablica pomyłek. W klasyfikacji binarnej dane są oznaczone dwiema etykietami, dla uproszczenia nazwijmy je pozytywną i negatywną. Podczas klasyfikacji są im przypisywane przewidywane etykiety i istnieje możliwość, że etykieta zostanie źle przypisana. Ilustruje to poniższa tabela (tab. 2).
+Gdy już posiadamy wyuczony model, dobrze byłoby upewnić się, iż działa on tak, jak powinien. Podejście, które się utrwaliło jest podział posiadanych danych na zbiory \textbf{danych uczących} oraz \textbf{danych testowych} (czasami również odkłada się jeszcze jeden zbiór danych walidacyjnych, aby we wczesnej fazie wyszukiwania odpowiedniego modelu sprawdzać wyniki właśnie na tych danych, a po wybraniu ostatecznego modelu, przetestować jego skuteczność na danych testowych). Zazwyczaj 80\% wszystkich danych przeznacza się na dane uczące [32].
+
+Docelowym zadaniem, które będzie badane w tej pracy jest klasyfikacja wytrzymałości odlewów na podstawie mikrostruktur. Dane, jakimi dysponujemy posiadają dwie etykiety: niska oraz wysoka wytrzymałość (bądź też inny wskaźnik). A więc trzeba będzie skorzystać z \textbf{klasyfikatora binarnego}. Jak natomiast zweryfikować jak dobrze sobie radzi dany klasyfikator? Aby to stwierdzić w statystyce używa się wielu miar, które pokrótce zostaną tutaj przedstawione. Zacznijmy od wyjaśnienia takiego pojęcia jak \textbf{tablica pomyłek}. W klasyfikacji binarnej dane są oznaczone dwiema etykietami, dla uproszczenia nazwijmy je \textbf{pozytywną} i \textbf{negatywną}. Podczas klasyfikacji są im przypisywane przewidywane etykiety i istnieje możliwość, że etykieta zostanie źle przypisana. Ilustruje to poniższa tabela (tab. 2).
 
 \begin{table}[h]
 	\centering
@@ -124,7 +136,7 @@ Następnie, w celu ułatwienia oceny klasyfikatora, można wprowadzić poniższe
 
 - fałszywie negatywna (ang. false negative, FN), tzw. błąd drugiego rodzaju.
 
-Są to podstawowe miary wydajności za pomocą których dalej zdefiniujemy bardziej rozbudowane miary. Ale wracając do tablicy pomyłek, pożądanym wynikiem jest uzyskanie wysokich liczb na głównej przekątnej tablicy pomyłek (czyli prawdziwie pozytywna oraz prawdziwie negatywna), natomiast jak najmniejsze (najlepiej zerowe) wartości na pozostałej przekątnej. Dzięki tej macierzy możemy przeanalizować w jakich przypadkach nasz klasyfikator myli się najczęściej. Dalej można wprowadzić bardziej zwięzłe metryki [32]:
+\noindent Są to podstawowe miary wydajności za pomocą których dalej zdefiniujemy bardziej rozbudowane miary. Ale wracając do tablicy pomyłek, pożądanym wynikiem jest uzyskanie wysokich liczb na głównej przekątnej tablicy pomyłek (czyli prawdziwie pozytywna oraz prawdziwie negatywna), natomiast jak najmniejsze (najlepiej zerowe) wartości na pozostałej przekątnej. Dzięki tej macierzy możemy przeanalizować w jakich przypadkach nasz klasyfikator myli się najczęściej. Dalej można wprowadzić bardziej zwięzłe metryki [32]:
 
 - dokładność (ang. accuracy, ACC)
 \begin{equation}
@@ -144,7 +156,7 @@ TPR=\frac {TP} {TP+FN}
 \end{equation}
 %Wzór na czułosć
 
-Dokładność mówi nam jaki odsetek predykcji stanowią poprawne predykcje (patrz wzór 3). Kolejną miarą jest precyzja, która mówi nam jaka jest dokładność pozytywnych prognoz (4). Ostatnią przedstawioną tutaj miarą jest czułość i jest to odsetek pozytywnych przykładów, które zostały poprawnie zaklasyfikowane (5). Macierz pomyłek można również rozszerzyć do klasyfikacji wieloklasowej, co zostało uczynione w badaniach (rozdział 5). Bardziej zaawansowane pojęcia i metody będą wyjaśniane w dalszych rozdziałach niniejszej pracy (w miejscu ich zastosowania).
+\noindent Dokładność mówi nam jaki odsetek predykcji stanowią poprawne predykcje (patrz wzór 3.1). Kolejną miarą jest precyzja, która mówi nam jaka jest dokładność pozytywnych prognoz (3.2). Ostatnią przedstawioną tutaj miarą jest czułość i jest to odsetek pozytywnych przykładów, które zostały poprawnie zaklasyfikowane (3.3). Macierz pomyłek można również rozszerzyć do klasyfikacji wieloklasowej, co zostało uczynione w badaniach (rozdział 5). Bardziej zaawansowane pojęcia i metody będą wyjaśniane w dalszych rozdziałach niniejszej pracy (w miejscu ich zastosowania).
 
 \section{Typy uczenia maszynowego}
 \label{cha:cha3.2}
@@ -154,35 +166,47 @@ Jednym z kryterium podziału systemów uczenia maszynowego może być stopień i
 \subsection{Uczenie nadzorowane}
 \label{cha:cha3.2.1}
 
-Uczenie nadzorowane (ang. supervised learning) polega na trenowaniu modelu za pomocą danych, które zostały przygotowane przez ludzkiego nadzorcę jako pary $\hbox{\it <obiekt~uczący; etykieta>}$ [24]. Celem takiego systemu jest nauczenie się przewidywania prawidłowej odpowiedzi dla danego obiektu wejściowego oraz generalizacja na przypadki, które nie są obecne w danych uczących [24]. 
+Uczenie nadzorowane (ang. \textit{supervised learning}) polega na trenowaniu modelu za pomocą danych, które zostały przygotowane przez ludzkiego nadzorcę jako pary $\hbox{\it <obiekt~uczący; etykieta>}$ [24]. Celem takiego systemu jest nauczenie się przewidywania prawidłowej odpowiedzi dla danego obiektu wejściowego oraz generalizacja na przypadki, które nie są obecne w danych uczących [24]. 
 Uczenie nadzorowane można podzielić na klasyfikację oraz regresję, co jest determinowane przez etykietę danych. W przypadku, gdy każda etykieta należy do skończonego zbioru, mówimy o klasyfikacji. Jeżeli zaś etykiety mogą przyjmować np. dowolną wartość liczby rzeczywistej, wtedy mówimy o regresji. Jedne z ważniejszych przykładowych algorytmów tego rodzaju są:
-regresja liniowa (ang. linear regression),
-algorytm k-najbliższych sąsiadów (ang. k-nearest neighbors algorithm),
-regresja logistyczna (ang. logistic regression),
-drzewa decyzyjne (ang. decision tree),
-lasy losowe (ang. random decision forest),
-maszyny wektorów nośnych (ang. support-vector machine),
-sieci neuronowe.
-Te metody i inne zostały opisane w podrozdziale 3.6. 
+
+- regresja liniowa (ang. \textit{linear regression}),
+
+- algorytm k-najbliższych sąsiadów (ang. \textit{k-nearest neighbors algorithm}),
+
+- regresja logistyczna (ang. \textit{logistic regression}),
+
+- drzewa decyzyjne (ang. \textit{decision tree}),
+
+- lasy losowe (ang. \textit{random decision forest}),
+
+- maszyny wektorów nośnych (ang. \textit{support-vector machine}),
+
+- sieci neuronowe.
+
+\noindent Te metody i inne zostały opisane w podrozdziale 3.6. 
 
 \subsection{Uczenie częściowo nadzorowane}
 \label{cha:cha3.2.2}
 
-Uczenie częściowo nadzorowane (ang. semi-supervised learning) polega na trenowaniu modelu za pomocą danych zarówno oznakowanych, jak i nieoznakowanych. Wykorzystuje się go wtedy, gdy liczba danych jest ogromna i system sam może zaproponować odpowiedzi. Często algorytmy tego rodzaju stanowią kombinację algorytmów uczenia nadzorowanego i nienadzorowanego [32].
+Uczenie częściowo nadzorowane (ang. \textit{semi-supervised learning}) polega na trenowaniu modelu za pomocą danych zarówno oznakowanych, jak i nieoznakowanych. Wykorzystuje się go wtedy, gdy liczba danych jest ogromna i system sam może zaproponować odpowiedzi. Często algorytmy tego rodzaju stanowią kombinację algorytmów uczenia nadzorowanego i nienadzorowanego [32].
 
 \subsection{Uczenie nienadzorowane}
 \label{cha:cha3.2.3}
 
-Uczenie nienadzorowane (ang. unsupervised learning) polega na wykrywaniu wzorców, relacji na podstawie nieoznaczonych danych, możliwie maksymalnie bez ingerencji człowieka. Im większa liczba danych, tym bardziej precyzyjne wyniki. Jedne z ważniejszych algorytmów uczenia nienadzorowanego, to:
-metoda k-średnich (ang. k-means clustering),
-analiza głównych składowych (ang. principal component analysis, PCA),
-stochastyczne osadzanie sąsiadów przy użyciu rozkładu t (ang. t-distributed stochastic neighbor embedding, t-SNE).
-Jednym z przykładów użycia uczenia nienadzorowanego może być wizualizacja danych, m.in. przy pomocy algorytmów PCA bądź t-SNE. Ten typ uczenia maszynowego nie został wykorzystany w niniejszej pracy, dlatego nie będzie głębiej analizowany.
+Uczenie nienadzorowane (ang. \textit{unsupervised learning}) polega na wykrywaniu wzorców, relacji na podstawie nieoznaczonych danych, możliwie maksymalnie bez ingerencji człowieka. Im większa liczba danych, tym bardziej precyzyjne wyniki. Jedne z ważniejszych algorytmów uczenia nienadzorowanego, to:
+
+- metoda k-średnich (ang. \textit{k-means clustering}),
+
+- analiza głównych składowych (ang. \textit{principal component analysis}, PCA),
+
+- stochastyczne osadzanie sąsiadów przy użyciu rozkładu t (ang. \textit{t-distributed stochastic neighbor embedding}, t-SNE).
+
+\noindent Jednym z przykładów użycia uczenia nienadzorowanego może być wizualizacja danych, m.in. przy pomocy algorytmów PCA bądź t-SNE. Ten typ uczenia maszynowego nie został wykorzystany w niniejszej pracy, dlatego nie będzie głębiej analizowany.
 
 \subsection{Uczenie przez wzmacnianie}
 \label{cha:cha3.2.4}
 
-Uczenie przez wzmacnianie (ang. reinforcement learning, RL) polega na interakcji ze środowiskiem za pomocą polityki, mając do dyspozycji zestaw dozwolonych akcji (działań). Model dokonuje analizy środowiska i automatycznie zbiera z niego dane. Celem jest maksymalizacja nagrody. W uczeniu przez wzmacnianie wyróżnia się trzy główne elementy jak środowisko, agenta oraz bufor. System uczący, czyli agent, może obserwować środowisko, na tej podstawie wykonywać pewne czynności, następnie odbierać nagrody, lub kary. W następnym zaś kroku musi nauczyć się najlepszej strategii, zwanej polityką, co prowadzi do maksymalizacji nagrody [32]. Ze względu na charakterystykę tego nurtu uczenia maszynowego jest ono często stosowanie do uczenia modeli grania w gry [24].
+Uczenie przez wzmacnianie (ang. \textit{reinforcement learning}, RL) polega na interakcji ze środowiskiem za pomocą polityki, mając do dyspozycji zestaw dozwolonych akcji (działań). Model dokonuje analizy środowiska i automatycznie zbiera z niego dane. Celem jest maksymalizacja nagrody. W uczeniu przez wzmacnianie wyróżnia się trzy główne elementy jak \textbf{środowisko}, \textbf{agenta} oraz \textbf{bufor}. System uczący, czyli agent, może obserwować środowisko, na tej podstawie wykonywać pewne czynności, następnie odbierać nagrody, lub kary. W następnym zaś kroku musi nauczyć się najlepszej strategii, zwanej \textbf{polityką}, co prowadzi do maksymalizacji nagrody [32]. Ze względu na charakterystykę tego nurtu uczenia maszynowego jest ono często stosowanie do uczenia modeli grania w gry [24].
 
 \section{Inżynieria cech}
 \label{cha:cha3.3}
@@ -209,7 +233,7 @@ Inżynieria cech jest procesem wykorzystania wiedzy dziedzinowej w celu ekstrakc
 	\item Powtórzenie powyższych czynności – powtarzamy powyższe czynności do momentu, gdy przestaniemy uzyskiwać coraz lepsze rezultaty, bądź gdy dojdziemy do wniosku, iż dane są słabej jakości, bądź dysponujemy zbyt małą ich liczbą.
 \end{enumerate}
 
-Cechy mogą się różnić pod względem znaczenia. Dodatkowo odpowiednio skomponowany zbiór cech może zapobiec nadmiernemu dopasowaniu się modelu do danych uczących. 
+\noindent Cechy mogą się różnić pod względem znaczenia. Dodatkowo odpowiednio skomponowany zbiór cech może zapobiec nadmiernemu dopasowaniu się modelu do danych uczących. 
 
 \section{Augmentacja danych}
 \label{cha:cha3.4}
@@ -229,7 +253,6 @@ Augmentacja danych to zbiór technik służących zwiększaniu ilości danych po
 
 	\item Nałożenie szumu – dzięki tej technice możemy zapobiec nadmiernemu dopasowaniu się modelu do danych. 
 \end{enumerate}
-
 Wśród innych metod, które również mogą się sprawdzić, można wymienić przekształcenia geometryczne, modyfikację kolorów czy losowe wymazywanie [26]. Istnieje też wiele innych, bardziej zaawansowanych metod augmentacji danych [27]. Przykładowo można zastosować tzw. generatywne sieci współzawodniczące (GAN od ang. generative adversarial network). Mogą one m.in. zmieniać domenę obrazu, jak pokazano na rysunku 6. Inną zaawansowaną techniką jest interpolacja. Może ona zostać wykorzystana w przypadku, gdy chcemy skorzystać z translacji – możemy wtedy brakujący fragment obrazu interpolować. Przyda się również, gdy chcemy skorzystać ze skalowania do wewnątrz jednocześnie zachowując oryginalny rozmiar obrazu [27]. 
 
 \begin{figure}[h]
@@ -434,7 +457,7 @@ w^{(i+1)} =
 \end{equation}
 
 \noindent  Cały ten proces jest powtarzany wielokrotnie, iteracyjnie, aż osiągniemy ustaloną liczbę klasyfikatorów, bądź też wyniki zwracane przez model będą na odpowiednim
-poziomie (zazwyczaj uczenie zatrzymuje się przy 100\%) [32]. Ostatecznie, w celu klasyfikacji jest liczona średnia ważona (przy użyciu wag z równania 15) z predykcji wszystkich klasyfikatorów składających się na model i wybierana jest odpowiedź, która otrzyma tym sposobem najwięcej głosów (równanie 17).
+poziomie (zazwyczaj uczenie zatrzymuje się przy $100\%$) [32]. Ostatecznie, w celu klasyfikacji jest liczona średnia ważona (przy użyciu wag z równania 15) z predykcji wszystkich klasyfikatorów składających się na model i wybierana jest odpowiedź, która otrzyma tym sposobem najwięcej głosów (równanie 17).
 
 \begin{equation}
 \hat y (x) = \underset{k}{\arg\max} \sum_{\substack{j=1
@@ -443,12 +466,12 @@ poziomie (zazwyczaj uczenie zatrzymuje się przy 100\%) [32]. Ostatecznie, w cel
 
 \noindent gdzie N to liczba klasyfikatorów. 
 
-Podsumowując, AdaBoost ma wiele zalet. Wśród nich znajduje się ta, iż AdaBoost nie wymaga modyfikowania parametrów w celu osiągnięcia optymalnego modelu (w przeciwieństwie do np. SVM). Dodatkowo, AdaBoost może być stosowany, gdy chcemy poprawić dokładność słabego klasyfikatora [46]. Jednak trzeba pamiętać o tym, iż metody wzmacniania działają progresywnie, a więc wymagane są dane wysokiej jakości. Dodatkowo należy się wcześniej upewnić, że usunięto wszystkie wartości odstające (ang. outliers), na które ten model również jest wrażliwy [46]. 
+Podsumowując, AdaBoost ma wiele zalet. Wśród nich znajduje się ta, iż AdaBoost nie wymaga modyfikowania parametrów w celu osiągnięcia optymalnego modelu (w przeciwieństwie do np. SVM). Dodatkowo, AdaBoost może być stosowany, gdy chcemy poprawić dokładność słabego klasyfikatora [46]. Jednak trzeba pamiętać o tym, iż metody wzmacniania działają progresywnie, a więc wymagane są dane wysokiej jakości. Dodatkowo należy się wcześniej upewnić, że usunięto wszystkie wartości odstające (ang. \textit{outliers}), na które ten model również jest wrażliwy [46]. 
 
 \subsubsection{Wzmacnianie gradientowe}
 \label{cha:Wzmacnianie gradientowe}
 
-Wzmacnianie gradientowe (ang. gradient boosting) to inna bardzo popularna technika wzmacniania [32]. Nadaje się zarówno do klasyfikacji, jak i regresji. Podobnie do poprzedniej metody, polega na dodawaniu kolejnych klasyfikatorów do zespołu w sposób sekwencyjny w taki sposób, że następnik poprawia poprzednika. Różnicą między tą techniką a AdaBoost jest to, że tutaj nie aktualizujemy wag przykładów po każdym przebiegu, lecz próbujemy dopasować predyktor do błędu resztowego (ang. residual error) popełnionego przez poprzedni klasyfikator [32]. Zwyczajowo jako słabych predyktorów używa się drzew decyzyjnych, a otrzymany algorytm jest nazywany gradientowo wzmocnionym drzewem (ang. gradient boosted tree). Wyniki uzyskiwane za pomocą tej techniki zazwyczaj są lepsze od tych uzyskiwanych za pomocą lasów losowych [51]. Jedno z prostszych wyjaśnień tej metody przedstawił Cheng Li na przykładzie regresji [52]. Załóżmy, że chcemy nauczyć model Fprzewidywać wartości postaci:
+Wzmacnianie gradientowe (ang. gradient boosting) to inna bardzo popularna technika wzmacniania [32]. Nadaje się zarówno do klasyfikacji, jak i regresji. Podobnie do poprzedniej metody, polega na dodawaniu kolejnych klasyfikatorów do zespołu w sposób sekwencyjny w taki sposób, że następnik poprawia poprzednika. Różnicą między tą techniką a AdaBoost jest to, że tutaj nie aktualizujemy wag przykładów po każdym przebiegu, lecz próbujemy dopasować predyktor do błędu resztowego (ang. residual error) popełnionego przez poprzedni klasyfikator [32]. Zwyczajowo jako słabych predyktorów używa się drzew decyzyjnych, a otrzymany algorytm jest nazywany gradientowo wzmocnionym drzewem (ang. \textit{gradient boosted tree}). Wyniki uzyskiwane za pomocą tej techniki zazwyczaj są lepsze od tych uzyskiwanych za pomocą lasów losowych [51]. Jedno z prostszych wyjaśnień tej metody przedstawił Cheng Li na przykładzie regresji [52]. Załóżmy, że chcemy nauczyć model $F$ przewidywać wartości postaci:
 \begin{equation}
 \hat y = F(x)
 \end{equation}
@@ -457,11 +480,18 @@ Wzmacnianie gradientowe (ang. gradient boosting) to inna bardzo popularna techni
 \begin{equation}
 L=\frac 1 n \sum_{i=1}^n(\hat y_i-y_i)^2
 \end{equation}
-gdzie n oznacza liczbę próbek w zbiorze uczącym y, ŷioznacza wartość przewidywaną F(x), oraz yi oznacza obserwowaną wartość. Zakładając, iż algorytm składa się z M etapów, w każdym etapie m (1mM) wzmacniania istnieje niedoskonały model Fm. W celu poprawienia jakości modelu Fm dodaje się pewien estymator hm(x) (równanie 20):
+gdzie
+\begin{eqwhere}[2cm]
+	\item [$n$] liczba próbek w zbiorze uczącym $\hbox{\it y}$
+	\item [$\hat y_i$] wartość przewidywana $F(x)$
+	\item [$\hat y_i$] obserwowana wartość
+\end{eqwhere}
+
+\noindent Zakładając, iż algorytm składa się z $M$ etapów, w każdym etapie m ($1<m<M$) wzmacniania istnieje niedoskonały model $F_m$. W celu poprawienia jakości modelu $ F_m$ dodaje się pewien estymator $h_m(x)$ (równanie 20):
 \begin{equation}
 h_m(x)=y-F_m(x)
 \end{equation}
-W ten sposób h dopasowuje się reszty y-Fm(x) (zwanej błędem resztowym), przyczyniając się do polepszania wyników osiąganych przez kolejne modele. Rozszerzenie tej idei do klasyfikacji polega na obserwacji, iż reszty hm(x) to tak naprawdę ujemny gradient błędu średniokwadratowego (równanie 21, 22):
+W ten sposób h dopasowuje się reszty $y-F_m(x)$ (zwanej błędem resztowym), przyczyniając się do polepszania wyników osiąganych przez kolejne modele. Rozszerzenie tej idei do klasyfikacji polega na obserwacji, iż reszty $h_m(x)$ to tak naprawdę ujemny gradient błędu średniokwadratowego (równanie 21, 22):
 \begin{equation}
 L_{MSE}=\frac 1 2(y-F(x))^2
 \end{equation}
@@ -500,7 +530,7 @@ Każdą sieć definiuje zestaw hiperparametrów (ang. hyperparameters). Są to s
 
 \noindent Tak jak w przypadku klasycznych metod uczenia maszynowego, tak samo w przypadku sieci neuronowych można skorzystać z różnych typów uczenia (patrz rozdział 3.2.). 
 
-\subsection{VGG19}
+\subsubsection{VGG19}
 \label{cha:VGG19}
 
 
