@@ -29,11 +29,13 @@
 \RequirePackage{tocloft}
 \RequirePackage{tabularx}
 
-% tego nie bylo oryginalnie
+% ############# MOJE IMPORTY #################
 \RequirePackage{afterpage}
 \RequirePackage{amsmath}
-\RequirePackage[hidelinks]{hyperref}
+\RequirePackage[hidelinks, unicode, backref=true]{hyperref}
 %\RequirePackage[nobiblatex]{xurl}
+
+% ############################################
 
 \RequirePackage[font=small, labelfont=bf, labelsep=period]{caption}
 \RequirePackage{subcaption}

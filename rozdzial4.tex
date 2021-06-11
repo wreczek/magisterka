@@ -1,72 +1,204 @@
-\chapter{Przykłady elementów pracy dyplomowej}
+%\chapter{Przykłady elementów pracy dyplomowej}
+%
+%\section{Liczba}
+%
+%Pakiet \texttt{siunitx} zadba o to, by liczba została poprawnie sformatowana: \\
+%\begin{center}
+%	\num{1234567890.0987654321}
+%\end{center}
+%
+%
+%\section{Rysunek}
+%
+%Pakiet \texttt{subcaption} pozwala na umieszczanie w podpisie rysunku odnośników do ,,podilustracji'': \\
+%
+%\begin{figure}[h]
+%	\centering
+%	\begin{subfigure}{0.35\textwidth}
+%		\centering
+%		\framebox[2.0\width]{A}
+%		\subcaption{\label{subfigure_a}}
+%	\end{subfigure}
+%	\begin{subfigure}{0.35\textwidth}
+%		\centering
+%		\framebox[2.0\width]{B}
+%		\subcaption{\label{subfigure_b}}
+%	\end{subfigure}
+%	
+%	\caption{\label{fig:subcaption_example}Przykład użycia \texttt{\textbackslash subcaption}: \protect\subref{subfigure_a} litera A, \protect\subref{subfigure_b} litera B.}
+%\end{figure}
+%
+%\section{Tabela}
+%
+%Pakiet \texttt{threeparttable} umożliwia dodanie do tabeli adnotacji: \\
+%
+%\begin{table}[h]
+%	\centering
+%	
+%	\begin{threeparttable}
+%		\caption{Przykład tabeli}
+%		\label{tab:table_example}
+%		
+%		\begin{tabularx}{0.6\textwidth}{C{1}}
+%			\toprule
+%			\thead{Nagłówek\tnote{a}} \\
+%			\midrule
+%			Tekst 1 \\
+%			Tekst 2 \\
+%			\bottomrule
+%		\end{tabularx}
+%		
+%		\begin{tablenotes}
+%			\footnotesize
+%			\item[a] Jakiś komentarz\textellipsis
+%		\end{tablenotes}
+%		
+%	\end{threeparttable}
+%\end{table}
+%
+%\section{Wzory matematyczne}
+%
+%Czasem zachodzi potrzeba wytłumaczenia znaczenia symboli użytych w równaniu. Można to zrobić z użyciem zdefiniowanego na potrzeby niniejszej klasy środowiska \texttt{eqwhere}.
+%
+%\begin{equation}
+%E = mc^2
+%\end{equation}
+%gdzie
+%\begin{eqwhere}[2cm]
+%	\item[$m$] masa
+%	\item[$c$] prędkość światła w próżni
+%\end{eqwhere}
+%	url = {https://www.researchgate.net/publication/224080530_Machine-learning-based_mechanical_properties_prediction_in_foundry_production}
+%Odległość półpauzy od lewego marginesu należy dobrać pod kątem najdłuższego symbolu (bądź listy symboli) poprzez odpowiednie ustawienie parametru tego środowiska (domyślnie: 2 cm).
 
-\section{Liczba}
 
-Pakiet \texttt{siunitx} zadba o to, by liczba została poprawnie sformatowana: \\
-\begin{center}
-	\num{1234567890.0987654321}
-\end{center}
+\chapter{Przygotowanie danych}
+
+No i tutaj raporcik, jak przygotowywałem dane. A tu cytat: \cite{Santos09}).
+
+A tutaj cytacik wikipedii \cite{wiki:klas.stat}.
+
+3: \cite{Olson85}.
+
+4: \cite{ferrite.meter}.
+
+5: \cite{Babu13}
+
+6: \cite{Saluja15}
+
+7: \cite{Vitek03.I}
+
+8: \cite{Vitek03.II}
+
+9: \cite{Vasudevan13}
+
+10: \cite{Bhadeshia07}
+
+11: \cite{Badmos13}
+
+12: \cite{Nieves09}
+
+13: \cite{Yang16}
+
+14: \cite{Yoseba08}
+
+15: \cite{Azimi18}
+
+16: \cite{Pauly16}
+
+17: \cite{Britz17}
+
+18: \cite{Shrestha13}
+
+19: \cite{Wang20}
+
+20: \cite{Durmaz21}
+
+21: \cite{Stoll21}
+
+22: \cite{Mitchell97}
+
+23: \cite{Koza96}
+
+24: \cite{Sawka20}
+
+25: \cite{Ng}
+
+26: \cite{Shorten19}
+
+27: \cite{Gandhi21}
+
+28: \cite{norma}
+
+29: \cite{Sarkar18}
+
+30: \cite{Bickel06}
+
+31: \cite{Chmiel20}
+
+32: \cite{Sawka18}
+
+33: \cite{wiki:latex}
+
+34: \cite{Boser92}
+
+35: \cite{Grus18}
+
+36: \cite{wiki:dec.drzewo}
+
+37: \cite{Quinlan96}
+
+38: \cite{wiki:dec.tree}
+
+39: \cite{Ho95}
+
+40: \cite{aporras}
+
+41: \cite{Jaskowiak70}
+
+42: \cite{Piryonesi20}
+
+43: \cite{wiki:knn}
+
+44: \cite{wiki:logit}
+
+45: \cite{wiki:bayes}
+
+46: \cite{Kurama20}
+
+47: \cite{ColumbiaLearn}
+
+48: \cite{Hur02}
+
+49: \cite{Ramchandani18}
+
+50: \cite{Menard02}
+
+51: \cite{Piryonesi19}
+
+52: \cite{Li}
+
+53: \cite{Tadeusiewicz15}
+
+54: \cite{Simonyan15}
 
 
-\section{Rysunek}
 
-Pakiet \texttt{subcaption} pozwala na umieszczanie w podpisie rysunku odnośników do ,,podilustracji'': \\
 
-\begin{figure}[h]
-	\centering
-	\begin{subfigure}{0.35\textwidth}
-		\centering
-		\framebox[2.0\width]{A}
-		\subcaption{\label{subfigure_a}}
-	\end{subfigure}
-	\begin{subfigure}{0.35\textwidth}
-		\centering
-		\framebox[2.0\width]{B}
-		\subcaption{\label{subfigure_b}}
-	\end{subfigure}
-	
-	\caption{\label{fig:subcaption_example}Przykład użycia \texttt{\textbackslash subcaption}: \protect\subref{subfigure_a} litera A, \protect\subref{subfigure_b} litera B.}
-\end{figure}
 
-\section{Tabela}
 
-Pakiet \texttt{threeparttable} umożliwia dodanie do tabeli adnotacji: \\
 
-\begin{table}[h]
-	\centering
-	
-	\begin{threeparttable}
-		\caption{Przykład tabeli}
-		\label{tab:table_example}
-		
-		\begin{tabularx}{0.6\textwidth}{C{1}}
-			\toprule
-			\thead{Nagłówek\tnote{a}} \\
-			\midrule
-			Tekst 1 \\
-			Tekst 2 \\
-			\bottomrule
-		\end{tabularx}
-		
-		\begin{tablenotes}
-			\footnotesize
-			\item[a] Jakiś komentarz\textellipsis
-		\end{tablenotes}
-		
-	\end{threeparttable}
-\end{table}
 
-\section{Wzory matematyczne}
 
-Czasem zachodzi potrzeba wytłumaczenia znaczenia symboli użytych w równaniu. Można to zrobić z użyciem zdefiniowanego na potrzeby niniejszej klasy środowiska \texttt{eqwhere}.
 
-\begin{equation}
-E = mc^2
-\end{equation}
-gdzie
-\begin{eqwhere}[2cm]
-	\item[$m$] masa
-	\item[$c$] prędkość światła w próżni
-\end{eqwhere}
 
-Odległość półpauzy od lewego marginesu należy dobrać pod kątem najdłuższego symbolu (bądź listy symboli) poprzez odpowiednie ustawienie parametru tego środowiska (domyślnie: 2 cm).
+
+
+
+
+
+
+
+
+
+
