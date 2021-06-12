@@ -31,34 +31,36 @@
 
 % ######################## ROZDZIAŁ 1 ##########################
 \chapter{Wstęp}
-\label{cha:cha1}
+\label{cha:wstep}
 
 \section{Wprowadzenie}
+\label{sec:wprowadzenie}
 
+Człowiek od zawsze starał się maksymalnie upraszczać swoje życie. W czasach pradawnych wiązało się to z konstrukcją coraz to bardziej skomplikowanych przyrządów, początkowo prymitywnych technicznie. W miarę postępu człowiek był już w stanie opracowywać bardziej zaawansowane narzędzia. Obecnie, na bardzo długiej osi rozwoju ludzkości znajdujemy się w miejscu, gdzie większość postępu jest związana z odkryciami naukowymi w takich dziedzinach, jak fizyka, chemia, biologia czy informatyka. W tej ostatniej szczególnie dużo się dzieje, a~to za sprawą m.in. uczenia maszynowego, czy szerzej, sztucznej inteligencji (SI). Wbrew pozorom nie jest to dziedzina całkiem nowa, gdyż jej początki sięgają lat 50. XX wieku, natomiast znaczące przyspieszenie rozwoju w tej dziedzinie nastąpiło dopiero w~ostatnich kilkunastu latach, a~to ze względu na coraz większą ilość produkowanych danych oraz możliwość ich szybkiego przetworzenia (szybsze procesory). Aktualnie postęp w sztucznej inteligencji jest na takim etapie, że wiele zadań przez nią wykonywanych jest lepiej, niż przez ludzi (tzw. osiągnięcia nadludzkie); wiele zadań jest też wykonywanych na poziomie mistrzowskim. Dlatego panuje obecnie trend, aby jak najwięcej czynności zautomatyzować, czy też wykonywać za pomocą sztucznej inteligencji. Stąd zapewne pojawił się pomysł, aby wykorzystać ją do kolejnego zadania, jakim jest klasyfikacja jakości odlewów.
 
-Człowiek od zawsze starał się maksymalnie upraszczać swoje życie. W czasach pradawnych wiązało się to z konstrukcją coraz to bardziej skomplikowanych przyrządów, początkowo prymitywnych technicznie. W miarę postępu człowiek był już w stanie opracowywać bardziej zaawansowane narzędzia. Obecnie, na bardzo długiej osi rozwoju ludzkości znajdujemy się w miejscu, gdzie większość postępu jest związana z odkryciami naukowymi w takich dziedzinach, jak fizyka, chemia, biologia czy informatyka. W tej ostatniej szczególnie dużo się dzieje, a to za sprawą m.in. uczenia maszynowego, czy szerzej, sztucznej inteligencji (SI). Wbrew pozorom nie jest to dziedzina całkiem nowa, gdyż jej początki sięgają lat 50. XX wieku, natomiast znaczące przyspieszenie rozwoju w tej dziedzinie nastąpiło dopiero w ostatnich kilkunastu latach, a to ze względu na coraz większą ilość produkowanych danych oraz możliwość ich szybkiego przetworzenia (szybsze procesory). Aktualnie postęp w sztucznej inteligencji jest na takim etapie, że wiele zadań przez nią wykonywanych jest lepiej, niż przez ludzi (tzw. osiągnięcia nadludzkie); wiele zadań jest też wykonywanych na poziomie mistrzowskim. Dlatego panuje obecnie trend, aby jak najwięcej czynności zautomatyzować, czy też wykonywać za pomocą sztucznej inteligencji. Stąd zapewne pojawił się pomysł, aby wykorzystać ją do kolejnego zadania, jakim jest klasyfikacja jakości odlewów.
-
-Zdjęcia mikrostruktury metali dla osoby bez specjalistycznej wiedzy wyglądają niemal identycznie. Obecnie wykorzystuje się m.in. badania niszczące w celu określenia parametrów mechanicznych odlewów. Rozwiązanie przedstawione w tej pracy pozwoliłoby zaoszczędzić środki za zużyte materiały, a także czas potrzebny na „ręczne” zidentyfikowanie jakości odlewu.
+Zdjęcia mikrostruktury metali dla osoby bez specjalistycznej wiedzy wyglądają niemal identycznie. Obecnie wykorzystuje się m.in. badania niszczące w celu określenia parametrów mechanicznych odlewów. Rozwiązanie przedstawione w tej pracy pozwoliłoby zaoszczędzić środki za zużyte materiały, a~także czas potrzebny na „ręczne” zidentyfikowanie jakości odlewu.
 
 \section{Cel i zakres pracy}
+\label{sec:cel}
 
 Celem niniejszej pracy jest pokazanie, że za pomocą metod uczenia maszynowego można skutecznie badać jakość otrzymywanych w produkcji odlewów za pomocą analizy zdjęć mikrostruktury oraz wartości parametrów mechanicznych odlewów. 
 
-Aby osiągnąć ten rezultat, wykonano przegląd dostępnej literatury w celu rozeznania się, w jaki sposób podchodzi się do zagadnienia oceny jakości odlewów za pomocą uczenia maszynowego. Jak się niestety okazało, nie ma zbyt wielu dostępnych źródeł, które w pełni spełniałyby założenia tego projektu. Dlatego po przeglądzie zebrano odpowiednie dane uczące oraz przeprowadzono na nich proces wykrywania i korygowania błędnych instancji. Następnym krokiem było już zastosowanie najbardziej uniwersalnych algorytmów uczenia maszynowego w celu zdiagnozowania, które z nich mają największą skuteczność dla tak postawionego problemu. Ostatnim krokiem było sformułowanie wniosków oraz wskazanie najbardziej skutecznego podejścia w celu oceny jakości odlewów.
+Aby osiągnąć ten rezultat, wykonano przegląd dostępnej literatury w celu rozeznania się, w jaki sposób podchodzi się do zagadnienia oceny jakości odlewów za pomocą uczenia maszynowego. Jak się niestety okazało, nie ma zbyt wielu dostępnych źródeł, które w~pełni spełniałyby założenia tego projektu. Dlatego po przeglądzie zebrano odpowiednie dane uczące oraz przeprowadzono na nich proces wykrywania i korygowania błędnych instancji. Następnym krokiem było już zastosowanie najbardziej uniwersalnych algorytmów uczenia maszynowego w celu zdiagnozowania, które z~nich mają największą skuteczność dla tak postawionego problemu. Ostatnim krokiem było sformułowanie wniosków oraz wskazanie najbardziej skutecznego podejścia w~celu oceny jakości odlewów.
 
 
 
 \section{Zawartość pracy}
+\label{sec:zawartosc}
 
-Rozdział ~\ref{cha:cha2} zawiera przegląd prac naukowych, które wpłynęły na wybór metod w tej pracy. Zostały w nim przedstawione dosyć szeroko podejścia stosowane na przestrzeni lat w celu oceny jakości odlewów i innych zadaniach blisko powiązanych. 
+Rozdział ~\ref{cha:stan.badan} zawiera przegląd prac naukowych, które wpłynęły na wybór metod w tej pracy. Zostały w~nim przedstawione dosyć szeroko podejścia stosowane na przestrzeni lat w~celu oceny jakości odlewów i~innych zadaniach blisko powiązanych. 
 
-W rozdziale 3 została przedstawiona charakterystyka uczenia maszynowego oraz sieci neuronowych, różne typy reprezentacji wiedzy, metody uczenia się i wiele innych aspektów powiązanych z tą tematyką. 
+W rozdziale \ref{cha:ucz.masz} została przedstawiona charakterystyka uczenia maszynowego oraz sieci neuronowych, różne typy reprezentacji wiedzy, metody uczenia się i~wiele innych aspektów powiązanych z~tą tematyką. 
 
-W rozdziale 4 pokazano, w jaki sposób uzyskano dane oraz jak były one przekształcane, aby wydobyć z nich jak najwięcej informacji. 
+W rozdziale \ref{cha:przyg.danych} pokazano, w~jaki sposób uzyskano dane oraz jak były one przekształcane, aby wydobyć z~nich jak najwięcej informacji. 
 
-Wszystkie przeprowadzone testy i badania wraz z wynikami zostały omówione w rozdziale 5. 
+Wszystkie przeprowadzone testy i~badania wraz z wynikami zostały omówione w rozdziale 5. 
 
-W ostatnim rozdziale 6 zostały zawarte podsumowania badań, wnioski, jakie można było z nich wyciągnąć. Zostały również zaproponowane dalsze wymagane prace w celu udoskonalenia otrzymanych wyników.
+W ostatnim rozdziale 6 zostały zawarte podsumowania badań, wnioski, jakie można było z nich wyciągnąć. Zostały również zaproponowane dalsze wymagane prace w~celu udoskonalenia otrzymanych wyników.
 
 
 
