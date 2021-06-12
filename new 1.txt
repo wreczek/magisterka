@@ -1,1 +1,29 @@
-43
+import os
+
+TEX_EXTENSION = '.tex'
+
+
+os.chdir(r"C:\Users\lunesco\OneDrive\Desktop\Studia\Semestr 10\MGR\magisterka")
+print(os.getcwd())
+for file in os.listdir():
+	print(file)
+	if os.path.splitext(file)[1] == TEX_EXTENSION and 'orphan' not in file:
+		with open(file, encoding='utf8') as f:
+			text = f.read()
+		
+		text_no_orphans = text.replace(' i ', ' i~')\
+							.replace(' I ', ' I~')\
+							.replace(' w ', ' w~')\
+							.replace(' W ', ' W~')\
+							.replace(' o ', ' o~')\
+							.replace(' O ', ' O~')\
+							.replace(' z ', ' z~')\
+							.replace(' Z ', ' Z~')\
+							.replace(' a ', ' a~')\
+							.replace(' A ', ' A~')
+							
+		with open(f'{os.path.splitext(file)[0]}_no_orphans{os.path.splitext(file)[1]}', 'w', encoding='utf8') as f:
+			f.write(text_no_orphans)
+			
+		print(os.getcwd())
+		print(os.listdir(os.getcwd()))
