@@ -1,0 +1,71 @@
+import os
+
+TEX_EXTENSION = '.tex'
+
+
+os.chdir(r"C:\Users\lunesco\OneDrive\Desktop\Studia\Semestr 10\MGR\magisterka")
+
+for file in os.listdir():
+	print(file)
+	if os.path.splitext(file)[1] == TEX_EXTENSION and 'orphan' not in file:
+		with open(file, encoding='utf8') as f:
+			text = f.read()
+		
+		text_new_references = text\
+							.replace(r'[1]', r'\cite{Santos09}')\
+							.replace(r'[2]', r'\cite{wiki:klas.stat}')\
+							.replace(r'[3]', r'\cite{Olson85}')\
+							.replace(r'[4]', r'\cite{ferrite.meter}')\
+							.replace(r'[5]', r'\cite{Babu13}')\
+							.replace(r'[6]', r'\cite{Saluja15}')\
+							.replace(r'[7]', r'\cite{Vitek03.I}')\
+							.replace(r'[8]', r'\cite{Vitek03.II}')\
+							.replace(r'[9]', r'\cite{Vasudevan13}')\
+							.replace(r'[10]', r'\cite{Bhadeshia07}')\
+							.replace(r'[11]', r'\cite{Badmos13}')\
+							.replace(r'[12]', r'\cite{Nieves09}')\
+							.replace(r'[13]', r'\cite{Yang16}')\
+							.replace(r'[14]', r'\cite{Yoseba08}')\
+							.replace(r'[15]', r'\cite{Azimi18}')\
+							.replace(r'[16]', r'\cite{Pauly16}')\
+							.replace(r'[17]', r'\cite{Britz17}')\
+							.replace(r'[18]', r'\cite{Shrestha13}')\
+							.replace(r'[19]', r'\cite{Wang20}')\
+							.replace(r'[20]', r'\cite{Durmaz21}')\
+							.replace(r'[21]', r'\cite{Stoll21}')\
+							.replace(r'[22]', r'\cite{Mitchell97}')\
+							.replace(r'[23]', r'\cite{Koza96}')\
+							.replace(r'[24]', r'\cite{Sawka20}')\
+							.replace(r'[25]', r'\cite{Ng}')\
+							.replace(r'[26]', r'\cite{Shorten19}')\
+							.replace(r'[27]', r'\cite{Gandhi21}')\
+							.replace(r'[28]', r'\cite{norma}')\
+							.replace(r'[29]', r'\cite{Sarkar18}')\
+							.replace(r'[30]', r'\cite{Bickel06}')\
+							.replace(r'[31]', r'\cite{Chmiel20}')\
+							.replace(r'[32]', r'\cite{Sawka18}')\
+							.replace(r'[33]', r'\cite{wiki:latex}')\
+							.replace(r'[34]', r'\cite{Boser92}')\
+							.replace(r'[35]', r'\cite{Grus18}')\
+							.replace(r'[36]', r'\cite{wiki:dec.drzewo}')\
+							.replace(r'[37]', r'\cite{Quinlan96}')\
+							.replace(r'[38]', r'\cite{wiki:dec.tree}')\
+							.replace(r'[39]', r'\cite{Ho95}')\
+							.replace(r'[40]', r'\cite{aporras}')\
+							.replace(r'[41]', r'\cite{Jaskowiak70}')\
+							.replace(r'[42]', r'\cite{Piryonesi20}')\
+							.replace(r'[43]', r'\cite{wiki:knn}')\
+							.replace(r'[44]', r'\cite{wiki:logit}')\
+							.replace(r'[45]', r'\cite{wiki:bayes}')\
+							.replace(r'[46]', r'\cite{Kurama20}')\
+							.replace(r'[47]', r'\cite{ColumbiaLearn}')\
+							.replace(r'[48]', r'\cite{Hur02}')\
+							.replace(r'[49]', r'\cite{Ramchandani18}')\
+							.replace(r'[50]', r'\cite{Menard02}')\
+							.replace(r'[51]', r'\cite{Piryonesi19}')\
+							.replace(r'[52]', r'\cite{Li}')\
+							.replace(r'[53]', r'\cite{Tadeusiewicz15}')\
+							.replace(r'[54]', r'\cite{Simonyan15}')
+							
+		with open(f'{os.path.splitext(file)[0]}_new_references{os.path.splitext(file)[1]}', 'w', encoding='utf8') as f:
+			f.write(text_new_references)
