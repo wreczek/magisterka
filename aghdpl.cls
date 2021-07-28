@@ -34,7 +34,7 @@
 \RequirePackage{amsmath}
 \RequirePackage[hidelinks, unicode, backref=true]{hyperref}
 %\RequirePackage[nobiblatex]{xurl}
-
+\RequirePackage{outlines}
 % ############################################
 
 \RequirePackage[font=small, labelfont=bf, labelsep=period]{caption}
@@ -66,6 +66,10 @@
 \linespread{1.3}
 \renewcommand{\labelitemi}{--}
 
+% ### MOJE ###
+\renewcommand{\labelitemii}{•}
+%\renewcommand\labelitemii{$\textbullet$} % mialo robic to co wyzej, ale nie dziala ;d
+% ############
 %------------------------------------------------------------------------------
 
 
