@@ -65,21 +65,6 @@ Poniższe sekcje zawierają wyjaśnienie tych etapów.
 \label{sec:normalizacja_przyblizenia}
 
 W tym kroku wszystkie zdjęcia zostały wczytane, a następnie wszystkie fotografie o przybliżeniu różnym niż 500 razy zostały pocięte na mniejsze. Obrazy o powiększeniu 500x są zachowywane, natomiast obrazy w powiększeniu około 100x są dzielone na 25 mniejszych części i zapisywane w nowej bazie danych (rys. \ref{fig:mesh16}). Ponadto rozmiar bramki dla zdjęć wynosił 335 x 251 (szerokość x  wysokość). Po tej fazie uzyskaliśmy 2400 fotografii z początkowej liczby 115 zdjęć mikrostruktur dla podstawy Rp oraz 4757 zdjęć z początkowej liczby 223 zdjęć mikrostruktur dla podstawy Rm. Podsumowując, statystyki dla obu baz danych po tej fazie są następujące:
-%\begin{itemize}
-%	\item Rm (wytrzymałość na rozciąganie):
-%	\begin{itemize}
-%	\begin{outline}
-%		\item liczba zdjęć reprezentujących niską wytrzymałość wzrosła z 65 do 1397,
-%		\item liczba zdjęć reprezentujących wysoką wytrzymałość wzrosła ze 158 do 3400,
-%		\item łączna liczba zdjęć wzrosła z 223 do 4757,
-%		\item 24 zdjęcia miały przybliżenie 500x, 199 zdjęć miało przybliżenie 100x;
-%	\end{itemize}
-%	\item Rp (granica sprężystości):
-%	\begin{itemize}
-%		\item liczba zdjęć w tym przypadku również średnio wzrosła aż dwudziestokrotnie
-%	\end{itemize}
-%\end{itemize}
-
 \begin{outline}
 	\1 Rm (wytrzymałość na rozciąganie):
 		\2 liczba zdjęć reprezentujących niską wytrzymałość wzrosła z 65 do 1397,
@@ -89,7 +74,6 @@ W tym kroku wszystkie zdjęcia zostały wczytane, a następnie wszystkie fotogra
 	\1 Rp (granica sprężystości):
 		\2 liczba zdjęć w tym przypadku również średnio wzrosła aż dwudziestokrotnie
 \end{outline}
-
 Dodatkowo w trakcie badania wyeliminowano zdjęcia ze znaczną ilością czerwonego odcienia (czyli takie, na których skala mocno zniekształca obraz).
 \begin{figure}[h]
     \centering
@@ -103,6 +87,42 @@ Udało się to osiągnąć, wykonując analizę histograficzną kanału czerwone
 % ########### Normalizacja skali ###############
 \subsection{Normalizacja skali}
 \label{sec:normalizacja_skali}
+
+Jak już wspomniano wczeniej, zdarzało się, iż mimo tego samego przybliżenia, dwa zdjęcia nieznacznie różniły się pod względem skali. Można to było zauważyć na skali, która znajduje się na każdej fotografii w prawym dolnym rogu. Mimo, iż zdjęcia miały to samo przybliżenie, to ta sama odległość na dwóch różnych zdjęciach mogła odpowiadać innej długości w rzeczywistoci. Dlatego zdecydowano, aby znormalizować te dane również pod tym względem. Rozwiązanie zostało zaczerpnięte z pracy \cite{Reczek21}, która operowała na tym samym zestawie danych, a polegało ono na redukcji wszystkich kolorów oprócz tego, którego użyto do oznaczenia podziałki. Następnie, za pomocą operacji morfologicznych wykrywano poziomą linię, dzięki czemu można było wyznaznaczyć jej końce, a tym samym obliczyć jej długość. Na rys. \ref{fig:mesh17} przedstawiono wizualny wynik tych operacji. Wynik liczbowy natomiast był zapisywany w nazwie pliku. 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{rys.17.podzialka.skali.png}
+    \caption{Przykładowy obrazek z poprawnie wykrytą na nim podziałką skali. Żródło: opracowanie własne przy wykorzystaniu \cite{Reczek21, Pirowski17}}
+    \label{fig:mesh17}
+\end{figure}
+Dzięki takiej wizualnej reprezentacji można było zweryfikować poprawność w ten sposób wyznaczonej długości podziałki. Ze względu na to, iż tekst reprezentujący rzeczywistą długość podziałki był w tym samym kolorze zdarzały się błędy, jak na rysunku \ref{fig:mesh18}. 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.3\textwidth]{rys.18.podzialka.skali.niepoprawnie.png}
+    \caption{Przykładowy obrazek z niepoprawnie wykrytą na nim podziałką skali. Żródło: opracowanie własne przy wykorzystaniu \cite{Reczek21, Pirowski17}}
+    \label{fig:mesh18}
+\end{figure}
+Aczkolwiek po przeanalizowaniu wyników okazuje się, że skuteczność tej metody wynosi aż 99\%, a więc bez problemu można ją wykorzystać w dalszych badaniach.
+
+% ########### Augmentacja ###############
+\section{Augmentacja}
+\label{sec:augmentacja}
+
+Augmentacja, a więc rozszerzenie danych to techniki służące do zwiększenia iloci danych poprzez modyfikację kopii istniejących danych. Proces ten teoretycznie można podpiąć pod poprzedni punikt, czyli przygotowanie danych, a w szczególności, wykonanie przekształceń. Jednakże jest to obszerny temat, który zawiera w sobie wiele różnych podejść, dlatego powięcono mu cały osobny podrozdział. 
+
+W badaniach wykorzystano kilka rodzajów augmentacji. Najpierw zastosowano technikę zwaną przycinaniem (ang. \ita{cropping}). Polegała ona na pocięciu obrazów o przybliżeniu 100x na 25 mniejszych części. Proces ten został szczegółowo opisany w rozdziale \ref{sec:normalizacja_przyblizenia}. Kolejnym zastosowanym podeściem jest skalowanie (ang. \ita{scaling}).  Polega ono na zeskalowaniu obrazów tak, aby odcinki tej samej długości na obrazku odpowiadały tej samej długości w rzeczywistości. Proces ten jest szczegółowo opisany w rozdziale \ref{sec:normalizacja_skali}. Następną techniką wykorzystaną w badaniach było odbicie (ang. \ita{flipping}). Dzięki tej technice możliwe jest nawet czterokrotne powiększenie zestawu danych! Dodatkową, bardzo dużą zaletą tej metody jest fakt, że nie zmienia ona wymiarów obrazów. Jest to szczególnie korzystne, ponieważ posiadane  dane nie mają tej samej szerokości i długości, co uniemożliwia wykorzystanie technik modyfikujących wymiary. Ze względu na dużą nierównowagę klas metoda ta jest przez nas wykorzystywana głównie do kompensowania liczności klas rzadkich.
+
+
+% ########### Momenty Hu, tekstury Haralicka ###############
+\section{Momenty Hu, tekstury Haralicka}
+\label{sec:Momenty Hu, tekstury Haralicka}
+
+Momenty Hu, tekstury Haralicka??? To robiła Magda ale ja też co mogę zrobić i ewentualnie to wykorzystać.
+
+
+
+
+
 
 
 

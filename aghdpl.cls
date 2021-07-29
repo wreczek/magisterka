@@ -64,10 +64,13 @@
 
 
 \linespread{1.3}
-\renewcommand{\labelitemi}{--}
+\renewcommand{\labelitemi}{--} % pierwsze pauzy saw  postaci pauzy
 
 % ### MOJE ###
-\renewcommand{\labelitemii}{•}
+\newcommand{\ita}{\textit} % italic text, alias
+\newcommand{\bo}{\textbf} % bold text, alias
+
+\renewcommand{\labelitemii}{•} % drugie pauzy(bardziej wciete) sa w postaci kropek
 %\renewcommand\labelitemii{$\textbullet$} % mialo robic to co wyzej, ale nie dziala ;d
 % ############
 %------------------------------------------------------------------------------
