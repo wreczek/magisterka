@@ -1,76 +1,3 @@
-%\chapter{Przykłady elementów pracy dyplomowej}
-%
-%\section{Liczba}
-%
-%Pakiet \texttt{siunitx} zadba o~to, by liczba została poprawnie sformatowana: \\
-%\begin{center}
-%	\num{1234567890.0987654321}
-%\end{center}
-%
-%
-%\section{Rysunek}
-%
-%Pakiet \texttt{subcaption} pozwala na umieszczanie w~podpisie rysunku odnośników do ,,podilustracji'': \\
-%
-%\begin{figure}[h]
-%	\centering
-%	\begin{subfigure}{0.35\textwidth}
-%		\centering
-%		\framebox[2.0\width]{A}
-%		\subcaption{\label{subfigure_a}}
-%	\end{subfigure}
-%	\begin{subfigure}{0.35\textwidth}
-%		\centering
-%		\framebox[2.0\width]{B}
-%		\subcaption{\label{subfigure_b}}
-%	\end{subfigure}
-%	
-%	\caption{\label{fig:subcaption_example}Przykład użycia \texttt{\textbackslash subcaption}: \protect\subref{subfigure_a} litera A, \protect\subref{subfigure_b} litera B.}
-%\end{figure}
-%
-%\section{Tabela}
-%
-%Pakiet \texttt{threeparttable} umożliwia dodanie do tabeli adnotacji: \\
-%
-%\begin{table}[h]
-%	\centering
-%	
-%	\begin{threeparttable}
-%		\caption{Przykład tabeli}
-%		\label{tab:table_example}
-%		
-%		\begin{tabularx}{0.6\textwidth}{C{1}}
-%			\toprule
-%			\thead{Nagłówek\tnote{a}} \\
-%			\midrule
-%			Tekst 1 \\
-%			Tekst 2 \\
-%			\bottomrule
-%		\end{tabularx}
-%		
-%		\begin{tablenotes}
-%			\footnotesize
-%			\item[a] Jakiś komentarz\textellipsis
-%		\end{tablenotes}
-%		
-%	\end{threeparttable}
-%\end{table}
-%
-%\section{Wzory matematyczne}
-%
-%Czasem zachodzi potrzeba wytłumaczenia znaczenia symboli użytych w~równaniu. Można to zrobić z~użyciem zdefiniowanego na potrzeby niniejszej klasy środowiska \texttt{eqwhere}.
-%
-%\begin{equation}
-%E = mc^2
-%\end{equation}
-%gdzie
-%\begin{eqwhere}[2cm]
-%	\item[$m$] masa
-%	\item[$c$] prędkość światła w~próżni
-%\end{eqwhere}
-%
-%Odległość półpauzy od lewego marginesu należy dobrać pod kątem najdłuższego symbolu (bądź listy symboli) poprzez odpowiednie ustawienie parametru tego środowiska (domyślnie: 2 cm).
-
 \chapter{Uczenie maszynowe}
 \label{cha:ucz.masz}
 
@@ -295,13 +222,14 @@ Wśród innych metod, które również mogą się sprawdzić, można wymienić p
     \label{fig:mesh6}
 \end{figure}
 
+% ############## Uczenie się przez transfer ###############
 \section{Uczenie się przez transfer}
 \label{cha:cha3.5}
 
 Ludzie mają wrodzoną zdolność wykorzystywania wiedzy, którą zdobyli w~trakcie wykonywania innego zadania. To znaczy, wiedzę, którą zdobywamy, ucząc się pewnej rzeczy, możemy wykorzystać, wykonując inne, aczkolwiek powiązane zadanie. Im bardziej powiązane są te zadania, tym łatwiej jest nam przenieść naszą wiedzę \cite{Sarkar18}. A~więc w~najprostszych słowach, uczenie się przez transfer to idea wykorzystania wiedzy zdobytej w~ramach jednego zadania do rozwiązywania zadań pokrewnych. W~ostatnich latach uczenie się przez transfer również zaczęto stosować w~uczeniu maszynowym, czy też w~głębokim uczeniu \cite{Chmiel20}. W~tym przypadku najczęściej polega ono na wykorzystaniu już istniejącego modelu do nowego problemu. Jakie wynikają z~tego korzyści? Przede wszystkim to podejście pozwala nam na osiągnięcie zamierzonych rezultatów (np. wysoka skuteczność klasyfikacji) przy użyciu mniejszej ilości danych niż w~przypadku trenowania całkowicie nowego modelu. 
 Uczenie się przez transfer dobrze można zilustrować na przykładzie rozpoznawania obrazów (tym lepiej, że właśnie w~tym celu wykorzystano tę metodologię w~niniejszej pracy), a~mianowicie sieci neuronowe w~początkowych warstwach wykrywają krawędzie, w~kolejnych warstwach wykrywają kształty, natomiast w~ostatnich warstwach wykrywają specyficzne zależności dla danego zadania \cite{Chmiel20}. A~więc w~celu klasyfikacji danych obiektów można skorzystać z~ogólnie znanych, dobrze wytrenowanych, na wielkich zbiorach danych, głębokich sieci neuronowych (np. \textit{VGG19}) w~ten sposób, że budujemy nowy model, który kopiuje początkowe warstwy wcześniej wytrenowanej sieci, a~następnie przyłączamy nowe warstwy, które zostaną dotrenowane w~tym konkretnym celu. Oprócz wykorzystania uczenia transferowego do klasyfikacji obrazów skutecznie stosowano to podejście również w~takich zadaniach, jak klasyfikacja tekstów czy filtrowanie spamu \cite{Bickel06}. 
 
-
+% ############## Wykorzystane metody uczenia maszynowego ###############
 \section{Wykorzystane metody uczenia maszynowego}
 \label{cha:Wykorzystane metody uczenia maszynowego}
 

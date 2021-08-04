@@ -1,7 +1,7 @@
 \chapter{Przygotowanie danych}
 \label{cha:przyg.danych}
 
-Prace związane z przygotowaniem danych były niezbędne przed rozpoczęciem właściwych badań. Rozdział ten składa się z chronologicznie wykonywanych zadań. Oczywiście, jeszcze przed etapem przygotowywania danych wystąpił przegląd literatury, który został opisany w rozdziale \ref{cha:stan.badan}. Dodatkowo kroki te były również wykorzystane w badaniach nad podobnym problemem, w którym pracowano na tych samych danych \cite{Reczek21}.
+Prace związane z przygotowaniem danych były niezbędne przed rozpoczęciem właściwych badań. Rozdział ten składa się z chronologicznie wykonywanych zadań. Oczywiście, jeszcze przed etapem przygotowywania danych przeprowadzono przegląd literatury, który został opisany w rozdziale \ref{cha:stan.badan}. Dodatkowo kroki te były również wykorzystane w badaniach nad podobnym problemem, w którym pracowano na tych samych danych \cite{Reczek21}. W niektórych miejscach tej pracy wykorzystano metody opracowane również w ramach tamtych badań.
 
 \section{Pozyskanie danych}
 \label{sec:pozyskanie_danych}
@@ -108,16 +108,18 @@ Aczkolwiek po przeanalizowaniu wyników okazuje się, że skuteczność tej meto
 \section{Augmentacja}
 \label{sec:augmentacja}
 
-Augmentacja, a więc rozszerzenie danych to techniki służące do zwiększenia iloci danych poprzez modyfikację kopii istniejących danych. Proces ten teoretycznie można podpiąć pod poprzedni punikt, czyli przygotowanie danych, a w szczególności, wykonanie przekształceń. Jednakże jest to obszerny temat, który zawiera w sobie wiele różnych podejść, dlatego powięcono mu cały osobny podrozdział. 
+Augmentacja, a więc rozszerzenie danych to techniki służące do zwiększenia iloci danych poprzez modyfikację kopii istniejących danych (patrz \ref{cha:cha3.4}). Proces ten teoretycznie można podpiąć pod poprzedni punikt, czyli przygotowanie danych, a w szczególności, wykonanie przekształceń. Jednakże jest to obszerny temat, który zawiera w sobie wiele różnych podejść, dlatego powięcono mu cały osobny podrozdział. 
 
-W badaniach wykorzystano kilka rodzajów augmentacji. Najpierw zastosowano technikę zwaną przycinaniem (ang. \ita{cropping}). Polegała ona na pocięciu obrazów o przybliżeniu 100x na 25 mniejszych części. Proces ten został szczegółowo opisany w rozdziale \ref{sec:normalizacja_przyblizenia}. Kolejnym zastosowanym podeściem jest skalowanie (ang. \ita{scaling}).  Polega ono na zeskalowaniu obrazów tak, aby odcinki tej samej długości na obrazku odpowiadały tej samej długości w rzeczywistości. Proces ten jest szczegółowo opisany w rozdziale \ref{sec:normalizacja_skali}. Następną techniką wykorzystaną w badaniach było odbicie (ang. \ita{flipping}). Dzięki tej technice możliwe jest nawet czterokrotne powiększenie zestawu danych! Dodatkową, bardzo dużą zaletą tej metody jest fakt, że nie zmienia ona wymiarów obrazów. Jest to szczególnie korzystne, ponieważ posiadane  dane nie mają tej samej szerokości i długości, co uniemożliwia wykorzystanie technik modyfikujących wymiary. Ze względu na dużą nierównowagę klas metoda ta jest przez nas wykorzystywana głównie do kompensowania liczności klas rzadkich.
+W badaniach wykorzystano kilka rodzajów augmentacji. Najpierw zastosowano technikę zwaną przycinaniem (ang. \ita{cropping}). Polegała ona na pocięciu obrazów o przybliżeniu 100x na 25 mniejszych części. Proces ten został szczegółowo opisany w rozdziale \ref{sec:normalizacja_przyblizenia}. Kolejnym zastosowanym podejściem jest skalowanie (ang. \ita{scaling}).  Polega ono na zeskalowaniu obrazów tak, aby odcinki tej samej długości na obrazku odpowiadały tej samej długości w rzeczywistości. Proces ten jest szczegółowo opisany w rozdziale \ref{sec:normalizacja_skali}. Następną techniką wykorzystaną w badaniach było odbicie (ang. \ita{flipping}).
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\textwidth]{rys.19.flipped.horizontally2.png}
+    \caption{Wynik zastosowania techniki odbicia na przykładowym zdjęciu (po prawej). Widzimy, że rozmiary zdjęcia się nie zmieniają. Dodatkowo, analogicznie otrzymujemy Żródło: opracowanie własne z użyciem danych z \cite{Pirowski17}}
+    \label{fig:mesh19}
+\end{figure}
+Dzięki tej technice możliwe jest nawet czterokrotne powiększenie zestawu danych! Dodatkową, bardzo dużą zaletą tej metody jest fakt, że nie zmienia ona wymiarów obrazów. Jest to szczególnie korzystne, ponieważ posiadane  dane nie mają tej samej szerokości i długości, co uniemożliwia wykorzystanie technik modyfikujących wymiary. Ze względu na dużą nierównowagę klas metoda ta jest wykorzystywana głównie do kompensowania liczności klas rzadkich. Przykład odbicia horyzontelnego został przedstawiony na rysunku \ref{fig:mesh19}.
 
 
-% ########### Momenty Hu, tekstury Haralicka ###############
-\section{Momenty Hu, tekstury Haralicka}
-\label{sec:Momenty Hu, tekstury Haralicka}
-
-Momenty Hu, tekstury Haralicka??? To robiła Magda ale ja też co mogę zrobić i ewentualnie to wykorzystać.
 
 
 
