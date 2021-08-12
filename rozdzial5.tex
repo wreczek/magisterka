@@ -146,7 +146,7 @@ Dodatkowo, aby nie zwiększać sztucznie dokładności ze względu na podobieńs
 W kolejnym kroku postanowiono zbadać uogólnioną transformatę Hougha (ang. \ita{generalised Hough transform}, \bo{GHT}). Wykorzystano w tym celu otwartoźródłową bibliotekę \ita{general-hough}. 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.6\textwidth]{rys.21.ght.duza.kulka.png}
+    \includegraphics[width=0.5\textwidth]{rys.21.ght.duza.kulka.png}
     \caption{Wykrywanie kształtu przedstawionego na obrazie referencyjnym (ang. \ita{reference image}) na obrazie zapytania (ang. \ita{query image}). W prawym dolnym rogu na czerwono zaznaczono wykryte kształty. Żółty krzyżyk oznacza najtrafniejszy punkt. Obraz referencyjny w tym przypadku to czarne koło. Żródło: opracowanie własne przy wykorzystaniu biblioteki \ita{general-hough}}
     \label{fig:mesh21}
 \end{figure}
@@ -178,7 +178,120 @@ Mimo wszystko takie podejście jest mało praktyczne, gdyż dla różnych obraz�
 \label{canny}
 
 Kolejne techniki były bardziej skoncentrowane na wycinaniu poszczególnych struktur, a następnie kategoryzowaniu każdej z nich niezależnie w kolejnych fazach. W tym celu wykorzystano pakiet \ita{opencv-python} (nazywana dalej \ita{cv}). Jednak w pierwszym kroku opracowano algorytm do przeprowadzania prostego zliczania struktur bez rozróżniania klasy kształtu. Krawędzie struktur wykrywano metodą Canny'ego \cite{Canny86}. Dodatkowo przetestowano różne techniki rozmywania obrazu (ang. \ita{blur}), czy inaczej – wygładzania, m.in. uśrednianie (w pythonie \ita{cv.blur}), rozmycie gaussowskie (ang. \ita{Gaussian blur}, w pythonie \ita{cv.GaussianBlur}), rozmycie środkowe (ang. \ita{median blurring}, w pythonie \ita{cv.medianBlur}) i filtrowanie dwustronne (ang. \ita{bilateral filtering}, w pythonie \ita{cv.bilateralFilter}). 
-Otrzymujemy zróżnicowaną oprawę graficzną i efekty w zależności od rozmiaru jądra użytego w rozmyciu. Rysunek 22 przedstawia trzy zdjęcia, z których jeden jest oryginalny, a dwa inne, na których zastosowano wykrywanie krawędzi. Jeden ma antyaliasing (rozmiar jądra 5x5), podczas gdy drugi nie.
+W zależności od rozmiaru zastosowanego jądra (ang. \ita{kernel}) otrzymujemy różne efekty przy rozmyciu. Rysunek \ref{fig:mesh24} przedstawia trzy zdjęcia, z których jeden jest oryginalny (pierwszy od prawej), a dwa pozostałe to efekt zastosowania wykrywania krawędzi. W pierwszym od lewej zastosowano antyaliasing (rozmiar jądra 5x5), podczas gdy w środkowym obrazie nie.
+\begin{figure}[h]
+	\centering
+	\begin{subfigure}{0.29\textwidth}
+	    \centering
+	    \includegraphics[width=1\textwidth]{rys.25a.canny.antialiasing.jpg} % pominalem obrazek 24, moze dodam kiedys
+	    \subcaption{\label{subfigure_a}Wykrywanie krawędzi z wykorzystaniem wygładzania}
+	\end{subfigure}
+	\begin{subfigure}{0.29\textwidth}
+	    \centering
+	    \includegraphics[width=1\textwidth]{rys.25b.canny.jpg}
+	    \subcaption{\label{subfigure_b}Wykrywanie krawędzi na oryginalnym obrazku}
+	\end{subfigure}
+	\begin{subfigure}{0.29\textwidth}
+	    \centering
+	    \includegraphics[width=1\textwidth]{rys.25c.canny.original.jpg}
+	    \subcaption{\label{subfigure_c}Oryginalne zdjęcie mikrostruktury}
+	\end{subfigure}
+	\caption{\label{fig:mesh24}Wykrywanie krawędzi z wykorzystaniem filtra Canny'ego. Źródło: opracowanie własne}
+\end{figure}
+Wykryte struktury zostały następnie zliczone. Są to wszystie kontury widoczne na dwóch pierwszych obrazkach na rys. \ref{fig:mesh24}. Rysunek \ref{fig:mesh25} przedstawia przykład obrazu, dla którego algorytm wyliczył dziesięć takich struktur (czy też konturów).
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.35\textwidth]{rys.26.sample.image.strusctures.counting.png}
+    \caption{Przykładowe zdjęcie mikrostruktury, dla którego wykryto 10 kształtów}
+    \label{fig:mesh25}
+\end{figure}
+Zliczanie konturów przeprowadzono w taki sposób, iż dla każdego obiektu obliczono pole powierzchni i obwód. W ten sposób można odrzucić kontury o małej powierzchni lub małym obwodzie. Wszystkie drobne, nieistotne kształty są eliminowane za pomocą tego podejścia. Podczas prób przebadano również takie metody, jak progowanie (ang. \ita{threshold}), dylatacja (ang. \ita{dilation}), erozja (ang. \ita{erosion}) i morfologia (ang. \ita{morphology}), jednakże najlepsze wyniki osiągnięto podczas zliczania struktur na oryginalnym zdjęciu.
+
+\subsection{Wycinanie pojedynczych struktur z obrazków}
+\label{wycinanie.struktur}
+
+Następnie, posiadając kod, z pomocą którego jesteśmy w stanie wyznaczać kontury struktur, możemy spróbować je wycinać. Przyjęto strategię wycinania pojedynczych obiektów, a następnie nakładania ich na białe tło. Struktury były umieszczane w środku obrazu o białym tle o wymiarach 335 x 251 (szer. x wys.). Przykładowa wycięta struktura znajduje się na rys. \ref{fig:mesh26}.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.25\textwidth]{rys.27.przykladowa.wycieta.struktura.png}
+    \caption{Przykładowe zdjęcie wyciętej struktury (obraz przybliżony). Pozostałe kształty są wycinane analogicznie}
+    \label{fig:mesh26}
+\end{figure}
+Poniższe obrazki (rys. \ref{fig:mesh26} i \ref{fig:mesh27}) przedstawiają działanie tego procesu. Tym samym kolorem zostały zaznaczone kształty, które zostały potraktowane jako jeden obiekt. Natomiast na rys. \ref{fig:mesh28} możemy zobaczyć przykładowe struktury, które zostały wycięte ze zdjęcia przedstawionego na rys. \ref{fig:mesh26}. 
+\begin{figure}[h]
+	\centering
+	\begin{subfigure}{0.29\textwidth}
+	    \centering
+	    \includegraphics[width=1\textwidth]{rys.28a.wycinanie.struktur.png}
+	    \subcaption{\label{subfigure_a}Zdjęcie mikrostruktury}
+	\end{subfigure}
+	\begin{subfigure}{0.29\textwidth}
+	    \centering
+	    \includegraphics[width=1\textwidth]{rys.28b.wycinanie.struktur.png}
+	    \subcaption{\label{subfigure_b}Wykryte struktury}
+	\end{subfigure}
+	\caption{\label{fig:mesh26}Działanie filtra Canny'ego. Każda wykryta struktura jest zaznaczona innym kolorem. Źródło: opracowanie własne}
+\end{figure}
+Struktury na obrazku oznaczone tym samym kolorem (a zatem uznane jako pojedynczy obiekt) są wycinane i umieszczane na białym tle. Zostaną one wykorzystane do trenowania modeli kategoryzacji w kolejnych fazach. Z drugiej strony, jak widać na powyższym obrazie, wadą tej techniki jest to, że struktury są czasami ze sobą połączone, a następnie traktowane przez algorytm jako jedna całość. Dzieje się tak najczęściej w przypadku klas I i II (rys. \ref{fig:mesh14}), które są rozciągnięte na zdjęciach i często się stykają ze sobą. 
+\begin{figure}[h]
+	\centering
+	\begin{subfigure}{0.29\textwidth}
+	    \centering
+	    \includegraphics[width=1\textwidth]{rys.29a.wycinanie.struktur.png}
+	    \subcaption{\label{subfigure_a}Zdjęcie mikrostruktury}
+	\end{subfigure}
+	\begin{subfigure}{0.29\textwidth}
+	    \centering
+	    \includegraphics[width=1\textwidth]{rys.29b.wycinanie.struktur.png}
+	    \subcaption{\label{subfigure_b}Wykryte struktury}
+	\end{subfigure}
+	\caption{\label{fig:mesh27}Kolejny przykład działania filtra Canny'ego. Każda wykryta struktura jest zaznaczona innym kolorem. Źródło: opracowanie własne}
+\end{figure}
+Próbowano tego uniknąć za pomocą takich algorytmów, jak erozji i progowania, ale te podejścia nie przyniosły zamierzonych rezultatów. Poniżej inny przykład działania tego samego algorytmu.
+Algorytm na rys. \ref{fig:mesh26} zadziałał nieco lepiej niż na rys. \ref{fig:mesh26}. Jak widać, większość elementów została wycięta osobno. Tylko połączone kształty zostały wycięte jako jedna całość. Niestety nie ma na to uniwersalnego rozwiązania, ponieważ gdy ten problem zostanie rozwiązany, pojawia się nowy, jak np. brak wycinania mniej widocznych struktur lub wykrywanie wyblakłych struktur, które powinny zostać pominięte.
+\begin{figure}[h]
+	\centering
+	\begin{subfigure}{0.29\textwidth}
+	    \centering
+	    \includegraphics[width=1\textwidth]{rys.30a.wyciete.obiekty.png}
+	\end{subfigure}
+	\begin{subfigure}{0.29\textwidth}
+	    \centering
+	    \includegraphics[width=1\textwidth]{rys.30b.wyciete.obiekty.png}
+	\end{subfigure}
+	\begin{subfigure}{0.29\textwidth}
+	    \centering
+	    \includegraphics[width=1\textwidth]{rys.30c.wyciete.obiekty.png}
+	\end{subfigure}
+	\begin{subfigure}{0.29\textwidth}
+	    \centering
+	    \includegraphics[width=1\textwidth]{rys.30d.wyciete.obiekty.png}
+	\end{subfigure}
+	\begin{subfigure}{0.29\textwidth}
+	    \centering
+	    \includegraphics[width=1\textwidth]{rys.30e.wyciete.obiekty.png}
+	\end{subfigure}
+	\begin{subfigure}{0.29\textwidth}
+	    \centering
+	    \includegraphics[width=1\textwidth]{rys.30f.wyciete.obiekty.png}
+	\end{subfigure}
+	\caption{\label{fig:mesh28}Przykładowe wycięte struktury z rys. \ref{fig:mesh26}. Źródło: opracowanie własne}
+\end{figure}
+Wycięte w ten sposób obiekty (rys. \ref{fig:mesh28}) są wprowadzane na wejście sieci neuronowej (rozdział \ref{klasyfikacja.struktur}), która zostanie wytrenowana kategoryzowania tych struktur. W naszym zbiorze mamy siedem różnych klas. Sześć z nich (rys. \ref{fig:mesh14}) to kształty wyróżnione w normie \cite{norma}, natomiast autor dodał klasę siódmą, aby odróżnić te struktury od obiektów, które zostałe źle wycięte lub zawierających skalę, którą można znaleźć na wszystkich zdjęciach mikrostruktur. Wszystkie wycięte elementy były przechowywane lokalnie i arbitralnie przypisywane do klas podczas tworzenia zbioru danych. Liczność tych klas jest następująca:
+\begin{itemize}[label=\textbullet]
+	\item klasa 0 – 14 przykładów (dodana przez autora),
+	\item klasa I – 278 przykładów,
+	\item klasa II – 122 przykładów,
+	\item klasa III – 292 przykładów,
+	\item klasa IV – 76 przykładów,
+	\item klasa V – 289 przykładów,
+	\item klasa VI – 501 przykładów.
+\end{itemize}
+Więcej szczegółów na temat przygotowania tych danych można znaleźć w rozdziale 4.5.
+
+\subsection{Rozpoznawanie wyciętych struktur}
+\label{klasyfikacja.struktur}
+
 % chyba bym się w sumie nie trzymał tego schematu, tylko chronologicznie i jednoczesnie Rm i Rp ;d
 %5.2. Opis wykonanych badań i testów oraz własnej implementacji
 %
