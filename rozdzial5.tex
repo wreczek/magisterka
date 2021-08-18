@@ -313,117 +313,120 @@ Z drugiej strony wyniki wydają się być znacznie lepsze przy wykorzystaniu dan
 	\begin{threeparttable}
 		\caption{Podsumowanie różnych podejść co do klasyfikacji kształtów. Źródło: opracowanie własne}
 		\label{structures.classification.different.approaches}
-		\begin{tabularx}{1\textwidth}{ |X|X|X|X|X| }
+		\begin{tabularx}{1\textwidth}{ |X|X|X|X| }
 		  \hline
-		  \textbf{Model} & \textbf{Augmentacja} & \textbf{Zaszumienie} & \textbf{Usuwanie szarości} & \textbf{Dokładność}\\
+		   \textbf{Augmentacja} & \textbf{Zaszumienie} & \textbf{Usuwanie szarości} & \textbf{Dokładność}\\
 
 		  \hline
-		  VGG19 & Nie & Nie & Nie & \bo{82.2\%}\\
+		  Nie & Nie & Nie & \bo{82.2\%}\\
 
 		  \hline
-		  VGG19 & Tak & Nie & Nie & 78\%\\
+		  Tak & Nie & Nie & 78\%\\
 
 		  \hline
-		  VGG19 & Tak & Tak & Nie & 79.7\%\\
+		  Tak & Tak & Nie & 79.7\%\\
 
 		  \hline
-		  VGG19 & Tak & Tak & Tak & 77.1\%\\
+		  Tak & Tak & Tak & 77.1\%\\
   		  
 		  \hline
-		  VGG19 & Tak (dod. klasę III) & Tak & Tak & 74.9\%\\
+		  Tak (dod. klasę III) & Tak & Tak & 74.9\%\\
   		  
 		  \hline
 		\end{tabularx}
 	\end{threeparttable}
 \end{table}
-A więc, jak możemy zauważyć, manipulacja danymi nie wpływa pozytywnie na wynik klasyfikacji. Biorąc pod uwagę niezbalansowanie klas oraz to, iż te dane były przygotowywane ręcznie przez autora tej pracy (który nie jest specjalistą w dziedzinie metalurgii), w celu poprawy wyników tej klasyfikacji najprawdopodobniej konieczne jest, aby przygotował je ekspert w tej dziedzinie. Można to zadanie potraktować jako dalszą część prac, które byłyby rozszerzeniem niniejszej pracy. W dalszych badaniach zostanie wykorzystana architekturu wraz z danymi, dla których otrzymano najwyższe wyniki, tj. sieć neuronowa VGG19 wraz z pierwotnie przygotowanymi obrazami struktur.
+A więc, jak możemy zauważyć, manipulacja danymi nie wpłynęła pozytywnie na wynik klasyfikacji. W związku z tym dalsze badania zostaną przeprowadzone na architekturze, dla której osiągnięto najlepsze wyniki. Biorąc pod uwagę niezbalansowanie klas oraz to, iż te dane były przygotowywane ręcznie przez autora tej pracy (który nie jest specjalistą w dziedzinie metalurgii), w celu poprawy wyników tej klasyfikacji najprawdopodobniej konieczne jest, aby przygotował je ekspert w tej dziedzinie. Można to zadanie potraktować jako dalszą część prac, które byłyby rozszerzeniem niniejszej pracy. W dalszych badaniach zostanie wykorzystana architekturu wraz z danymi, dla których otrzymano najwyższe wyniki, tj. sieć neuronowa VGG19 wraz z pierwotnie przygotowanymi obrazami struktur.
 Poniżej przedstawiono przykłady klasyfikacji struktur z wykorzystaniem opisanych powyżej metod.
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.4\textwidth]{rys.33.diagram.kolowy.legenda.png}
-    \caption{xxx. Żródło: opracowanie własne (z wykorzystaniem biblioteki \ita{matplotlib})}
+    \caption{Legenda użytych kolorów w celu oznaczenia struktur na obrazach, które należą do różnych klas. Żródło: opracowanie własne (z wykorzystaniem biblioteki \ita{matplotlib})}
     \label{rys.33.diagram.kolowy.legenda.png}
 \end{figure}
-Na rys \ref{rys.33.diagram.kolowy.legenda.png} została przedstawiona legenda. Każdy z siedmiu kolorów przedstawionych na wykresie kołowym odpowiada jednej z siedmiu klas strukur (zgodnie z opisem na diagramie). Kolory te zostały dobrane za pomocą generatora wizualnie odmiennych kolorów, aby były jak najbardziej wyraziste. Na poniższych obrazach obowiązuje schemat, iż po prawej stronie znajduje się oryginalne zdjęcie mikrostruktury, natomiast po lewej stronie znajduje się to samo zdjęcie, z tym że znajdujące tam struktury zostały pokolorowane zgodnie z legendą. Proces wygląda w ten sposób, że dla każdego zdjęcia wejściowego przeprowadzane są operacje opisane w rozdziale \ref{wycinanie.struktur}, a następnie są one klasyfikowane przez architekturę przedstawioną w tym rozdziale. W związku z tym mogą wystąpić błędy, jak brak wykrycia danej struktury bądź złe sklasyfikowanie struktury.
-
+Na rys \ref{rys.33.diagram.kolowy.legenda.png} została przedstawiona legenda. Każdy z siedmiu kolorów przedstawionych na wykresie kołowym odpowiada jednej z siedmiu klas strukur (zgodnie z opisem na diagramie). Kolory te zostały dobrane za pomocą generatora wizualnie odmiennych kolorów, aby były jak najbardziej wyraziste. Na poniższych obrazach (rys. \ref{rys.34} - \ref{rys.38}) 
 \begin{figure}[h]
 	\centering
 	\begin{subfigure}{0.42\textwidth}
 	    \centering
 	    \includegraphics[width=1\textwidth]{rys.34a.pokolorowane.struktury.png}
-	    \subcaption{\label{subfigure_a}Wykryte i sklasyfikowane struktury}
+	    \subcaption{\label{subfigure_a}Wykryte, sklasyfikowane i ubarwione struktury}
 	\end{subfigure}
 	\begin{subfigure}{0.42\textwidth}
 	    \centering
 	    \includegraphics[width=1\textwidth]{rys.34b.oryginalne.zdjecie.png}
 	    \subcaption{\label{subfigure_b}Zdjęcie mikrostruktury}
 	\end{subfigure}
-	\caption{\label{rys.34}xxx. Źródło: opracowanie własne}
+	\caption{\label{rys.34}Zdjęcia mikrostruktury zawierające struktury klas I-III. Źródło: opracowanie własne}
 \end{figure}
-
+obowiązuje schemat, iż po prawej stronie znajduje się oryginalne zdjęcie mikrostruktury, natomiast po lewej stronie znajduje się to samo zdjęcie, z tym że znajdujące tam struktury zostały pokolorowane zgodnie z legendą (rys. \ref{rys.33.diagram.kolowy.legenda.png}). Są to przykładowe zdjęcia, które 
 \begin{figure}[h]
 	\centering
 	\begin{subfigure}{0.42\textwidth}
 	    \centering
 	    \includegraphics[width=1\textwidth]{rys.35a.pokolorowane.struktury.png}
-	    \subcaption{\label{subfigure_a}Wykryte i sklasyfikowane struktury}
+	    \subcaption{\label{subfigure_a}Wykryte, sklasyfikowane i ubarwione struktury}
 	\end{subfigure}
 	\begin{subfigure}{0.42\textwidth}
 	    \centering
 	    \includegraphics[width=1\textwidth]{rys.35b.oryginalne.zdjecie.png}
 	    \subcaption{\label{subfigure_b}Zdjęcie mikrostruktury}
 	\end{subfigure}
-	\caption{\label{rys.35}xxx. Źródło: opracowanie własne}
+	\caption{\label{rys.35}Zdjęcia mikrostruktury wraz ze strukturami klasy III, V i VI. Można zauważyć również, że jedna, podłużna struktura została sklasyfikowana jako typ I. Źródło: opracowanie własne}
 \end{figure}
-
+dobrze reprezentują cały proces, który wygląda w ten sposób, że dla każdego zdjęcia wejściowego przeprowadzane są operacje opisane w rozdziale \ref{wycinanie.struktur}, a następnie są one klasyfikowane przez architekturę przedstawioną w 
 \begin{figure}[h]
 	\centering
-	\begin{subfigure}{0.42\textwidth}
+	\begin{subfigure}{0.41\textwidth}
 	    \centering
 	    \includegraphics[width=1\textwidth]{rys.36a.pokolorowane.struktury.png}
-	    \subcaption{\label{subfigure_a}Wykryte i sklasyfikowane struktury}
+	    \subcaption{\label{subfigure_a}Wykryte, sklasyfikowane i ubarwione struktury}
 	\end{subfigure}
-	\begin{subfigure}{0.42\textwidth}
+	\begin{subfigure}{0.41\textwidth}
 	    \centering
 	    \includegraphics[width=1\textwidth]{rys.36b.oryginalne.zdjecie.png}
 	    \subcaption{\label{subfigure_b}Zdjęcie mikrostruktury}
 	\end{subfigure}
-	\caption{\label{rys.36}xxx. Źródło: opracowanie własne}
+	\caption{\label{rys.36}Zdjęcia mikrostruktury z oznaczonymi formami grafitowymi, które należą do klas III-VI. Źródło: opracowanie własne}
 \end{figure}
-
+tym rozdziale. W związku z tym mogą wystąpić błędy, jak brak wykrycia danej struktury bądź źle sklasyfikowanie struktury.
 \begin{figure}[h]
 	\centering
-	\begin{subfigure}{0.42\textwidth}
+	\begin{subfigure}{0.41\textwidth}
 	    \centering
 	    \includegraphics[width=1\textwidth]{rys.37a.pokolorowane.struktury.png}
-	    \subcaption{\label{subfigure_a}Wykryte i sklasyfikowane struktury}
+	    \subcaption{\label{subfigure_a}Wykryte, sklasyfikowane i ubarwione struktury}
 	\end{subfigure}
-	\begin{subfigure}{0.42\textwidth}
+	\begin{subfigure}{0.41\textwidth}
 	    \centering
 	    \includegraphics[width=1\textwidth]{rys.37b.oryginalne.zdjecie.png}
 	    \subcaption{\label{subfigure_b}Zdjęcie mikrostruktury}
 	\end{subfigure}
-	\caption{\label{rys.37}xxx. Źródło: opracowanie własne}
+	\caption{\label{rys.37}Zdjęcia mikrostruktury zawierające kształty sklasyfikowane do klas IV oraz VI. Źródło: opracowanie własne}
 \end{figure}
-
 \begin{figure}[h]
 	\centering
-	\begin{subfigure}{0.42\textwidth}
+	\begin{subfigure}{0.41\textwidth}
 	    \centering
 	    \includegraphics[width=1\textwidth]{rys.38a.pokolorowane.struktury.png}
-	    \subcaption{\label{subfigure_a}Wykryte i sklasyfikowane struktury}
+	    \subcaption{\label{subfigure_a}Wykryte, sklasyfikowane i ubarwione struktury}
 	\end{subfigure}
-	\begin{subfigure}{0.42\textwidth}
+	\begin{subfigure}{0.41\textwidth}
 	    \centering
 	    \includegraphics[width=1\textwidth]{rys.38b.oryginalne.zdjecie.png}
 	    \subcaption{\label{subfigure_b}Zdjęcie mikrostruktury}
 	\end{subfigure}
-	\caption{\label{rys.38}xxx. Źródło: opracowanie własne}
+	\caption{\label{rys.38}Zdjęcia mikrostruktur przedstawiające kształty sklasyfikowane do klas III-VI. Źródło: opracowanie własne}
 \end{figure}
+\clearpage
+\noindent Jak widzimy na powyższych rysunkach, sieć klasyfikująca kształty wraz z całą sekwencją rozpoznawania pojedynczych struktur przynosi całkiem przyzwoite efekty. Wizualnie nie można tutaj niczego skrytykować. Natomiast często zdarza się tak, jak już wspomniano wcześniej, że struktury te są bardzo podobne do siebie i przygotowanie ich przez specjalistę w dziedzinie metalurgii mogłoby przynieść znaczny wzrost skuteczności modelu.
 
-[może wyżej trochę? tu nie pasuje] Ostatnią próbą poprawienia skuteczności modelu było wyeliminowanie najmniejszych struktur z klasyfikacji. Są one najbardziej problematyczne, gdyż praktycznie się nie różnią. Dodatkowo sam autor miał problem z przypisaniem tych struktur do konkretnej klasy. Po usunięciu tych struktur otrzymalimy skuteczność na poziomie XXX, natomiast tablica pomyłek została przedstawiona na rys. \ref{}. 
+Ostatnią próbą w celu poprawienia skuteczności modelu było wyeliminowanie najmniejszych struktur z klasyfikacji. Są one najbardziej problematyczne, gdyż wizualnie, praktycznie się nie różnią. Dodatkowo sam autor miał problem z przypisaniem tych struktur do konkretnej klasy. Po usunięciu tych struktur otrzymalimy skuteczność na poziomie XXX, natomiast tablica pomyłek została przedstawiona na rys. \ref{}. 
 
-[jakie podsumowanie???]
+\subsection{Wnioski}
+\label{klasyfikacja.struktur.wnioski}
+
+
 
 % chyba bym się w sumie nie trzymał tego schematu, tylko chronologicznie i jednoczesnie Rm i Rp ;d
 %5.2. Opis wykonanych badań i testów oraz własnej implementacji
