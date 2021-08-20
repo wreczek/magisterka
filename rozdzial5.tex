@@ -172,7 +172,7 @@ W następnym podrozdziale (tj. \ref{klasyfikacja.struktur}) zostały zaprezentow
 Na tym etapie badań posiadamy już własnoręcznie przygotowane dane dotyczące pojedynczych struktur obecnych na zdjęciach mikrostruktur (rys. \ref{fig:mesh14}). Ponownie, można by zacząć eksperymenty od takich najprostszych metod, jak momenty Hu, momenty Zernike i tekstury Haralicka wraz z klasycznymi klasyfikatorymi, aczkolwiek takie podejście zostało już sprawdzone w pracy \cite{Reczek21} i pokazano, iż w przypadku takich zestawów algorytmów oraz dostępnych danych, wyniki są porównywalne do tych, które otrzymujemy w przypadku wykorzystania klasyfikatorów klasycznych z weśjciem w postaci pikseli. Dlatego tutaj przejdziemy od razu do bardziej zaawansowanych metod. W tym celu zdecydowano się wykorzystać sieci neuronowe (patrz \ref{cha:Siecineuronowe}). W szczególności zastosowano uczenie transferowe (patrz \ref{cha:cha3.5}) wykorzystując dobrze znaną sieć VGG19. 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.75\textwidth]{rys.31.confusion.matrix.png}
+    \includegraphics[width=0.75\textwidth]{rys.31.confusion.matrix.better.quality.png}  %rys.31.confusion.matrix.png}
     \caption{Tablica pomyłek dla klasyfikacji struktur znajdujących się na zdjęciach mikrostruktur dla danych testowych. Żródło: opracowanie własne (z użyciem biblioteki \ita{seaborn})}
     \label{fig:mesh29}
 \end{figure}
@@ -180,7 +180,7 @@ Implementacja tej architektury została uzyskana z biblioteki \ita{Keras}. Podcz
 Po przeliczeniu na błąd względny otrzymujemy błędy na poziomie 10\%, 52\%, 26\%, 50\%, 49\% oraz 1\% odpowiednio dla klas od I do VI (brak klasy „0” w danych testowych ze względu na ich niską liczność). Błędy wynikają jednak głównie z podobieństwa tych form w ramach „sąsiadujących” klas, takich jak klasy V i VI (na rysunku są to klasy 4 i 5), gdzie prawie połowa kształtów z klasy V jest sklasyfikowana jako klasa VI. Podobieństwo klas można dostrzec również na rys. \ref{fig:mesh14}, aczkolwiek jest to bardziej widoczne w przypadku rzeczywistych danych, ponieważ większość tych kształtów zawiera cechy wielu klas (trudno im przypisać jedną konkretną cechę). Co więcej, baza danych została zbudowana arbitralnie przez osobę, kto nie jest ekspertem w dziedzinie metalurgii. Rozbieżności w dokładności predykcji między klasami są najprawdopodobniej związane z brakiem zbalansowania w ilości danych dostępnych dla każdej klasy.
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.55\textwidth]{rys.32.vgg19.history.png}
+    \includegraphics[width=0.55\textwidth]{rys.32.vgg19.history.lepsza.jakosc.png}
     \caption{Historia dokładności modelu sieci neuronowej w trakcie uczenia się. Są to rezultaty dla danych treningowych, gdzie najlepsze wyniki sięgają 87\%. Żródło: opracowanie własne (z wykorzystaniem biblioteki \ita{seaborn})}
     \label{fig:mesh30}
 \end{figure}
@@ -299,15 +299,15 @@ tym rozdziale. W związku z tym mogą wystąpić błędy, jak brak wykrycia dane
 %\noindent 
 \afterpage{\clearpage}Jak widzimy na powyższych rysunkach, sieć klasyfikująca kształty wraz z całą sekwencją rozpoznawania pojedynczych struktur przynosi całkiem przyzwoite efekty. Wizualnie nie można tutaj niczego skrytykować. Natomiast często zdarza się tak, jak już wspomniano wcześniej, że struktury te są bardzo podobne do siebie i przygotowanie ich przez specjalistę w dziedzinie metalurgii mogłoby przynieść znaczny wzrost skuteczności modelu.
 
-Ostatnią próbą w celu poprawienia skuteczności modelu było wyeliminowanie najmniejszych struktur z klasyfikacji. Są one najbardziej problematyczne, gdyż wizualnie, praktycznie się nie różnią. Dodatkowo sam autor miał problem z przypisaniem tych struktur do konkretnej klasy. Po usunięciu tych struktur otrzymalimy skuteczność na poziomie 82\%, natomiast tablica pomyłek została przedstawiona na rys. \ref{rys.39.confusion.matrix.big.structures.png}.
+Ostatnią próbą w celu poprawienia skuteczności modelu było wyeliminowanie najmniejszych struktur z klasyfikacji. Są one najbardziej problematyczne, gdyż wizualnie, praktycznie się nie różnią. Dodatkowo sam autor miał problem z przypisaniem tych struktur do konkretnej klasy. Po usunięciu tych struktur otrzymalimy skuteczność na poziomie 82\%, natomiast wartość straty logistycznej wynosi $0.8$, co jest bardzo dobrym wynikiem. Tablica pomyłek została przedstawiona na rys. \ref{rys.39.confusion.matrix.big.structures.png}. 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.7\textwidth]{rys.39.confusion.matrix.big.structures.png}
+    \includegraphics[width=0.7\textwidth]{rys.39.confusion.matrix.big.structures.better.quality.png}  %rys.39.confusion.matrix.big.structures.png}
     \caption{Tablica pomyłek dla klasyfikacji struktur znajdujących się na zdjęciach mikrostruktur dla danych testowych. Wykorzystano większe struktury, które zostały wybrane na podstawie zajmowanej przez nie powierzchni, jak również ich obwodu. Żródło: opracowanie własne (z użyciem biblioteki \ita{seaborn})}
     \label{rys.39.confusion.matrix.big.structures.png}
 \end{figure}
-Porównując te tablicę pomyłek do poprzedniej, która dotyczyła wyników badań przeprowadzonych na wszystkich danych możemy dojść do kilku ciekawych wniosków. Aczkolwiek na samym początku wskazane jest, aby wyjaśnić tak drastyczne spadki skuteczności dla klasy „0". Otóż jak pokazano w rozdz. \ref{wycinanie.struktur}, liczba struktur klasy „0"~wynosi zaledwie 14 i została dodana przez autora pracy. Stąd została całkowicie zignorowana przez model. 
-Oprócz tego, głównie na dokłaności straciła klasa III, bo aż 28 punktów procentowych. Natomiast zyskały klasy I-II oraz V-VI, które są najbardziej do siebie podobne.
+Porównując te tablicę pomyłek do poprzedniej, która dotyczyła wyników badań przeprowadzonych na wszystkich danych możemy dojść do kilku ciekawych wniosków. Otóż jak pokazano w rozdz. \ref{wycinanie.struktur}, liczba struktur klasy „0"~wynosi zaledwie 14 i została dodana przez autora pracy. W tym wypadku ta klasa jest najmniej interesująca. 
+Największe straty zanotowały klasy II oraz V, bo 7 i 10 punktów procentowych (odpowiednio). Natomiast największe zyski zanotowały klasy IV oraz VI, bo aż 33 i 6 punktów procentowych.
 
 \subsection{Wnioski}
 \label{klasyfikacja.struktur.wnioski}
@@ -478,7 +478,56 @@ Kolejnym przetestowanym pomysłem była strategia, w której zamiast bezwzględn
 
 Jako ostatnia została przetestowana strategia, w której na wejście klasycznych klasyfikatorów jest podawany wynik funkcji softmax na pierwotnych danych (tj. liczności struktur poszczególnych klas). W tym przypadku otrzymaliśmy dokładność na poziomie $79\%$, średnią wartość precyzji równą $0.72$ oraz wartość straty logistycznej równą $7.21$. Jak widzimy, z wszystkich trzech zasosowanych tutaj strategii najlepiej sprawdza się bezwzględna liczność struktur poszczególnych klas, dlatego w dalszych badaniach będziemy się głównie skupiać na tego typu danych. 
 
+%\begin{figure}[h]
+%    \centering
+%    \includegraphics[width=0.45\textwidth]{}
+%    \caption{}
+%    \label{}
+%\end{figure}
 
+Jednakże dane są mocno niezbalansowane, co zostało pokazane w rozdz. \ref{sec:normalizacja_przyblizenia}. W ramach przypomnienia, zdjęć reprezentujących odlewy z wysoką wytrzymałością na rozciąganie jest 3358, natomiast tych z niską jest 1337. To mogłoby wyjaśniać przesunięcie w stronę klasy odpowiadającej wysokiej wytrzymałości, co zostało przedstawione na rys. \ref{}. Co prawda zgodnie z terminologią jest to zaledwie „delikatnie niezbalansowany zbiór", aczkolwiek warto sprawdzić czy to niezrównoważenie ma wpływ na wyniki.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.45\textwidth]{rys.43.confusion.matrix.svm.unbalanced}
+    \caption{}
+    \label{rys.43.confusion.matrix.svm.unbalanced}
+\end{figure}
+W tym celu wykorzystano najprostszą technikę równoważenia zbiorów, a mianowicie wyeliminowano z danych nadmiarowe przykłady nadreprezentowanej klasy. W ten sposób mamy teraz 1337 przykładów zarówno mikrostruktur wysokiej, jak i niskiej wytrzymałości. Jednakże po zbalansowaniu klas problem nadal występuje (rys. \ref{rys.43.confusion.matrix.svm.unbalanced}). Przeprowadzono te same testy i wartości wszystkich metryk się pogorszyły. Stąd wiadomo, że przesunięcie w stronę klasy wysokich wytrzymałości nie jest kwestią niezbalansowania klas. Co jest przyczyną tego stanu rzeczy postaramy się dogłębniej wyjaśnić przy okazji testów kolejnych klasyfikatorów klasycznych, w tym bardziej interpretowalnych (m.in. drzewa decyzyjne) w kolejnych podrozdziałach.
+
+Podsumowując wyniki badań dla SVM przygotowano szkic, w którym są zbiorczo zebrane wyniki (tab. \ref{svm.binary.summary.table}). 
+
+\begin{table}[h]
+	\centering
+	\begin{threeparttable}
+		\caption{Wyniki klasyfikacji binarnej z użyciem klasycznych klasyfikatorów, z wykorzystaniem momentów Hu oraz tekstur Haralicka. Dane dodatkowo zostały zaszumione, aby zapobiec nadmiernemu dopasowaniu się modelu do danych. Źródło: opracowanie własne}
+		\label{svm.binary.summary.table}
+		\begin{tabularx}{1\textwidth}{ |X|X|X|X| }
+		  \hline
+		  \textbf{Model} & \textbf{Typ wejścia} & \textbf{Wagi klas} & \textbf{Dokładność}\\
+
+		  \hline
+		  SVM & Hu & — & 55.7\%\\
+
+		  \hline
+		  SVM & Haralick & — & 55.5\%\\
+
+		  \hline
+		  SVM & Hu + Haralick & — & 55.5\%\\
+
+		  \hline
+		  RFC & Hu & zrównoważone & 51.6\%\\
+
+		  \hline
+  		  RFC & Haralick & zrównoważone & 72.2\%\\
+  		  
+		  \hline
+  		  RFC & Hu + Haralick & zrównoważone & 72.6\%\\
+  		  
+		  \hline
+		\end{tabularx}
+	\end{threeparttable}
+\end{table}
+[bla bla] poprawic te tablice !!!
 % chyba bym się w sumie nie trzymał tego schematu, tylko chronologicznie i jednoczesnie Rm i Rp ;d
 %5.2. Opis wykonanych badań i testów oraz własnej implementacji
 %
