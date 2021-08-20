@@ -252,7 +252,7 @@ Maszyna wektorów nośnych (ang. \textit{Support Vector Machine}, SVM) to model 
 \subsection{Drzewo decyzyjne}
 \label{cha:Drzewo decyzyjne}
 
-Drzewo decyzyjne (ang. \textit{decision tree}) to algorytm uczenia maszynowego stosowany w~celu pozyskiwania wiedzy na podstawie przykładów \cite{wiki:dec.drzewo}. Mają wiele zastosowań i~służą zarówno do zadań klasyfikacji, jak i~regresji. Jest to struktura, która kształtem przypomina drzewo (stąd nazwa), a~każda ścieżka w~tym drzewie przedstawia możliwą \textbf{ścieżkę decyzyjną} wraz z~jej skutkami \cite{Grus18}. Składa się ono z~\textbf{węzłów} (które jednocześnie oznaczają jakąś decyzję, stan) i~\textbf{gałęzi} (wybór, możliwość). Drzewo konstruowane jest od korzenia i~z każdą kolejną decyzją do podjęcia jest budowany w~dół, to tzw. \textbf{liści} (ang. \textit{leaf}), które oznaczają etykietę klasy. Istnieje wiele algorytmów generowania drzew decyzyjnych. Najbardziej znane z~nich, to \textit{ID3} (\textit{Iterative Dichotomiser 3}), czy też \textit{C4.5}. Algorytm \textit{ID3} polega na tym, że w~każdej iteracji jest wybierany niewykorzystany atrybut, który daje największy wzrost informacji (bądź np. najmniejszą miarę zanieczyszczenia), a~zbiór danych jest dzielony według wartości tego atrybutu. Natomiast algorytm \textit{C4.5} jest rozszerzeniem wcześniejszego algorytmu i~wprowadza takie usprawnienia, jak \cite{Quinlan96}:
+Drzewo decyzyjne (ang. \textit{decision tree}, DT) to algorytm uczenia maszynowego stosowany w~celu pozyskiwania wiedzy na podstawie przykładów \cite{wiki:dec.drzewo}. Mają wiele zastosowań i~służą zarówno do zadań klasyfikacji, jak i~regresji. Jest to struktura, która kształtem przypomina drzewo (stąd nazwa), a~każda ścieżka w~tym drzewie przedstawia możliwą \textbf{ścieżkę decyzyjną} wraz z~jej skutkami \cite{Grus18}. Składa się ono z~\textbf{węzłów} (które jednocześnie oznaczają jakąś decyzję, stan) i~\textbf{gałęzi} (wybór, możliwość). Drzewo konstruowane jest od korzenia i~z każdą kolejną decyzją do podjęcia jest budowany w~dół, to tzw. \textbf{liści} (ang. \textit{leaf}), które oznaczają etykietę klasy. Istnieje wiele algorytmów generowania drzew decyzyjnych. Najbardziej znane z~nich, to \textit{ID3} (\textit{Iterative Dichotomiser 3}), czy też \textit{C4.5}. Algorytm \textit{ID3} polega na tym, że w~każdej iteracji jest wybierany niewykorzystany atrybut, który daje największy wzrost informacji (bądź np. najmniejszą miarę zanieczyszczenia), a~zbiór danych jest dzielony według wartości tego atrybutu. Natomiast algorytm \textit{C4.5} jest rozszerzeniem wcześniejszego algorytmu i~wprowadza takie usprawnienia, jak \cite{Quinlan96}:
 \begin{itemize}
 \item
 obsługa atrybutów ciągłych i~dyskretnych,
@@ -295,7 +295,7 @@ Jako ciekawostkę można dodać, że drzewa decyzyjne składają się na algoryt
 \subsection{Las losowy}
 \label{cha:Las losowy}
 
-Jak zostało wspomniane wyżej, drzewa decyzyjne mogą zbyt mocno dopasować się do danych treningowych. Jednym z~rozwiązań jest technika \textbf{lasów losowych} (ang. \textit{random forest}), która polega na tworzeniu wielu drzew decyzyjnych, a~następnie klasyfikacji w~drodze głosowania \cite{Grus18}, a~więc jako odpowiedź jest generowana dominanta klas (klasyfikacja) lub średnia przewidywana wartość (regresja) \cite{Ho95}. Istnieje kilka różnych algorytmów tworzenia lasów losowych. Jednym z~nich jest \textbf{agregacja} (ang. \textit{bagging}, \textit{bootstrap aggregating}). Polega on na tym, iż wielokrotnie wybiera się losowe podzbiory zestawu uczącego ze zwracaniem (ang. \textit{sampling with replacement}) w~celu dopasowania do każdego takiego zbioru nowego drzewa \cite{Sawka18}. Dzięki temu podejściu zmniejsza się wariancja modelu, bez zwiększania obciążenia \cite{Ramchandani18}, gdyż pojedyncze drzewa decyzyjne nie są ze sobą skorelowane (dzięki uczeniu ich na różnych zbiorach danych). Następnie, w~celu klasyfikacji, wszystkie pojedyncze drzewa zwracają wynik, który jest uśredniony. Dodatkowo, aby jeszcze mocniej zmniejszyć korelację między drzewami, w~przypadku lasów losowych korzysta się ze zmodyfikowanego algorytmu trenowania drzewa, gdzie przy każdym kolejnym węźle jest wybierany losowy podzbiór cech. Dzięki temu, jeśli w~danych występuje cecha, która jest silnym predyktorem dla zmiennej przewidywanej, jej wykorzystanie w~różnych drzewach zostanie ograniczone, tym samym dalej zmniejszając korelację między nimi.
+Jak zostało wspomniane wyżej, drzewa decyzyjne mogą zbyt mocno dopasować się do danych treningowych. Jednym z~rozwiązań jest technika \textbf{lasów losowych} (ang. \textit{random forest}, RFC), która polega na tworzeniu wielu drzew decyzyjnych, a~następnie klasyfikacji w~drodze głosowania \cite{Grus18}, a~więc jako odpowiedź jest generowana dominanta klas (klasyfikacja) lub średnia przewidywana wartość (regresja) \cite{Ho95}. Istnieje kilka różnych algorytmów tworzenia lasów losowych. Jednym z~nich jest \textbf{agregacja} (ang. \textit{bagging}, \textit{bootstrap aggregating}). Polega on na tym, iż wielokrotnie wybiera się losowe podzbiory zestawu uczącego ze zwracaniem (ang. \textit{sampling with replacement}) w~celu dopasowania do każdego takiego zbioru nowego drzewa \cite{Sawka18}. Dzięki temu podejściu zmniejsza się wariancja modelu, bez zwiększania obciążenia \cite{Ramchandani18}, gdyż pojedyncze drzewa decyzyjne nie są ze sobą skorelowane (dzięki uczeniu ich na różnych zbiorach danych). Następnie, w~celu klasyfikacji, wszystkie pojedyncze drzewa zwracają wynik, który jest uśredniony. Dodatkowo, aby jeszcze mocniej zmniejszyć korelację między drzewami, w~przypadku lasów losowych korzysta się ze zmodyfikowanego algorytmu trenowania drzewa, gdzie przy każdym kolejnym węźle jest wybierany losowy podzbiór cech. Dzięki temu, jeśli w~danych występuje cecha, która jest silnym predyktorem dla zmiennej przewidywanej, jej wykorzystanie w~różnych drzewach zostanie ograniczone, tym samym dalej zmniejszając korelację między nimi.
 
 Innym podejściem jest \textbf{wzmacnianie} (ang. \textit{boosting}) \cite{aporras}. Główną różnicą między agregacją a~wzmacnianiem jest to, iż w~przypadku tego pierwszego każde drzewo jest uczone niezależnie od pozostałych i~ten etap może być przeprowadzony równolegle. Natomiast w~przypadku drugiego algorytmu uczenie pojedynczych drzew następuje sekwencyjnie i~każdy kolejny klasyfikator bierze pod uwagę wyniki poprzedniego klasyfikatora. Danym błędnie sklasyfikowanym przypisuje się większą wagę, tym samym kolejne modele zwracają większą uwagę trudnym danym. Jednakże w~przypadku wzmacniania klasyfikacja odbywa się nieco inaczej, gdyż tutaj również mamy wagi, które są przypisywane klasyfikatorom w~trakcie uczenia – im lepszy klasyfikator, tym większe wagi otrzymuje. Dzięki zastosowaniu jednego z~tych dwóch podejść zwiększa się stabilność modelu. Jednakże jeżeli mamy do czynienia z~danymi, dla których pojedyncze drzewo osiąga słabe wyniki, wtedy rozwiązaniem może być zastosowanie wzmacniania. Jeżeli zaś problemem jest nadmierne dopasowanie się drzewa do danych, wtedy pomocne może się okazać zastosowanie agregacji.
 
@@ -539,65 +539,33 @@ W badaniach wykorzystano sieci neuronowe, jednakże mała liczba posiadanych dan
 \end{figure}
 Model ten dobrze generalizuje się do innych zadań oraz zbiorów danych \cite{Simonyan15}, oraz, mimo iż minęło już kilka lat od momentu jego wydania, wciąż osiąga wysokie wyniki w zadaniach klasyfikacji obrazów, dlatego jego skuteczność zostanie przetestowana na tle klasycznych algorytmów uczenia maszynowego. 
 
+\subsection{Pozostałe zagadnienia}
+\label{Pozostałe zagadnienia}
+
+W tej sekcji zostaną omówione różne techniki oraz metody wykorzystane w trakcie badań. Zostaną też wytłumaczone niektóre pojęcia, które obejmują swoim zakresem wiele tematyk i niepraktyczne byłoby tworzenie dla każdego problemu osobnego rozdziału.
+
+%\subsubsection{Metryki}
+%\label{metryki}
+% [bla bla] można by napisac mysle 
 
 
+\subsubsection{Optymalizacja hiperparametrów}
+\label{Optymalizacja hiperparametrów}
+
+Hiperparametry zostały zgrubnie omówione w rozdz. \ref{cha:Siecineuronowe}. Przypomnijmy, że są to parametry, które kontrolują proces uczenia się i są ustalane przed uczeniem. W zależności od ich konfiguracji wyniki mogą się znacznie różnić. Stąd takie ważne jest, aby odpowiednio dobrać ich wartości. W jaki sposób się to robi? Osoby dowiadczone mogą od razu ustawić odpowiednie wartości dzięki swojej praktyce. Natomiast aby mieć pewność, można skorzystać z dostępnych metod. Istnieje ich wiele, natomiast tutaj zostanie przedstawiona jedna, która została wykorzystana w niniejszej pracy. mowa o przeszukiwaniu siatki (ang. \ita{grid search}). Metoda ta polega na gruntownym przeszukiwaniu (ang. \ita{exhaustive searching}) ręcznie przygotowanego podzbioru przestrzeni hiperparametrów algorytmu uczącego \cite{Hsu03}. Następnie dla każdego zestawu hiperparametrów zostaje wytrenowany model na danych uczących, po czym jego skuteczność zostaje zweryfikowana na podstawie rezultatów otrzymanych podczas ewaluacji modelu z wykorzystaniem danych testowych.
+
+\subsubsection{Sprawdzian krzyżowy}
+\label{cross.validation}
+
+Sprawdzian krzyżowy (ang. \ita{cross-validation}) jest to metoda statystyczna, w której dzieli się próbę statystyczną na podzbiory, po czym przeprowadza się analizy, ale tylko na niektórych z nich. Te, które się wykorzystuje nazywane są zbiorem uczącym, natomiast pozostałe dane służą do weryfikacji poprawności wyników i nazywane są one danymi testowymi. Istnieje wiele rodzajów walidacji krzyżowej, aczkolwiek w niniejszej pracy został wykorzystany jeden, a mianowicie sprawdzian k-krotny. Polega ona na podziale oryginalnej próby na \ita{k} podzbiorów, po czym kolejno każdy z nich występuje jako zbiór testowy, podczas gdy pozostałe razem jako zbiór uczący. Następnie wykonuje się analizę (\ita{k} razy), a uzyskane \ita{k} rezultaty łączy się, np. uredniając wyniki, dzięki czemu są one bardziej wiarygodne, a także otrzymujemy jeden wynik.
+
+%\subsubsection{}
+%\label{}
 
 
+%\subsubsection{}
+%\label{}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+%\subsubsection{}
+%\label{}

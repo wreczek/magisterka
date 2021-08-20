@@ -21,7 +21,7 @@ for file in os.listdir():
 							.replace(' Z ', ' Z~')\
 							.replace(' a ', ' a~')\
 							.replace(' A ', ' A~')
-							
+							# `" ` jest jakos dziwnie interpretowane, moze zastapic `"~`?
 		with open(f'{os.path.splitext(file)[0]}_no_orphans{os.path.splitext(file)[1]}', 'w', encoding='utf8') as f:
 			f.write(text_no_orphans)
 			
