@@ -473,61 +473,63 @@ Jako pierwsze zostanie omówione podejście, w którym jako klasycznego klasyfik
     \caption{Wykres krzywej Precision-Recall. Średnia wartość precyzji wynosi 0.88. Żródło: opracowanie własne (z wykorzystaniem biblioteki \ita{scikit-learn})}
     \label{rys.42.krzywa.precision.recall.png}
 \end{figure}
+Natomiast na rys. \ref{rys.43.confusion.matrix.svm.unbalanced} przedstawiono tablicę pomyłek dla tej klasyfikacji.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.45\textwidth]{rys.43.confusion.matrix.svm.unbalanced}
+    \caption{Tablica pomyłek dla klasyfikacji wytrzymałości na rozciąganie odlewów. Użyto niezbalansowanych danych (oryginalny zbiór). Żródło: opracowanie własne (z wykorzystaniem biblioteki \ita{seaborn})}
+    \label{rys.43.confusion.matrix.svm.unbalanced}
+\end{figure}
 
 Kolejnym przetestowanym pomysłem była strategia, w której zamiast bezwzględnych liczb okrelających liczność struktur odpowiednich klas na wejście podawano procentowy udział struktur poszczególnych klas. Tym razem skuteczność wyniosła $78.7\%$, a więc dokładnie o cztery punkty procentowe mniej, niż w przypadku liczności struktur. Średnia wartość precyzji wyniosła $0.8$, a więc również gorzej niż w poprzednim wypadku. Również wartość straty logistycznej jest większa i wynosi $7.37$. Stąd wykres nie jest nawet wymagany, ponieważ po samych wynikach liczbowych możemy z całą pewnością stwierdzić, iż tutaj lepiej zadziałało poprzednie podejście. Próbując wyjaśnić takie rozbieżności tak naprawdę ciężko dojść do sensownego wyjaśnienia tej sytuacji. Wydawać mogłoby się, iż wyniki powinny być znacznie bardziej zbliżone, a to ze względu na charakter danych wejściowych. Procentowy udział struktur poszczególnych to nic innego jak znormalizowane wyniki biorące pod uwagę liczność struktur danej klasy względem wszystkich pozostałych. A jednak wyniki są dużo gorsze. Natomiast wystąpiła jedna drobna różnica, a mianowicie było dziewięć zdjęć, dla których nie wykryto ani jednej struktury, stąd niemożliwe było wyliczenie względnego udziału struktur poszczególnych klas, wskutek czego konieczne było ich wyeliminowanie ze zbioru. Tak czy inaczej, jest to tylko dziewięć przykładów spośród 4695 wszystkich, stąd można ten fakt pominąć. 
 
 Jako ostatnia została przetestowana strategia, w której na wejście klasycznych klasyfikatorów jest podawany wynik funkcji softmax na pierwotnych danych (tj. liczności struktur poszczególnych klas). W tym przypadku otrzymaliśmy dokładność na poziomie $79\%$, średnią wartość precyzji równą $0.72$ oraz wartość straty logistycznej równą $7.21$. Jak widzimy, z wszystkich trzech zasosowanych tutaj strategii najlepiej sprawdza się bezwzględna liczność struktur poszczególnych klas, dlatego w dalszych badaniach będziemy się głównie skupiać na tego typu danych. 
 
-%\begin{figure}[h]
-%    \centering
-%    \includegraphics[width=0.45\textwidth]{}
-%    \caption{}
-%    \label{}
-%\end{figure}
-
-Jednakże dane są mocno niezbalansowane, co zostało pokazane w rozdz. \ref{sec:normalizacja_przyblizenia}. W ramach przypomnienia, zdjęć reprezentujących odlewy z wysoką wytrzymałością na rozciąganie jest 3358, natomiast tych z niską jest 1337. To mogłoby wyjaśniać przesunięcie w stronę klasy odpowiadającej wysokiej wytrzymałości, co zostało przedstawione na rys. \ref{}. Co prawda zgodnie z terminologią jest to zaledwie „delikatnie niezbalansowany zbiór", aczkolwiek warto sprawdzić czy to niezrównoważenie ma wpływ na wyniki.
+Jednakże dane są mocno niezbalansowane, co zostało pokazane w rozdz. \ref{sec:normalizacja_przyblizenia}. W ramach przypomnienia, zdjęć reprezentujących odlewy z wysoką wytrzymałością na rozciąganie jest 3358, natomiast tych z niską jest 1337. To mogłoby wyjaśniać przesunięcie w stronę klasy odpowiadającej wysokiej wytrzymałości, co zostało przedstawione na rys. \ref{rys.43.confusion.matrix.svm.unbalanced} (tzw. błąd drugiego rodzaju). Co prawda zgodnie z terminologią jest to zaledwie „delikatnie niezbalansowany zbiór", aczkolwiek warto sprawdzić czy to niezrównoważenie ma wpływ na wyniki.
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.45\textwidth]{rys.43.confusion.matrix.svm.unbalanced}
-    \caption{}
-    \label{rys.43.confusion.matrix.svm.unbalanced}
+    \includegraphics[width=0.45\textwidth]{rys.44.confusion.matrix.svm.balanced}
+    \caption{TODO}
+    \label{rys.44.confusion.matrix.svm.balanced}
 \end{figure}
-W tym celu wykorzystano najprostszą technikę równoważenia zbiorów, a mianowicie wyeliminowano z danych nadmiarowe przykłady nadreprezentowanej klasy. W ten sposób mamy teraz 1337 przykładów zarówno mikrostruktur wysokiej, jak i niskiej wytrzymałości. Jednakże po zbalansowaniu klas problem nadal występuje (rys. \ref{rys.43.confusion.matrix.svm.unbalanced}). Przeprowadzono te same testy i wartości wszystkich metryk się pogorszyły. Stąd wiadomo, że przesunięcie w stronę klasy wysokich wytrzymałości nie jest kwestią niezbalansowania klas. Co jest przyczyną tego stanu rzeczy postaramy się dogłębniej wyjaśnić przy okazji testów kolejnych klasyfikatorów klasycznych, w tym bardziej interpretowalnych (m.in. drzewa decyzyjne) w kolejnych podrozdziałach.
+W tym celu wykorzystano najprostszą technikę równoważenia zbiorów, a mianowicie wyeliminowano z danych nadmiarowe przykłady nadreprezentowanej klasy. W ten sposób mamy teraz 1337 przykładów zarówno mikrostruktur wysokiej, jak i niskiej wytrzymałości. Jednakże po zbalansowaniu klas problem nadal występuje (rys. \ref{rys.44.confusion.matrix.svm.balanced}). Przeprowadzono te same testy i wartości wszystkich metryk się pogorszyły, mimo że tablica pomyłek po tym zabiegu wygląda nieco lepiej. Stąd wiadomo, że przesunięcie w stronę klasy wysokich wytrzymałości nie jest kwestią niezbalansowania klas. Co jest przyczyną tego stanu rzeczy postaramy się dogłębniej wyjaśnić przy okazji testów kolejnych klasyfikatorów klasycznych, w tym bardziej interpretowalnych (m.in. drzewa decyzyjne) w kolejnych podrozdziałach.
 
-Podsumowując wyniki badań dla SVM przygotowano szkic, w którym są zbiorczo zebrane wyniki (tab. \ref{svm.binary.summary.table}). 
-
+Podsumowując wyniki badań dla SVM przygotowano szkic, w którym są przedstawione zbiorczo zebrane wyniki (tab. \ref{svm.binary.summary.table}). 
 \begin{table}[h]
 	\centering
 	\begin{threeparttable}
-		\caption{Wyniki klasyfikacji binarnej z użyciem klasycznych klasyfikatorów, z wykorzystaniem momentów Hu oraz tekstur Haralicka. Dane dodatkowo zostały zaszumione, aby zapobiec nadmiernemu dopasowaniu się modelu do danych. Źródło: opracowanie własne}
+		\caption{Podsumowanie wyników klasyfikacji binarnej z użyciem klasyfikatora SVM w celu predykcji wytrzymałości na rozciąganie odlewów}
 		\label{svm.binary.summary.table}
 		\begin{tabularx}{1\textwidth}{ |X|X|X|X| }
 		  \hline
-		  \textbf{Model} & \textbf{Typ wejścia} & \textbf{Wagi klas} & \textbf{Dokładność}\\
+		  \textbf{Typ wejścia} & \textbf{Dokładność} & \textbf{AP\tnote{a}} & \textbf{Strata logistyczna}\\
 
 		  \hline
-		  SVM & Hu & — & 55.7\%\\
+		  Liczba struktur & \bo{82.7\%} & \bo{0.88} & \bo{5.96}\\
 
 		  \hline
-		  SVM & Haralick & — & 55.5\%\\
+		  Procentowy udział struktur & 78.7\% & 0.8 & 7.37\\
 
 		  \hline
-		  SVM & Hu + Haralick & — & 55.5\%\\
+		  Wartość funkcji softmax dla liczby struktur & 79\% & 0.72 & 7.21\\
 
 		  \hline
-		  RFC & Hu & zrównoważone & 51.6\%\\
-
-		  \hline
-  		  RFC & Haralick & zrównoważone & 72.2\%\\
-  		  
-		  \hline
-  		  RFC & Hu + Haralick & zrównoważone & 72.6\%\\
-  		  
+		  Liczba struktur (zbalansowane dane)  & 78.4\% & 0.79 & 7.35\\
+%
+%		  \hline
+%  		  Optuna i kroswalidacja & \bo{84\%} & \bo{0.88} & \bo{5.66}\\
+%  		  
 		  \hline
 		\end{tabularx}
+		\begin{tablenotes}
+			\footnotesize
+			\item[a] AP – średnia wartość precyzji.
+		\end{tablenotes}
 	\end{threeparttable}
 \end{table}
-[bla bla] poprawic te tablice !!!
+Widzimy, że najlepsze wyniki otrzymujemy dla oryginalnych danych wejściowych, tj. w postaci liczności struktur poszczególnych klas, stąd w kolejnych badaniach z użyciem pozostałych klasyfikatorów skupimy się głównie na tego typu danych.
+Dodatkowo, w ramach próby uzyskania najlepszego możliwego wyniku skorzystano z biblioteki \ita{Optuna}, która służy do optymalizacji hiperparametrów. Polega ona na nieco innym wyszukiwaniu, niż w przypadku poprzedniego modułu. Po zastosowaniu kroswalidacji ta strategia przyniosła najlepsze wyniki. Dla danych w postaci liczby struktur otrzymujemy $84\%$ dokładności, $0.88$ średniej wartości precyzji oraz $5.66$ wartości straty logistycznej.
+
 % chyba bym się w sumie nie trzymał tego schematu, tylko chronologicznie i jednoczesnie Rm i Rp ;d
 %5.2. Opis wykonanych badań i testów oraz własnej implementacji
 %
