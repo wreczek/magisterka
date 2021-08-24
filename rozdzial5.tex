@@ -530,6 +530,7 @@ Podsumowując wyniki badań dla SVM przygotowano szkic, w którym są przedstawi
 Widzimy, że najlepsze wyniki otrzymujemy dla oryginalnych danych wejściowych, tj. w postaci liczności struktur poszczególnych klas, stąd w kolejnych badaniach z użyciem pozostałych klasyfikatorów skupimy się głównie na tego typu danych.
 Dodatkowo, w ramach próby uzyskania najlepszego możliwego wyniku skorzystano z biblioteki \ita{Optuna}, która służy do optymalizacji hiperparametrów. Polega ona na nieco innym wyszukiwaniu, niż w przypadku poprzedniego modułu. Po zastosowaniu kroswalidacji ta strategia przyniosła najlepsze wyniki. Dla danych w postaci liczby struktur otrzymujemy $84\%$ dokładności, $0.88$ średniej wartości precyzji oraz $5.66$ wartości straty logistycznej.
 
+%%%%%%%%% DRZEWO DECYZYJNE %%%%%%%%%%
 \subsubsection{Drzewo decyzyjne}
 \label{structures.with.dt}
 
@@ -550,14 +551,116 @@ Jak możemy zauważyć, najważniejsze są tutaj struktury typu III (rys. \ref{f
     \caption{Wizualizacja drzewa decyzyjnego o głębokości równej dwa. Źródło: opracowanie własne (z wykorzystaniem bibliteki \ita{graphviz})}
     \label{rys.46.decision.tree.depth.2}
 \end{figure}
-Jak możemy zauważyć, klasa III jest ponownie najważniejszą klasą, natomiast dochodzą nam również klasy I oraz VI. Logicznym wytłumaczeniem tego stanu rzeczy może być fakt, iż właśnie struktury tych trzech klas najbardziej różnią się od pozostałych wizualnie. Dla drzewa otrzymujemy dokładność na poziomie 81.3\%, a więc zaledwie jedną dziesiątą punktu procentowego więcej, niż dla drzewa o głębokości dwa. To może świadczyć o nadmiernym dopasowaniu się modelu do danych, czy też słabej generalizacji. Dla większych głębokości drzewa nie odnotowano wzrostu dokładności. Ciekawie również prezentują się wyniki dla innych typów wejść, toteż zostaną one przedstawione na samym końcu tej sekcji w formie tabeli. Tymczasem przejdziemy do innych algorytmów generowania drzewa decyzyjnego. Przetestowane zostały algorytmy CART oraz ID3. P
+Jak możemy zauważyć, klasa III jest ponownie najważniejszą klasą, natomiast dochodzą nam również klasy I oraz VI. Logicznym wytłumaczeniem tego stanu rzeczy może być fakt, iż właśnie struktury tych trzech klas najbardziej różnią się od pozostałych wizualnie. Dla drzewa o głębokości równej trzy otrzymujemy dokładność na poziomie 81.3\%, a więc zaledwie jedną dziesiątą punktu procentowego więcej, niż dla drzewa o głębokości dwa. To może świadczyć o nadmiernym dopasowaniu się modelu do danych, czy też słabej generalizacji. Dla większych głębokości drzewa nie odnotowano wzrostu dokładności. Ciekawie również prezentują się wyniki dla innych typów wejść, toteż zostaną one przedstawione na samym końcu tej sekcji w formie tabeli. 
 
+Tymczasem przejdziemy do kolejnego algorytmu generowania drzewa decyzyjnego. Obok algorytmu CART przetestowano również algorytm ID3, którego implementacja została zaczerpnięta z biblioteki \ita{decision-tree-id3}. 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.57\textwidth]{rys.47.cart.vs.id3.czas.uczenia}
-    \caption{TODO}
+    \includegraphics[width=0.55\textwidth]{rys.47.cart.vs.id3.czas.uczenia}
+    \caption{Wykres przedstawiający czas uczenia modeli za skonstruowanych przy pomocy różnych algorytmów generowania drzewa, w zależności od jego głębokości. Źródło: opracowanie własne (z wykorzystaniem biblioteki \ita{matplotlib})}
     \label{rys.47.cart.vs.id3.czas.uczenia}
 \end{figure}
+Skonfrontowano ze sobą takie cechy, jak czas uczenia, czas zwracania wyników czy też dokładność. W pierwszej kolejności przyjrzymy się czasom uczenia tych modeli w zależności od wykorzystanego alogrytmu oraz głębokości drzew. Na rys. \ref{rys.47.cart.vs.id3.czas.uczenia} przedstawiono wyniki tego porównania.
+Jak możemy zauważyć, czas uczenia jest wyraźnie dłuższy dla algorytmu ID3 i rośnie wraz ze wzrostem głębokości drzewa. Jest to znana własność tych algorytmów, gdyż na ogół algorytm CART działa szybciej, szczególnie gdy korzystamy z zoptymalizowanej wersji algorytmu CART. 
+
+Następną metryką jest czas uzyskania wyniku. Wyniki tego porównania przedstawiono na rys. \ref{rys.48.cart.vs.id3.czas.wyniku}. 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{rys.48.cart.vs.id3.czas.wyniku}
+    \caption{Wykres przedstawiający czas uzyskania wyniku przez modele skonstruowane przy pomocy różnych algorytmów generowania drzewa, w zależności od jego głębokości. Źródło: opracowanie własne (z wykorzystaniem biblioteki \ita{matplotlib})}
+    \label{rys.48.cart.vs.id3.czas.wyniku}
+\end{figure}
+Jak możemy zauważyć na wykresie, również w tym zestawieniu lepiej prezentuje się algorytm CART. Jego wyjście jest zwracane niemal natychmiast, natomiast na wyniki drzewa zbudowanego za pomocą algorytmu ID3 trzeba czekać dłużej i czas ten wydłuża się jeszcze bardziej, gdy obsługujemy głębsze drzewa. 
+
+Ostatnią metryką, która posłuży nam do porównania tych dwóch algorytmów będzie dokładność. 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{rys.49.cart.vs.id3.dokladnosc}
+    \caption{Wykres przedstawiający dokładność uzyskaną przez modele skonstruowane przy pomocy różnych algorytmów generowania drzewa, w zależności od jego głębokości. Źródło: opracowanie własne (z wykorzystaniem biblioteki \ita{matplotlib})}
+    \label{rys.49.cart.vs.id3.dokladnosc}
+\end{figure}
+Otóz postaramy się zbadać który algorytm generuje bardziej dokładne drzewa pod względem klasyfikacji. 
+Jak wiadomo, różne algorytmy generowania drzewa stosują różne kryteria podziału drzewa. I tak algorytm ID3 wykorzystuje entropię (ang. \ita{entropy}) lub też przyrost informacji (ang. \ita{information gain}). Z drugiej strony algorytm CART może korzystać przykładowo z miary nieczystości Giniego (ang. \ita{Gini impurity}). Stąd mogą wynikać rozbieżności w dokładności tych drzew. Na rys. \ref{rys.49.cart.vs.id3.dokladnosc} przedstawiono porównanie tych wyników. 
+Widzimy, że orientacyjnie wyniki są bardzo zbliżone. Nie można jednoznacznie stwierdzić które z tych podejść jest dokładniejsze, gdyż w zależności od głębokości raz jeden, raz drugi model osiąga nieznacznie lepsze wyniki. Jednakże biorąc pod uwagę poprzednie czynniki wydaje się, że algorytm CART może być faktycznie lepszym wyborem, głównie, jeli trenujemy głębokie drzewo i zależy nam na czasie, uwzględniając w tym czas uzyskania wyników.
+
+Na koniec, zanim przedstawimy tabelę podsumowująca wszystkie testy związane z drzewem decyzyjnym, przyjrzymy się jeszcze wynikom osiąganym za pomocą drzewa decyzyjnego skonstruowanego przy pomocy algorytmu CART, gdy uprzednio zbalansujemy dane. 
+Rys. \ref{rys.50.decision.tree.depth2.balanced} przedstawia wizualizację drzewa skonstruowanego za pomocą algorytmu CART używając optymalizacji hiperparametrów. Dokładność tego modelu wynosi $73.5\%$, a więc zanotowaliśmy spadek o $7.7$ punktu procentowego. 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.85\textwidth]{rys.50.decision.tree.depth2.balanced}
+    \caption{Wizualizacja drzewa decyzyjnego o głębokości równej dwa. Dodatkowo zbalansowano dane oraz użyto optymalizacji hiperparametrów. Źródło: opracowanie własne (z wykorzystaniem biblioteki \ita{graphviz})}
+    \label{rys.50.decision.tree.depth2.balanced}
+\end{figure}
+Możemy zauważyć, iż liczność struktury typu III jest tu decydująca. Gdy jest tych struktur pewna ilość (więcej niż dwie), to wtedy z dużą pewnością możemy stwierdzić, iż struktura ma małą wytrzymałość na rozciąganie. W przeciwnym przypadku (a więc gdy struktur jest mniej niż trzy) klasyfikacja nie jest już taka dokładna. Stąd można wyciągnąć wnioski, iż obecność struktur typu III powoduje, że struktura ma niską wytrzymałość na rozciąganie.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{rys.51.confusion.matrix.dt.balanced}
+    \caption{Tablica pomyłek dla klasyfikacji wytrzymałości na rozciąganie odlewów wykorzystując drzewo decyzyjne o głębokości równej dwa. Testy przeprowadzono na zbalansowanych danych. Źródło: opracowanie własne (z wykorzystaniem biblioteki \ita{seaborn})}
+    \label{rys.51.confusion.matrix.dt.balanced}
+\end{figure}
+Tablica pomyłek została przedstawiona na rys. \ref{rys.51.confusion.matrix.dt.balanced}. Jak można zauważyć, klasyfikacja jest nieco przesunięta w stronę wysokiej wytrzymałości (klasa 1). Można to wytłumaczyć przy pomocy wizualizacji drzewa (rys. \ref{rys.50.decision.tree.depth2.balanced}). Gdy struktur typu III jest mniej niż trzy, dokładność naszej klasyfikacji wynosi około $69\%$ (lewe poddrzewo). A ponieważ większość obecnych tam struktur ma wysoką wytrzymałość, stąd przesunięcie w kierunku tej klasy. Natomiast widzimy również spadki skuteczności w wykrywaniu wysokiej wytrzymałości, co nastąpiło wskutek ograniczenia liczby danych o tej własności. O ile wyniki są teraz bardziej wiarygodne, o tyle widzimy, że za pomocą samych liczności struktur nie jestemy w stanie stwierdzić z bardzo wysoką skutecznością jaka jest wytrzymałość tej struktury. Stąd teza, iż sieci neuronowe oceniające tę cechę odlewów na podstawie pikseli mogą osiągać wyższe skuteczności wydaje się jeszcze bardziej prawdopodobna. 
+
+Jako podsumowanie prac z drzewami decyzyjnymi zostaje przedstawiony szkic (tab. \ref{dt.binary.summary.table}), który zawiera wyniki większości wartych uwagi testów, również tych, które nie zostały tutaj bliżej opisane.
+\begin{table}[h]
+	\centering
+	\begin{threeparttable}
+		\caption{Podsumowanie wyników klasyfikacji binarnej z użyciem drzew decyzyjnych w celu predykcji wytrzymałości na rozciąganie odlewów}
+		\label{dt.binary.summary.table}
+		\begin{tabularx}{1\textwidth}{ |X|X|X|X|X| }
+		  \hline
+		  \textbf{Typ wejścia} & \textbf{Głębokość} & \textbf{Dane zbalansowane} & \textbf{Dokładność}\\
+
+		  \hline
+		  Liczność\tnote{a} & 1 & Nie  & 78\%\\
+
+		  \hline
+		   Liczność & 2 & Nie & 81.2\%\\
+
+		  \hline
+  		  Liczność & 2 & Tak & 73.5\%\\
+
+		  \hline
+		  Liczność & 3 & Nie & 81.4\%\\
+
+		  \hline
+		  Liczność & Brak limitu & Nie & \bo{84.3\%} \\
+
+%		  \hline
+		\Xhline{3\arrayrulewidth}
+  		  Procent\tnote{b} & 1 & Nie & 75\%\\
+  		  
+		  \hline
+  		  Procent & 2 & Nie & 79\%\\
+  		  
+		  \hline
+  		  Procent & 3 & Nie   & \bo{80\%} \\
+
+%		  \hline
+          	\Xhline{3\arrayrulewidth}
+  		  Softmax\tnote{c} & 1 & Nie   & 74.5\%\\
+
+		  \hline
+  		  Softmax & 2 & Nie   & 75\% \\
+
+		  \hline
+  		  Softmax & 3 & Nie   & \bo{78\%} \\
+
+		  \hline
+		\end{tabularx}
+		\begin{tablenotes}
+			\footnotesize
+			\item[a] Liczność struktur poszczególnych klas.
+			\item[b] Procentowy udział struktur poszczególnych klas.
+			\item[c] Wartość funkcji softmax dla liczności struktur.
+		\end{tablenotes}
+	\end{threeparttable}
+\end{table}
+Oczywiście najlepsze wyniki otrzymujemy dla głębszych drzew. Jednakże warto zauważyć przede wszystkim, na dwie rzeczy. Po pierwsze, po zbalansowaniu danych zanotowaliśmy znaczny spadek skuteczności, co już zostałe omówione wyżej w tym podrozdziale. Po drugie, najwyższą dokładność uzyskujemy dla danych w postaci bezwzględnej liczności struktur poszczególnych klas, nieco gorsze wyniki, gdy na wejściu podajemy procentowy udział struktur poszczególnych klas, a najgorsze wyniki, gdy użyjemy funkcji softmax. Poniekąd jest zrozumiałe, że dla funkcji softmax otrzymujemy nieco gorsze wyniki, gdyż usuwa ona z danych pewną informację. Natomiast spadek dla danych w postaci procentowego udziału jest nietypowy, aczkolwiek podobne wyniki uzyskano dla modelu SVM. Proste wytłumaczenie może opierać się na tym, iż tak na prawdę większy wpływ na wytrzymałość struktur ma to, czy struktury konkretnej klasy w ogóle wystąpiły niż stosunek ich liczności względem pozostałych klas.
+
+\subsubsection{Las losowy}
+\label{structures.with.rfc}
+
+[bla bla] kolejne do testowania są lasy losowe.
 
 % chyba bym się w sumie nie trzymał tego schematu, tylko chronologicznie i jednoczesnie Rm i Rp ;d
 %5.2. Opis wykonanych badań i testów oraz własnej implementacji

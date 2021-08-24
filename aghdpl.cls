@@ -35,6 +35,7 @@
 \RequirePackage[hidelinks, unicode, backref=true]{hyperref}
 %\RequirePackage[nobiblatex]{xurl}
 \RequirePackage{outlines}
+\RequirePackage{makecell}
 % ############################################
 
 \RequirePackage[font=small, labelfont=bf, labelsep=period]{caption}
