@@ -489,7 +489,7 @@ Jednakże dane są mocno niezbalansowane, co zostało pokazane w rozdz. \ref{sec
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.45\textwidth]{rys.44.confusion.matrix.svm.balanced}
-    \caption{TODO}
+    \caption{Tablica pomyłek dla klasyfikacji wytrzymałości na rozciąganie odlewów. Dane zostały zbalansowane. Źródło: opracowanie własne (z wykorzystaniem biblioteki \ita{seaborn})}
     \label{rys.44.confusion.matrix.svm.balanced}
 \end{figure}
 W tym celu wykorzystano najprostszą technikę równoważenia zbiorów, a mianowicie wyeliminowano z danych nadmiarowe przykłady nadreprezentowanej klasy. W ten sposób mamy teraz 1337 przykładów zarówno mikrostruktur wysokiej, jak i niskiej wytrzymałości. Jednakże po zbalansowaniu klas problem nadal występuje (rys. \ref{rys.44.confusion.matrix.svm.balanced}). Przeprowadzono te same testy i wartości wszystkich metryk się pogorszyły, mimo że tablica pomyłek po tym zabiegu wygląda nieco lepiej. Stąd wiadomo, że przesunięcie w stronę klasy wysokich wytrzymałości nie jest kwestią niezbalansowania klas. Co jest przyczyną tego stanu rzeczy postaramy się dogłębniej wyjaśnić przy okazji testów kolejnych klasyfikatorów klasycznych, w tym bardziej interpretowalnych (m.in. drzewa decyzyjne) w kolejnych podrozdziałach.
@@ -530,6 +530,35 @@ Podsumowując wyniki badań dla SVM przygotowano szkic, w którym są przedstawi
 Widzimy, że najlepsze wyniki otrzymujemy dla oryginalnych danych wejściowych, tj. w postaci liczności struktur poszczególnych klas, stąd w kolejnych badaniach z użyciem pozostałych klasyfikatorów skupimy się głównie na tego typu danych.
 Dodatkowo, w ramach próby uzyskania najlepszego możliwego wyniku skorzystano z biblioteki \ita{Optuna}, która służy do optymalizacji hiperparametrów. Polega ona na nieco innym wyszukiwaniu, niż w przypadku poprzedniego modułu. Po zastosowaniu kroswalidacji ta strategia przyniosła najlepsze wyniki. Dla danych w postaci liczby struktur otrzymujemy $84\%$ dokładności, $0.88$ średniej wartości precyzji oraz $5.66$ wartości straty logistycznej.
 
+\subsubsection{Drzewo decyzyjne}
+\label{structures.with.dt}
+
+W tym podrozdziale zajmiemy się wynikami osiąganymi za pomocą drzew decyzyjnych (\ref{cha:Drzewo decyzyjne}). Mimo, iż jest to bardzo prosty model, często zwraca przyzwoite wyniki, zaś jego interpretowalność jest jego największym atutem (obok jego prostoty). 
+Jak wiemy istnieje wiele algorytmów generowania drzew decyzyjnych. Jako że autor czerpie implementacje klasycznych klasyfikatorów z biblioteki \ita{scikit-learn}, toteż pierwszym przebadanym algorytmem będzie ten wykorzystywany przez wspomnianą bibliotekę. Jest to zoptymalizowana wersja algorytmu CART.
+Ponownie rozpoczniemy od zaprezentowania wyników, gdy jako dane wejściowe wykorzystano bezwzględną liczność struktur poszczególnych klas. Testy podzielono względem głębokości testowanych drzew. Ponieważ wymiar danych wejściowych wynosi siedem, nie ma sensu bliżej przyglądać się drzewom o głębokości większej niż trzy. Natomiast w ramach porównania również one zostaną uwzględnione w podsumowaniu. 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{rys.45.decision.tree.depth.1}
+    \caption{Wizualizacja drzewa decyzyjnego. Warunek jest przedstawiony w pierwszym wierszu pierwszego klocka decyzyjnego. Sprawdzamy, czy struktur III typu jest mniej lub równo $2.5$. Na tej podstawie jest wyznaczana wytrzymałość odlewu. Źródło: opracowanie własne (z wykorzystaniem biblioteki \ita{graphviz})}
+    \label{rys.45.decision.tree.depth.1}
+\end{figure}
+W pierwszej kolejności przeprowadzono badania dla drzew o głębokości równej jeden. Dla takich drzew średnia dokładność modelu wynosi 78\%, co już jest bardzo dobrym wynikiem. Wizualizacja takiego drzewa została przedstawiona na rys. \ref{rys.45.decision.tree.depth.1}. 
+Jak możemy zauważyć, najważniejsze są tutaj struktury typu III (rys. \ref{fig:mesh14}). Biorąc pod uwagę tylko ten jeden typ struktur otrzymujemy dokładność na wspomnianym poziomie 78\%. Zobaczmy teraz jak prezentują się wyniki dla drzewa o głębokości równej dwa. Otóż dokładność wyniosła 81.2\%, natomiast wizualizacja została przedstawiona na rys. \ref{rys.46.decision.tree.depth.2}. 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.85\textwidth]{rys.46.decision.tree.depth.2}
+    \caption{Wizualizacja drzewa decyzyjnego o głębokości równej dwa. Źródło: opracowanie własne (z wykorzystaniem bibliteki \ita{graphviz})}
+    \label{rys.46.decision.tree.depth.2}
+\end{figure}
+Jak możemy zauważyć, klasa III jest ponownie najważniejszą klasą, natomiast dochodzą nam również klasy I oraz VI. Logicznym wytłumaczeniem tego stanu rzeczy może być fakt, iż właśnie struktury tych trzech klas najbardziej różnią się od pozostałych wizualnie. Dla drzewa otrzymujemy dokładność na poziomie 81.3\%, a więc zaledwie jedną dziesiątą punktu procentowego więcej, niż dla drzewa o głębokości dwa. To może świadczyć o nadmiernym dopasowaniu się modelu do danych, czy też słabej generalizacji. Dla większych głębokości drzewa nie odnotowano wzrostu dokładności. Ciekawie również prezentują się wyniki dla innych typów wejść, toteż zostaną one przedstawione na samym końcu tej sekcji w formie tabeli. Tymczasem przejdziemy do innych algorytmów generowania drzewa decyzyjnego. Przetestowane zostały algorytmy CART oraz ID3. P
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.57\textwidth]{rys.47.cart.vs.id3.czas.uczenia}
+    \caption{TODO}
+    \label{rys.47.cart.vs.id3.czas.uczenia}
+\end{figure}
+
 % chyba bym się w sumie nie trzymał tego schematu, tylko chronologicznie i jednoczesnie Rm i Rp ;d
 %5.2. Opis wykonanych badań i testów oraz własnej implementacji
 %
@@ -547,5 +576,3 @@ Dodatkowo, w ramach próby uzyskania najlepszego możliwego wyniku skorzystano z
 %
 %5.5. Omówienie wyników / całościowe
 
-
-% TODO: moze jednak podziele rozdzial 5.2. na dwa, tj. 1) klasyfikacja struktur 2) ocena jakosci odlewow?
