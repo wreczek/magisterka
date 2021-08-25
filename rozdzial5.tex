@@ -626,7 +626,8 @@ Jako podsumowanie prac z drzewami decyzyjnymi zostaje przedstawiony szkic (tab. 
 		  Liczność & Brak limitu & Nie & \bo{84.3\%} \\
 
 %		  \hline
-		\Xhline{3\arrayrulewidth}
+%		\Xhline{3.1\arrayrulewidth}
+		\Xhline{1.5pt}
   		  Procent\tnote{b} & 1 & Nie & 75\%\\
   		  
 		  \hline
@@ -636,7 +637,8 @@ Jako podsumowanie prac z drzewami decyzyjnymi zostaje przedstawiony szkic (tab. 
   		  Procent & 3 & Nie   & \bo{80\%} \\
 
 %		  \hline
-          	\Xhline{3\arrayrulewidth}
+%	          	\Xhline{3\arrayrulewidth}
+		\Xhline{1.5pt}
   		  Softmax\tnote{c} & 1 & Nie   & 74.5\%\\
 
 		  \hline
@@ -657,10 +659,135 @@ Jako podsumowanie prac z drzewami decyzyjnymi zostaje przedstawiony szkic (tab. 
 \end{table}
 Oczywiście najlepsze wyniki otrzymujemy dla głębszych drzew. Jednakże warto zauważyć przede wszystkim, na dwie rzeczy. Po pierwsze, po zbalansowaniu danych zanotowaliśmy znaczny spadek skuteczności, co już zostałe omówione wyżej w tym podrozdziale. Po drugie, najwyższą dokładność uzyskujemy dla danych w postaci bezwzględnej liczności struktur poszczególnych klas, nieco gorsze wyniki, gdy na wejściu podajemy procentowy udział struktur poszczególnych klas, a najgorsze wyniki, gdy użyjemy funkcji softmax. Poniekąd jest zrozumiałe, że dla funkcji softmax otrzymujemy nieco gorsze wyniki, gdyż usuwa ona z danych pewną informację. Natomiast spadek dla danych w postaci procentowego udziału jest nietypowy, aczkolwiek podobne wyniki uzyskano dla modelu SVM. Proste wytłumaczenie może opierać się na tym, iż tak na prawdę większy wpływ na wytrzymałość struktur ma to, czy struktury konkretnej klasy w ogóle wystąpiły niż stosunek ich liczności względem pozostałych klas.
 
+%%%%%%%%%% LAS LOSOWY %%%%%%%%%
 \subsubsection{Las losowy}
 \label{structures.with.rfc}
 
-[bla bla] kolejne do testowania są lasy losowe.
+Kolejny klasyfikator klasyczny, którego możliwości w ocenie wytrzymałości na rozciąganie odlewów zostały przebadane, jest las losowy (rozdz. \ref{cha:Las losowy}). 
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=0.35\textwidth]{rys.52.confusion.matrix.rfc.unbalanced}
+    \caption{Tablica pomyłek dla klasyfikacji wytrzymałości na rozciąganie odlewów wykorzystując las losowy. Testy przeprowadzono na danych niezbalansowanych. Źródło: opracowanie własne (z wykorzystaniem biblioteki \ita{seaborn})}
+    \label{rys.52.confusion.matrix.rfc.unbalanced}
+\end{figure}
+Tutaj szczegółowo zostaną zaprezentowane wyniki uzyskane z wykorzystaniem optymalizacji hiperparametrów oraz kroswalidacji, na danych oryginalnych oraz zbalansowanych. Natomiast w tabeli na końcu podrozdziału zostaną przedstawione wszystkie znaczące wyniki, których testy były analogiczne do przedstawionych. 
+W pierwszej kolejności przebadamy model dla danych oryginalnych (rozdz. \ref{sec:normalizacja_przyblizenia}). Otóż model ten uzyskał skuteczność na poziomie $83\%$, średnią wartość precyzji na poziomie $0.91$ oraz wartość funkcji straty logistycznej na poziomie $5.85$. Wartość metryki F1 wyniosła $0.89$. Ogólnie można stwierdzić, że wyniki są jak najbardziej poprawne, jednakże patrząc na wykres tablicy pomyłek (rys. \ref{rys.52.confusion.matrix.rfc.unbalanced}) ponownie widać to, co występowało w poprzednich klasyfikatorach. Mianowicie jest to przesunięcie w stronę klasy z wysoką wytrzymałością. Dlatego powtórzymy te testy dla zbalansowanych danych i porównaymy je z poprzednimi wynikami. 
+Zbalansowane dane są tworzone na tej samej zasadzie, co w rozdz. \ref{structures.with.svm}, tzn. wszystkie przykłady o niskiej wytrzymałości są uwzględniane w zbiorze (ponieważ jest ich zdecydowanie mniej), natomiast z przykładów o wysokiej wytrzymałości wybieramy losowo tyle przykładów, aby było ich tyle samo, co w poprzedniej klasie. 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.35\textwidth]{rys.53.confusion.matrix.rfc.balanced}
+    \caption{Tablica pomyłek dla klasyfikacji wytrzymałości na rozciąganie odlewów dla algorytmu lasu losowego. Wykorzystano dane zbalansowane. Źródło: opracowanie własne (z wykorzystaniem biblioteki \ita{seaborn})}
+    \label{rys.53.confusion.matrix.rfc.balanced}
+\end{figure}
+Wyniki, jakie udało się osiągnąć dla tego zestawienia, to dokładność na poziomie $80.9\%$, średnia wartość precyzji na poziomie $0.85$, wartość funkcji straty logistycznej na poziomie $6.78$ oraz wartość metryki F1 na poziomie $0.81$. Jak więc widzimy, zanotowano spadek tych metryk, jednakże nie jest on tak duży, jak w przypadku drzew decyzyjnych (rozdz. \ref{structures.with.dt}). 
+\begin{table}[!h]
+	\centering
+	\begin{threeparttable}
+		\caption{Podsumowanie wyników klasyfikacji binarnej z użyciem lasu losowego w celu predykcji wytrzymałości na rozciąganie odlewów}
+		\label{rfc.binary.summary.table}
+		\begin{tabularx}{1\textwidth}{ |X|X|X|X|X| }
+		  \hline
+		  \textbf{Typ wejścia} & \textbf{Dane zbalansowane} & \textbf{Dokładność}\\
+
+		  \hline
+		  Liczność\tnote{a} & Nie  & \bo{83\%} \\
+
+		  \hline
+		  Liczność & Tak & 80.9\%\\
+
+		  \hline
+  		  Procent\tnote{b} & Nie & 81.8\%\\
+
+	          \hline
+  		  Softmax\tnote{c} & Nie & 81.9\%\\
+
+		  \hline
+		\end{tabularx}
+		\begin{tablenotes}
+			\footnotesize
+			\item[a] Liczność struktur poszczególnych klas.
+			\item[b] Procentowy udział struktur poszczególnych klas.
+			\item[c] Wartość funkcji softmax dla liczności struktur.
+		\end{tablenotes}
+	\end{threeparttable}
+\end{table}
+Na rys. \ref{rfc.binary.summary.table} przedstawiono tablicę pomyłek. Jak widzimy, zbalansowanie danych przyniosło oczekiwany efekt. Dodatkowo pokazało, że o ile faktycznie zanotowano spadki w skuteczności, o tyle były one bardzo niewielkie, co dowodzi skuteczności tego podejścia. 
+
+Na koniec przedstawiamy tabelę podsumowującą większość przeprowadzonych badań, które osiągnęły istotne wyniki.
+Jak możemy zauważyć, tendencja skuteczności względem różnych typów wejścia jest zachowana. Ponownie najlepsze wyniki otrzymujemy na danych w postaci liczności struktur, aczkolwiek wyniki pomiędzy różnymi typami wejścia nie różnią się znacząco. Pondadto wyniki dla danych zbalansowanych są zaledwie $2.1$ punktu procentowego gorsze od najlepszych wyników osiągniętych przy pomocy lasu losowego. 
+
+%%%%%%%%%% REGRESJA LOGISTYCZNA %%%%%%%%%
+\subsubsection{Regresja logistyczna}
+\label{structures.with.logit}
+
+Następnym modelem, który został przetestowany jest regresja logistyczna (rozdz. \ref{Regresja logistyczna}). Trzymając się schematu z poprzednich podrozdziałów, ponownie przedstawimy szczegółowe wyniki dla danych w postaci liczności klas dla danych niezbalansowanych i zbalansowanych, po czym na końcu rozdziału zostanie przedstawiona tabela podsumowująca większość prac z użyciem tego modelu. 
+Jak się okazało, nieco nieoczekiwanie, wyniki dla regresji logistycznej były całkiem przyzwoite. Otóż zaczynając od danych niezbalansowanych, otrzymaliśmy następujące wyniki: $83.1\%$ dokładności, $0.91$ średniej wartości prezycji, $5.96$ wartości funkcji straty logistycznej oraz $0.88$ wartości metryki F1. Na rys. \ref{rys.54.confusion.matrix.logit.unbalanced} 
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=0.35\textwidth]{rys.54.confusion.matrix.logit.unbalanced}
+    \caption{Tablica pomyłek dla klasyfikacji wytrzymałości na rozciąganie odlewów dla regresji logistycznej. Wykorzystano dane niezbalansowane. Źródło: opracowanie własne (z wykorzystaniem biblioteki \ita{seaborn})}
+    \label{rys.54.confusion.matrix.logit.unbalanced}
+\end{figure}
+przedstawiono tablicę pomyłek dla tej klasyfikacji i jak możemy zauważyć, problem z poprzednich klasyfikatorów wciąż jest aktualny.
+Natomiast dla danych zbalansowanych otrzymaliśmy następujące wyniki:
+\begin{itemize}
+	\item dokładność – $82.6\%$,
+	\item średnia wartość precyzji – $0.85$,
+	\item wartość funkcji straty logistycznej – $6.65$,
+	\item wartość metryki F1 – $82.4\%$.
+\end{itemize}
+Tablica pomyłek zaprezentowana została na rys. \ref{rys.55.confusion.matrix.logit.balanced}. 
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=0.35\textwidth]{rys.55.confusion.matrix.logit.balanced}
+    \caption{todo. Źródło: opracowanie własne (z wykorzystaniem biblioteki \ita{seaborn})}
+    \label{rys.55.confusion.matrix.logit.balanced}
+\end{figure}
+Ponownie widzimy, iż zbalansowanie danych powoduje, że wartości metryk nieco spadają, ale tym razem spadki te są mniejsze niż w przypadku poprzednich klasyfikatorów. W tab. \ref{logit.binary.summary.table} przedstawiono najważniejsze wyniki osiągnięte z wykorzystaniem regresji logistycznej.
+\begin{table}[!h]
+	\centering
+	\begin{threeparttable}
+		\caption{Podsumowanie wyników klasyfikacji binarnej z użyciem lasu losowego w celu predykcji wytrzymałości na rozciąganie odlewów}
+		\label{logit.binary.summary.table}
+		\begin{tabularx}{1\textwidth}{ |X|X|X|X|X| }
+		  \hline
+		  \textbf{Typ wejścia} & \textbf{Dane zbalansowane} & \textbf{Dokładność}\\
+
+		  \hline
+		  Liczność\tnote{a} & Nie  & \bo{83.1\%} \\
+
+		  \hline
+		  Liczność & Tak & 82.6\%\\
+
+		  \hline
+  		  Procent\tnote{b} & Nie & 81.8\%\\
+
+	          \hline
+  		  Softmax\tnote{c} & Nie & 77.7\%\\
+
+		  \hline
+		\end{tabularx}
+		\begin{tablenotes}
+			\footnotesize
+			\item[a] Liczność struktur poszczególnych klas.
+			\item[b] Procentowy udział struktur poszczególnych klas.
+			\item[c] Wartość funkcji softmax dla liczności struktur.
+		\end{tablenotes}
+	\end{threeparttable}
+\end{table}
+Porównując te wyniki do tych osiągniętych przez las losowy (tab. \ref{rfc.binary.summary.table}) możemy zauważyć, że zarówno najlepszy wynik został osiągnięty przez regresję logistyczną (o $0.1$ punktu procentowego), jak i dla danych zbalansowanych – tutaj przewyższając las losowy aż o $1.7$ punktu procentowego. 
+
+%%%%%%%%%% PERCEPTRON WIELOWARSTWOWY %%%%%%%%%
+\subsubsection{Perceptron wielowarstwowy}
+\label{structures.with.mlp}
+
+
+
+%%%%%%%%%% AdaBoost %%%%%%%%%
+\subsubsection{AdaBoost}
+\label{structures.with.AdaBoost}
+
+
 
 % chyba bym się w sumie nie trzymał tego schematu, tylko chronologicznie i jednoczesnie Rm i Rp ;d
 %5.2. Opis wykonanych badań i testów oraz własnej implementacji
