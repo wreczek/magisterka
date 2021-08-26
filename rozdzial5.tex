@@ -461,12 +461,13 @@ W następnym kroku przetestowano skuteczność klasycznych klasyfikatorów w oce
     \label{rys.41.flowchart.diagram.png}
 \end{figure}
 Przetestowano również podejścia, w których zamiast bezwzględnych liczb podawano na wejście procentowy udział struktur poszczególnych klas, a także strategie, w której na wejście podawano wynik funkcji softmax (wzór \ref{eq.softmax}) na bezwzględnych licznościach struktur poszczególnych klas. Na rys. \ref{rys.41.flowchart.diagram.png} przedstawiono schemat działania całego procesu.
-W tym celu wykorzystano najpopularniejsze klasyfikatory, jak maszyna wektorów nonych (SVM), drzewo decyzyjne (DT, rozdz. \ref{cha:Drzewo decyzyjne}), las losowy (RFC, rozdz.\ref{cha:Las losowy}), regresja logistyczna (rozdz. \ref{Regresja logistyczna}), perceptron wielowarstwowy (MLP, rozdz. \ref{cha:Siecineuronowe}) oraz AdaBoost (rozdz. \ref{AdaBoost}). W następnych podrozdziałach są przedstawione analizy oraz wyniki uzyskane z użyciem wyżej wymienionych klasyfikatorów.
+W tym celu wykorzystano najpopularniejsze klasyfikatory, jak maszyna wektorów nonych (SVM), drzewo decyzyjne (DT), las losowy (RFC), regresja logistyczna (logit), perceptron wielowarstwowy (MLP) oraz AdaBoost. W następnych podrozdziałach są przedstawione analizy oraz wyniki uzyskane z użyciem wyżej wymienionych klasyfikatorów.
 
+%%%%%%%%%%%%%%% SVM %%%%%%%%%%%%%%%%
 \subsubsection{Klasyfikator SVM}
 \label{structures.with.svm}
 
-Jako pierwsze zostanie omówione podejście, w którym jako klasycznego klasyfikatora użyto SVM, czyli maszynę wektorów nośnych (rozdz. \ref{cha:Maszyna wektorów nośnych}). Schemat ogólny został przedsawiony na rys. \ref{rys.41.flowchart.diagram.png}. W pierwszej kolejności przebadano strategię, w której na wejście SVM podawano bezwzględną liczbę struktur poszczególnych klas. Badania przeprowadzono wykorzystując walidację krzyżową (rozdz. \ref{cross.validation}) oraz przeszukiwanie siatki (rozdz. \ref{Optymalizacja hiperparametrów}). Użyto już gotowej implementacji z biblioteki \ita{scikit-learn} pod nazwą \ita{GridSearchCV}, który obsługuje te dwie rzeczy naraz. W rezultacie otrzymano model, który osiągnął 82.7\% dokładności dla danych testowych oraz cztery punkty procentowe więcej dla danych treningowych. Wartość straty logistycznej wyniosła $5.96$. To oznacza, że nie doszło do przetrenowania, ani niedotrenowania modelu do danych, czemu też zapobiega sprawdzian krzyżowy. W każdym razie wyniki wydają się być wysokie, tym bardziej, że opierają się na modelu, który miał mniejszą skuteczność (o pół punktu procentowego). Poniżej przedstawiono wykres krzywej Precision-Recall, który wskazuje jaka jest precyzja modelu (ang. \ita{precision}) przy zadanej czułości (ang. \ita{recall}). 
+Jako pierwsze zostanie omówione podejście, w którym jako klasycznego klasyfikatora użyto SVM, czyli maszynę wektorów nośnych (rozdz. \ref{cha:Maszyna wektorów nośnych}). Schemat ogólny został przedsawiony na rys. \ref{rys.41.flowchart.diagram.png}. W pierwszej kolejności przebadano strategię, w której na wejście SVM podawano bezwzględną liczbę struktur poszczególnych klas. Badania przeprowadzono wykorzystując walidację krzyżową (rozdz. \ref{cross.validation}) oraz przeszukiwanie siatki (rozdz. \ref{Optymalizacja hiperparametrów}). Użyto już gotowej implementacji z biblioteki \ita{scikit-learn} pod nazwą \ita{GridSearchCV}, który obsługuje te dwie rzeczy naraz. W rezultacie otrzymano model, który osiągnął $83.3\%$ dokładności dla danych testowych oraz około cztery punkty procentowe więcej dla danych treningowych ($86.7\%$). Wartość straty logistycznej wyniosła $0.39$. To oznacza, że nie doszło do przetrenowania, ani niedotrenowania modelu do danych, czemu też zapobiega sprawdzian krzyżowy. W każdym razie wyniki wydają się być wysokie, tym bardziej, że opierają się na modelu, który miał mniejszą skuteczność (o pół punktu procentowego). Poniżej przedstawiono wykres krzywej Precision-Recall, który wskazuje jaka jest precyzja modelu (ang. \ita{precision}) przy zadanej czułości (ang. \ita{recall}). 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.62\textwidth]{rys.42.krzywa.precision.recall.png}
@@ -481,9 +482,9 @@ Natomiast na rys. \ref{rys.43.confusion.matrix.svm.unbalanced} przedstawiono tab
     \label{rys.43.confusion.matrix.svm.unbalanced}
 \end{figure}
 
-Kolejnym przetestowanym pomysłem była strategia, w której zamiast bezwzględnych liczb okrelających liczność struktur odpowiednich klas na wejście podawano procentowy udział struktur poszczególnych klas. Tym razem skuteczność wyniosła $78.7\%$, a więc dokładnie o cztery punkty procentowe mniej, niż w przypadku liczności struktur. Średnia wartość precyzji wyniosła $0.8$, a więc również gorzej niż w poprzednim wypadku. Również wartość straty logistycznej jest większa i wynosi $7.37$. Stąd wykres nie jest nawet wymagany, ponieważ po samych wynikach liczbowych możemy z całą pewnością stwierdzić, iż tutaj lepiej zadziałało poprzednie podejście. Próbując wyjaśnić takie rozbieżności tak naprawdę ciężko dojść do sensownego wyjaśnienia tej sytuacji. Wydawać mogłoby się, iż wyniki powinny być znacznie bardziej zbliżone, a to ze względu na charakter danych wejściowych. Procentowy udział struktur poszczególnych to nic innego jak znormalizowane wyniki biorące pod uwagę liczność struktur danej klasy względem wszystkich pozostałych. A jednak wyniki są dużo gorsze. Natomiast wystąpiła jedna drobna różnica, a mianowicie było dziewięć zdjęć, dla których nie wykryto ani jednej struktury, stąd niemożliwe było wyliczenie względnego udziału struktur poszczególnych klas, wskutek czego konieczne było ich wyeliminowanie ze zbioru. Tak czy inaczej, jest to tylko dziewięć przykładów spośród 4695 wszystkich, stąd można ten fakt pominąć. 
+Kolejnym przetestowanym pomysłem była strategia, w której zamiast bezwzględnych liczb okrelających liczność struktur odpowiednich klas na wejście podawano procentowy udział struktur poszczególnych klas. Tym razem skuteczność wyniosła $78.7\%$, a więc dokładnie o cztery punkty procentowe mniej, niż w przypadku liczności struktur. Średnia wartość precyzji wyniosła $0.8$, a więc również gorzej niż w poprzednim wypadku. Również wartość straty logistycznej jest większa i wynosi $0.47$. Stąd wykres nie jest nawet wymagany, ponieważ po samych wynikach liczbowych możemy z całą pewnością stwierdzić, iż tutaj lepiej zadziałało poprzednie podejście. Próbując wyjaśnić takie rozbieżności tak naprawdę ciężko dojść do sensownego wyjaśnienia tej sytuacji. Wydawać mogłoby się, iż wyniki powinny być znacznie bardziej zbliżone, a to ze względu na charakter danych wejściowych. Procentowy udział struktur poszczególnych to nic innego jak znormalizowane wyniki biorące pod uwagę liczność struktur danej klasy względem wszystkich pozostałych. A jednak wyniki są dużo gorsze. Natomiast wystąpiła jedna drobna różnica, a mianowicie było dziewięć zdjęć, dla których nie wykryto ani jednej struktury, stąd niemożliwe było wyliczenie względnego udziału struktur poszczególnych klas, wskutek czego konieczne było ich wyeliminowanie ze zbioru. Tak czy inaczej, jest to tylko dziewięć przykładów spośród 4695 wszystkich, stąd można ten fakt pominąć. 
 
-Jako ostatnia została przetestowana strategia, w której na wejście klasycznych klasyfikatorów jest podawany wynik funkcji softmax na pierwotnych danych (tj. liczności struktur poszczególnych klas). W tym przypadku otrzymaliśmy dokładność na poziomie $79\%$, średnią wartość precyzji równą $0.72$ oraz wartość straty logistycznej równą $7.21$. Jak widzimy, z wszystkich trzech zasosowanych tutaj strategii najlepiej sprawdza się bezwzględna liczność struktur poszczególnych klas, dlatego w dalszych badaniach będziemy się głównie skupiać na tego typu danych. 
+Jako ostatnia została przetestowana strategia, w której na wejście klasycznych klasyfikatorów jest podawany wynik funkcji softmax na pierwotnych danych (tj. liczności struktur poszczególnych klas). W tym przypadku otrzymaliśmy dokładność na poziomie $79\%$, średnią wartość precyzji równą $0.72$ oraz wartość straty logistycznej równą $0.51$. Jak widzimy, z wszystkich trzech zasosowanych tutaj strategii najlepiej sprawdza się bezwzględna liczność struktur poszczególnych klas, dlatego w dalszych badaniach będziemy się głównie skupiać na tego typu danych. 
 
 Jednakże dane są mocno niezbalansowane, co zostało pokazane w rozdz. \ref{sec:normalizacja_przyblizenia}. W ramach przypomnienia, zdjęć reprezentujących odlewy z wysoką wytrzymałością na rozciąganie jest 3358, natomiast tych z niską jest 1337. To mogłoby wyjaśniać przesunięcie w stronę klasy odpowiadającej wysokiej wytrzymałości, co zostało przedstawione na rys. \ref{rys.43.confusion.matrix.svm.unbalanced} (tzw. błąd drugiego rodzaju). Co prawda zgodnie z terminologią jest to zaledwie „delikatnie niezbalansowany zbiór", aczkolwiek warto sprawdzić czy to niezrównoważenie ma wpływ na wyniki.
 \begin{figure}[h]
@@ -498,23 +499,23 @@ Podsumowując wyniki badań dla SVM przygotowano szkic, w którym są przedstawi
 \begin{table}[h]
 	\centering
 	\begin{threeparttable}
-		\caption{Podsumowanie wyników klasyfikacji binarnej z użyciem klasyfikatora SVM w celu predykcji wytrzymałości na rozciąganie odlewów}
+		\caption{Podsumowanie wyników klasyfikacji binarnej z użyciem klasyfikatora SVM w celu predykcji wytrzymałości na rozciąganie odlewów. Źródło: opracowanie własne}
 		\label{svm.binary.summary.table}
 		\begin{tabularx}{1\textwidth}{ |X|X|X|X| }
 		  \hline
 		  \textbf{Typ wejścia} & \textbf{Dokładność} & \textbf{AP\tnote{a}} & \textbf{Strata logistyczna}\\
 
 		  \hline
-		  Liczba struktur & \bo{82.7\%} & \bo{0.88} & \bo{5.96}\\
+		  Liczba struktur & \bo{82.7\%} & \bo{0.88} & \bo{0.39}\\
 
 		  \hline
-		  Procentowy udział struktur & 78.7\% & 0.8 & 7.37\\
+		  Procentowy udział struktur & 78.7\% & 0.8 & 0.47\\
 
 		  \hline
-		  Wartość funkcji softmax dla liczby struktur & 79\% & 0.72 & 7.21\\
+		  Wartość funkcji softmax dla liczby struktur & 79\% & 0.72 & 0.51\\
 
 		  \hline
-		  Liczba struktur (zbalansowane dane)  & 78.4\% & 0.79 & 7.35\\
+		  Liczba struktur (zbalansowane dane)  & 78.4\% & 0.79 & 0.49\\
 %
 %		  \hline
 %  		  Optuna i kroswalidacja & \bo{84\%} & \bo{0.88} & \bo{5.66}\\
@@ -543,15 +544,15 @@ Ponownie rozpoczniemy od zaprezentowania wyników, gdy jako dane wejściowe wyko
     \caption{Wizualizacja drzewa decyzyjnego. Warunek jest przedstawiony w pierwszym wierszu pierwszego klocka decyzyjnego. Sprawdzamy, czy struktur III typu jest mniej lub równo $2.5$. Na tej podstawie jest wyznaczana wytrzymałość odlewu. Źródło: opracowanie własne (z wykorzystaniem biblioteki \ita{graphviz})}
     \label{rys.45.decision.tree.depth.1}
 \end{figure}
-W pierwszej kolejności przeprowadzono badania dla drzew o głębokości równej jeden. Dla takich drzew średnia dokładność modelu wynosi 78\%, co już jest bardzo dobrym wynikiem. Wizualizacja takiego drzewa została przedstawiona na rys. \ref{rys.45.decision.tree.depth.1}. 
-Jak możemy zauważyć, najważniejsze są tutaj struktury typu III (rys. \ref{fig:mesh14}). Biorąc pod uwagę tylko ten jeden typ struktur otrzymujemy dokładność na wspomnianym poziomie 78\%. Zobaczmy teraz jak prezentują się wyniki dla drzewa o głębokości równej dwa. Otóż dokładność wyniosła 81.2\%, natomiast wizualizacja została przedstawiona na rys. \ref{rys.46.decision.tree.depth.2}. 
+W pierwszej kolejności przeprowadzono badania dla drzew o głębokości równej jeden. Dla takich drzew średnia dokładność modelu wynosi $78\%$, co już jest bardzo dobrym wynikiem. Wizualizacja takiego drzewa została przedstawiona na rys. \ref{rys.45.decision.tree.depth.1}. 
+Jak możemy zauważyć, najważniejsze są tutaj struktury typu III (rys. \ref{fig:mesh14}). Biorąc pod uwagę tylko ten jeden typ struktur otrzymujemy dokładność na wspomnianym poziomie $78\%$. Zobaczmy teraz jak prezentują się wyniki dla drzewa o głębokości równej dwa. Otóż dokładność wyniosła $81.2\%$, natomiast wizualizacja została przedstawiona na rys. \ref{rys.46.decision.tree.depth.2}. 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.85\textwidth]{rys.46.decision.tree.depth.2}
     \caption{Wizualizacja drzewa decyzyjnego o głębokości równej dwa. Źródło: opracowanie własne (z wykorzystaniem bibliteki \ita{graphviz})}
     \label{rys.46.decision.tree.depth.2}
 \end{figure}
-Jak możemy zauważyć, klasa III jest ponownie najważniejszą klasą, natomiast dochodzą nam również klasy I oraz VI. Logicznym wytłumaczeniem tego stanu rzeczy może być fakt, iż właśnie struktury tych trzech klas najbardziej różnią się od pozostałych wizualnie. Dla drzewa o głębokości równej trzy otrzymujemy dokładność na poziomie 81.3\%, a więc zaledwie jedną dziesiątą punktu procentowego więcej, niż dla drzewa o głębokości dwa. To może świadczyć o nadmiernym dopasowaniu się modelu do danych, czy też słabej generalizacji. Dla większych głębokości drzewa nie odnotowano wzrostu dokładności. Ciekawie również prezentują się wyniki dla innych typów wejść, toteż zostaną one przedstawione na samym końcu tej sekcji w formie tabeli. 
+Jak możemy zauważyć, klasa III jest ponownie najważniejszą klasą, natomiast dochodzą nam również klasy I oraz VI. Logicznym wytłumaczeniem tego stanu rzeczy może być fakt, iż właśnie struktury tych trzech klas najbardziej różnią się od pozostałych wizualnie. Dla drzewa o głębokości równej trzy otrzymujemy dokładność na poziomie $81.3\%$, a więc zaledwie jedną dziesiątą punktu procentowego więcej, niż dla drzewa o głębokości dwa. To może świadczyć o nadmiernym dopasowaniu się modelu do danych, czy też słabej generalizacji. Dla większych głębokości drzewa nie odnotowano wzrostu dokładności. Ciekawie również prezentują się wyniki dla innych typów wejść, toteż zostaną one przedstawione na samym końcu tej sekcji w formie tabeli. 
 
 Tymczasem przejdziemy do kolejnego algorytmu generowania drzewa decyzyjnego. Obok algorytmu CART przetestowano również algorytm ID3, którego implementacja została zaczerpnięta z biblioteki \ita{decision-tree-id3}. 
 \begin{figure}[h]
@@ -604,7 +605,7 @@ Jako podsumowanie prac z drzewami decyzyjnymi zostaje przedstawiony szkic (tab. 
 \begin{table}[h]
 	\centering
 	\begin{threeparttable}
-		\caption{Podsumowanie wyników klasyfikacji binarnej z użyciem drzew decyzyjnych w celu predykcji wytrzymałości na rozciąganie odlewów}
+		\caption{Podsumowanie wyników klasyfikacji binarnej z użyciem drzew decyzyjnych w celu predykcji wytrzymałości na rozciąganie odlewów. Źródło: opracowanie własne}
 		\label{dt.binary.summary.table}
 		\begin{tabularx}{1\textwidth}{ |X|X|X|X|X| }
 		  \hline
@@ -671,7 +672,7 @@ Kolejny klasyfikator klasyczny, którego możliwości w ocenie wytrzymałości n
     \label{rys.52.confusion.matrix.rfc.unbalanced}
 \end{figure}
 Tutaj szczegółowo zostaną zaprezentowane wyniki uzyskane z wykorzystaniem optymalizacji hiperparametrów oraz kroswalidacji, na danych oryginalnych oraz zbalansowanych. Natomiast w tabeli na końcu podrozdziału zostaną przedstawione wszystkie znaczące wyniki, których testy były analogiczne do przedstawionych. 
-W pierwszej kolejności przebadamy model dla danych oryginalnych (rozdz. \ref{sec:normalizacja_przyblizenia}). Otóż model ten uzyskał skuteczność na poziomie $83\%$, średnią wartość precyzji na poziomie $0.91$ oraz wartość funkcji straty logistycznej na poziomie $5.85$. Wartość metryki F1 wyniosła $0.89$. Ogólnie można stwierdzić, że wyniki są jak najbardziej poprawne, jednakże patrząc na wykres tablicy pomyłek (rys. \ref{rys.52.confusion.matrix.rfc.unbalanced}) ponownie widać to, co występowało w poprzednich klasyfikatorach. Mianowicie jest to przesunięcie w stronę klasy z wysoką wytrzymałością. Dlatego powtórzymy te testy dla zbalansowanych danych i porównaymy je z poprzednimi wynikami. 
+W pierwszej kolejności przebadamy model dla danych oryginalnych (rozdz. \ref{sec:normalizacja_przyblizenia}). Otóż model ten uzyskał skuteczność na poziomie $83\%$, średnią wartość precyzji na poziomie $0.91$ oraz wartość funkcji straty logistycznej na poziomie $0.4$. Wartość metryki F1 wyniosła $0.89$. Ogólnie można stwierdzić, że wyniki są jak najbardziej poprawne, jednakże patrząc na wykres tablicy pomyłek (rys. \ref{rys.52.confusion.matrix.rfc.unbalanced}) ponownie widać to, co występowało w poprzednich klasyfikatorach. Mianowicie jest to przesunięcie w stronę klasy z wysoką wytrzymałością. Dlatego powtórzymy te testy dla zbalansowanych danych i porównaymy je z poprzednimi wynikami. 
 Zbalansowane dane są tworzone na tej samej zasadzie, co w rozdz. \ref{structures.with.svm}, tzn. wszystkie przykłady o niskiej wytrzymałości są uwzględniane w zbiorze (ponieważ jest ich zdecydowanie mniej), natomiast z przykładów o wysokiej wytrzymałości wybieramy losowo tyle przykładów, aby było ich tyle samo, co w poprzedniej klasie. 
 \begin{figure}[h]
     \centering
@@ -679,11 +680,11 @@ Zbalansowane dane są tworzone na tej samej zasadzie, co w rozdz. \ref{structure
     \caption{Tablica pomyłek dla klasyfikacji wytrzymałości na rozciąganie odlewów dla algorytmu lasu losowego. Wykorzystano dane zbalansowane. Źródło: opracowanie własne (z wykorzystaniem biblioteki \ita{seaborn})}
     \label{rys.53.confusion.matrix.rfc.balanced}
 \end{figure}
-Wyniki, jakie udało się osiągnąć dla tego zestawienia, to dokładność na poziomie $80.9\%$, średnia wartość precyzji na poziomie $0.85$, wartość funkcji straty logistycznej na poziomie $6.78$ oraz wartość metryki F1 na poziomie $0.81$. Jak więc widzimy, zanotowano spadek tych metryk, jednakże nie jest on tak duży, jak w przypadku drzew decyzyjnych (rozdz. \ref{structures.with.dt}). 
+Wyniki, jakie udało się osiągnąć dla tego zestawienia, to dokładność na poziomie $80.9\%$, średnia wartość precyzji na poziomie $0.85$, wartość funkcji straty logistycznej na poziomie $0.47$ oraz wartość metryki F1 na poziomie $0.81$. Jak więc widzimy, zanotowano spadek tych metryk, jednakże nie jest on tak duży, jak w przypadku drzew decyzyjnych (rozdz. \ref{structures.with.dt}). 
 \begin{table}[!h]
 	\centering
 	\begin{threeparttable}
-		\caption{Podsumowanie wyników klasyfikacji binarnej z użyciem lasu losowego w celu predykcji wytrzymałości na rozciąganie odlewów}
+		\caption{Podsumowanie wyników klasyfikacji binarnej z użyciem lasu losowego w celu predykcji wytrzymałości na rozciąganie odlewów. Źródło: opracowanie własne}
 		\label{rfc.binary.summary.table}
 		\begin{tabularx}{1\textwidth}{ |X|X|X|X|X| }
 		  \hline
@@ -721,7 +722,7 @@ Jak możemy zauważyć, tendencja skuteczności względem różnych typów wejś
 \label{structures.with.logit}
 
 Następnym modelem, który został przetestowany jest regresja logistyczna (rozdz. \ref{Regresja logistyczna}). Trzymając się schematu z poprzednich podrozdziałów, ponownie przedstawimy szczegółowe wyniki dla danych w postaci liczności klas dla danych niezbalansowanych i zbalansowanych, po czym na końcu rozdziału zostanie przedstawiona tabela podsumowująca większość prac z użyciem tego modelu. 
-Jak się okazało, nieco nieoczekiwanie, wyniki dla regresji logistycznej były całkiem przyzwoite. Otóż zaczynając od danych niezbalansowanych, otrzymaliśmy następujące wyniki: $83.1\%$ dokładności, $0.91$ średniej wartości prezycji, $5.96$ wartości funkcji straty logistycznej oraz $0.88$ wartości metryki F1. Na rys. \ref{rys.54.confusion.matrix.logit.unbalanced} 
+Jak się okazało, nieco nieoczekiwanie, wyniki dla regresji logistycznej były całkiem przyzwoite. Otóż zaczynając od danych niezbalansowanych, otrzymaliśmy następujące wyniki: $83.1\%$ dokładności, $0.91$ średniej wartości prezycji, $0.41$ wartości funkcji straty logistycznej oraz $0.88$ wartości metryki F1. Na rys. \ref{rys.54.confusion.matrix.logit.unbalanced} 
 \begin{figure}[!h]
     \centering
     \includegraphics[width=0.35\textwidth]{rys.54.confusion.matrix.logit.unbalanced}
@@ -733,21 +734,21 @@ Natomiast dla danych zbalansowanych otrzymaliśmy następujące wyniki:
 \begin{itemize}
 	\item dokładność – $82.6\%$,
 	\item średnia wartość precyzji – $0.85$,
-	\item wartość funkcji straty logistycznej – $6.65$,
-	\item wartość metryki F1 – $82.4\%$.
+	\item wartość funkcji straty logistycznej – $0.52$,
+	\item wartość metryki F1 – $0.8$.
 \end{itemize}
 Tablica pomyłek zaprezentowana została na rys. \ref{rys.55.confusion.matrix.logit.balanced}. 
 \begin{figure}[!h]
     \centering
     \includegraphics[width=0.35\textwidth]{rys.55.confusion.matrix.logit.balanced}
-    \caption{todo. Źródło: opracowanie własne (z wykorzystaniem biblioteki \ita{seaborn})}
+    \caption{Tablica pomyłek dla klasyfikacji wytrzymałości na rozciąganie odlewów dla regresji logistycznej. Wykorzystano dane zbalansowane. Źródło: opracowanie własne (z wykorzystaniem biblioteki \ita{seaborn})}
     \label{rys.55.confusion.matrix.logit.balanced}
 \end{figure}
 Ponownie widzimy, iż zbalansowanie danych powoduje, że wartości metryk nieco spadają, ale tym razem spadki te są mniejsze niż w przypadku poprzednich klasyfikatorów. W tab. \ref{logit.binary.summary.table} przedstawiono najważniejsze wyniki osiągnięte z wykorzystaniem regresji logistycznej.
 \begin{table}[!h]
 	\centering
 	\begin{threeparttable}
-		\caption{Podsumowanie wyników klasyfikacji binarnej z użyciem lasu losowego w celu predykcji wytrzymałości na rozciąganie odlewów}
+		\caption{Podsumowanie wyników klasyfikacji binarnej z użyciem regresji logistycznej w celu predykcji wytrzymałości na rozciąganie odlewów. Źródło: opracowanie własne}
 		\label{logit.binary.summary.table}
 		\begin{tabularx}{1\textwidth}{ |X|X|X|X|X| }
 		  \hline
@@ -781,28 +782,139 @@ Porównując te wyniki do tych osiągniętych przez las losowy (tab. \ref{rfc.bi
 \subsubsection{Perceptron wielowarstwowy}
 \label{structures.with.mlp}
 
+Kolejnym przetestowanym modelem był perceptron wielowarstwowy (rozdz. \ref{cha:Siecineuronowe}). Jest to nieco inny model od wszystkich przedstawionych w tym rozdziale, gdyż jest to najpopularniejszy typ sztucznych sieci neuronowych. Wyniki dla danych niezbalansowanych prezentują się następująco:
+\begin{itemize}
+	\item dokładność – $82.6\%$,
+	\item średnia wartość precyzji – $0.85$,
+	\item wartość funkcji straty logistycznej – $0.41$,
+	\item wartość metryki F1 – $0.88$.
+\end{itemize}
+Oprócz dokładności, wartości wszystkich pozostałych metryk są najlepsze w porównaniu do innych modeli.
+W poniższej tabeli (tab. \ref{mlp.summary.table}) przedstawiono wszystkie istotne wyniki osiągnięte z wykorzystaniem tego modelu.
+\begin{table}[!h]
+	\centering
+	\begin{threeparttable}
+		\caption{Podsumowanie wyników klasyfikacji binarnej z użyciem perceptronu wielowarstwowego w celu predykcji wytrzymałości na rozciąganie odlewów. Źródło: opracowanie własne}
+		\label{mlp.summary.table}
+		\begin{tabularx}{1\textwidth}{ |X|X|X|X|X|X| }
+		  \hline
+		  \textbf{Typ wejścia} & \textbf{Dane zbalansowane} & \textbf{Dokładność}  \\
+		  \hline
 
+	          Liczność & Nie & 82.7\%\\
+		  \hline
 
-%%%%%%%%%% AdaBoost %%%%%%%%%
+	          Liczność & Tak & 80.6\%\\
+		  \hline
+
+	          Procent & Nie & 81.9\%\\
+		  \hline
+
+	          Softmax & Nie & 79.6\%\\
+		  \hline
+		\end{tabularx}
+	\end{threeparttable}
+\end{table}
+Jak widzimy, wyniki są dosyć imponujące na tle poprzednich modeli, szczególnie jeśli chodzi o dane zbalansowane. Dodatkowo wyniki są bardziej równomierne dla różnych typów wejścia w porównaniu do poprzednich modeli.
+
+%%%%%%%%%% AdaBoost %%%%%%%%%%%%
 \subsubsection{AdaBoost}
 \label{structures.with.AdaBoost}
 
+Ostatnim modelem przetestowanym w tym zestawieniu jest algorytm AdaBoost, przedstawiony w rozdz. \ref{AdaBoost}. Składa się on z wielu tzw. słabych klasyfikatorów, a w każdej iteracji waga źle zaklasyfikowanych obserwacji jest zwiększana. Można by oczekiwać wysokich skuteczności tego modelu. 
+Wyniki dla danych zbalansowanych przedstawiają się następująco:
+\begin{itemize}
+	\item dokładność – $83.4\%$,
+	\item średnia wartość precyzji – $0.91$,
+	\item wartość funkcji straty logistycznej – $0.41$,
+	\item wartość metryki F1 – $0.88$.
+\end{itemize}
+Jest to najwyższa dokładność jaką udało się uzyskać dla tego typu danych. W poniższej tabeli znajdują się wyniki, 
+\begin{table}[!h]
+	\centering
+	\begin{threeparttable}
+		\caption{Podsumowanie wyników klasyfikajci binarnej z użyciem algorytmu AdaBoost w celu predykcji wytrzymałości na rozciąganie odlewów. Źródło: opracowanie własne}
+		\label{ada.summary.table}
+		\begin{tabularx}{1\textwidth}{ |X|X|X|X|X|X| }
+		  \hline
+		  \textbf{Typ wejścia} & \textbf{Dane zbalansowane} & \textbf{Dokładność}  \\
+		  \hline
 
+	          Liczność & Nie & 83.4\%\\
+		  \hline
 
-% chyba bym się w sumie nie trzymał tego schematu, tylko chronologicznie i jednoczesnie Rm i Rp ;d
-%5.2. Opis wykonanych badań i testów oraz własnej implementacji
-%
-%5.3. Omówienie wyników uzyskanych za pomocą metod klasycznych
-%
-%5.3.1. Analiza wytrzymałości na rozciąganie
-%
-%5.3.2. Analiza granicy plastyczności
-%
-%5.4. Omówienie wyników uzyskanych za pomocą sieci neuronowych
-%
-%5.4.1. Analiza wytrzymałości na rozciąganie
-%
-%5.4.2. Analiza granicy plastyczności
-%
+	          Liczność & Tak & 72\%\\
+		  \hline
+
+	          Procent & Nie & 81.3\%\\
+		  \hline
+
+	          Softmax & Nie & 80.6\%\\
+		  \hline
+		\end{tabularx}
+	\end{threeparttable}
+\end{table}
+które udało się osiągnąć z pomocą tego modelu dla różnych typów wejścia. W poniższej tabeli (tab. \ref{ada.summary.table}) przedstawiono wszystkie istotne wyniki osiągnięte z wykorzystaniem tego modelu.
+Warto tutaj zwrócić uwagę na dane zbalansowane. Jak można zauważyć, nastąpił znaczny spadek skuteczności. Możliwe wyjaśnienie opiera się na nadmiernym dopasowaniu się modelu do danych treningowych. Jak wiadomo, modele oparte na wzmacnianiu mają taką tendencję, tym bardziej, iż dane zalansowane zawierają 40\% wszystkich dostępnych danych.
+
+%%%%%%%%%% PODSUMOWANIE %%%%%%%%%%%%
+\subsubsection{Podsumowanie}
+\label{structures.summary}
+
+Podsumowując wszystkie najważniejsze wyniki osiągnięte w tym podrozdziale przygotowano tabelę (tab. \ref{structures.summary.table}). Zawarto w niej najlepsze osiągnięte wyniki przez wszystkie przetestowane modele na danych zarówno zbalansowanych, jak i niezbalansowanych, wykorzystując optymalizację hiperparametrów oraz kroswalidację. Uwzględnione zostały również modele, których przebieg badań nie został szczegółowo opisany w powyższych podrozdziałach. 
+\begin{table}[!h]
+	\centering
+	\begin{threeparttable}
+		\caption{Podsumowanie wyników klasyfikacji binarnej dla wszystkich wykorzystanych klasyfikatorów. W zestawieniu przedstawiono najlepsze wyniki, które udało się osiągnąć dla poszczególnych modeli dla danych niezbalansowanych oraz zbalansowanych. Źródło: opracowanie własne}
+		\label{structures.summary.table}
+		\begin{tabularx}{1\textwidth}{ |X|X|X|X|X|X| }
+		  \hline
+		  \textbf{Model} & \textbf{Dane zbalansowane} & \textbf{Dokładność} & \textbf{Log loss} & \textbf{F1} & \textbf{AP} \\
+		  \hline
+
+	          SVM  & Nie & 83.3\% & \bo{0.39} & \bo{0.9} & 0.9 \\
+		  \hline 
+
+	          SVM  & Tak & 76.9\% & 0.49 & 0.78 & 0.81 \\
+		 \hline \\ \hline
+
+	          DT  & Nie & 81.6\% & 0.46 & 0.89 & 0.81 \\
+		  \hline
+
+	          DT  & Tak & 69.5\% & 0.58 & 0.74 & 0.65 \\
+		 \hline \hline
+
+	          RFC  & Nie & 83.3\% & 0.4 & \bo{0.9} & \bo{0.92} \\
+		  \hline
+
+	          RFC  & Tak & 78.4\% & 0.47 & 0.79 & 0.83 \\
+		 \hline \hline
+
+	          Logit  & Nie & 82.2\% & 0.41 & 0.89 & 0.91 \\
+		  \hline
+
+	          Logit  & Tak & 77.1\% & 0.52 & 0.78 & 0.8 \\
+		 \hline \hline
+
+	          MLP  & Nie & 82.7\% & 0.41 & 0.88 & 0.91 \\
+		  \hline
+
+	          MLP & Tak & \bo{80.6\%} & \bo{0.46} & \bo{0.83} & \bo{0.84} \\
+		 \hline \hline
+
+	          AdaBoost  & Nie & \bo{83.4\%} & 0.67 & 0.89 & \bo{0.92} \\
+		  \hline
+
+	          AdaBoost & Tak & 72\% & 0.62 & 0.76 & 0.77 \\
+		  \hline
+		\end{tabularx}
+	\end{threeparttable}
+\end{table}
+Jak można zauważyć, dla niezbalansowanych danych dobrze prezentują się modele maszyny wektorów nonych, lasu losowego oraz AdaBoost, co jest oczekiwanym efektem, gdyż są to bardzo popularne algorytmy, ogólnie uważane za solidne. Natomiast dla danych zbalansowanych bezsprzecznie najlepszym modelem jest perceptron wielowarstwowy, który osiągnął najlepsze wartości dla wszystkich metryk. 
+TODO ponizej
+% PORÓWNANIE CZASÓW {FIT, SCORE}
+% PORÓWNANIE DOKŁADNOCI (WYKRESIK JAK POWYZEJ)
+% TABELKA JAK W COLABIE
+
 %5.5. Omówienie wyników / całościowe
 
