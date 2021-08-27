@@ -450,7 +450,7 @@ Dodatkowo, aby nie zwiększać sztucznie dokładności ze względu na podobieńs
 
 Porównując wyniki otrzymane w tych trzech eksperymentach można dojść z penwością do kilku wniosków. Po pierwsze, widać wyraźnie, że wyniki pomiędzy modelami drzew oraz maszyny wektorów znacząco się różnią. W pierwszym eksperymencie wyniki dla SVM są lepsze od 1 do nawet 12 punktów procentowych. W pozostałych dwóch eksperymentach wyniki dla SVM są znacznie gorsze od tych dla lasu losowego, w ekstremalnym przypadku aż o 30 punktów procentowych. Po drugie, można zauważyć, że w większości przypadków wyniki dla momentów Hu są najgorsze, co można wytłumaczyć tym, iż jest to najprostsza metoda. Natomiast widzimy również wpływ augmentacji danych, jak również zaszumienia danych. Można przyjąć, iż najbardziej wiarygodne wyniki otrzymaliśmy w trzecim eksperymencie, gdyż, przede wszystkim, skuteczność algorytmu nie pokrywa się ze stosunkiem liczebności klas, oraz wyniki nie różnią się między sobą w niewytłumaczalny sposób. Mimo wszystko, ciężko do końca ocenić co tak naprawdę wpłynęło na te wyniki. Dodatkowo to podejście ma bardzo niską interpretowalność, tzn. ciężko ocenić dlaczego model wybrał jedną decyzję, zamiast innej. Natomiast atutem tego podejścia jest czas wykonywania (czas uczenia modeli). Mimo ustawienia parametrów SVM na wiele iteracji, a także ustawienie stosunkowo dużej liczby drzew dla algorytmu lasu losowego, czas uczenia tych modeli jest rzędu kilkunastu sekund. Jak widzimy, już nawet najprostsze metody dają pewne pozytywne rezultaty, dlatego zdecydowano się na nieco bardziej złożoną strategię, która być może podniesie skuteczność.
 
-\subsection{Klasyfikacja wytrzymałości na rozciąganie za pomocą liczby struktur na obrazach}
+\subsection{Klasyfikatory klasyczne i liczba struktur na obrazach}
 \label{Klasyfikacja za pomocą liczby struktur}
 
 W następnym kroku przetestowano skuteczność klasycznych klasyfikatorów w ocenie jakości odlewów (tj. predykcji wytrzymałości na rozciąganie odlewów). Jako dane wejściowe zastosowano liczbę struktur poszczególnych klas (rys. \ref{fig:mesh14}), które są pozyskiwane w procesoe przedstawionym w rozdz. \ref{sec:klasyfikacja_struktur}. Stąd na wejście klasycznych klasyfikatorów jest podawana tablica siedmiu liczb, z czego każda z tych liczb odpowiada liczebności odpowiedniej klasy (tj. liczba „zerowa"~odpowiada liczebności obiektów klasy „0"~itd.) i na podstawie tych danych starają się przewidzieć wytrzymałość na rozciąganie odlewów przedstawianych na zdjęciach, których te dane dotyczą. 
@@ -821,7 +821,7 @@ Jak widzimy, wyniki są dosyć imponujące na tle poprzednich modeli, szczególn
 \subsubsection{AdaBoost}
 \label{structures.with.AdaBoost}
 
-Ostatnim modelem przetestowanym w tym zestawieniu jest algorytm AdaBoost, przedstawiony w rozdz. \ref{AdaBoost}. Składa się on z wielu tzw. słabych klasyfikatorów, a w każdej iteracji waga źle zaklasyfikowanych obserwacji jest zwiększana. Można by oczekiwać wysokich skuteczności tego modelu. 
+Ostatnim modelem przetestowanym w tym zestawieniu jest algorytm AdaBoost, przedstawiony w rozdz. \ref{AdaBoost}. Składa się on z wielu tzw. słabych klasyfikatorów, a w każdej iteracji waga źle zaklasyfikowanych obserwacji jest zwiększana. W bibliotece, z której korzystano (\ita{scikit-learn}) domyślnym słabym klasyfikatorem jest drzewo decyzyjne i jest ich 50. Można by oczekiwać wysokich skuteczności tego modelu, niewiele gorszych od lasu losowego. 
 Wyniki dla danych zbalansowanych przedstawiają się następująco:
 \begin{itemize}
 	\item dokładność – $83.4\%$,
@@ -876,7 +876,7 @@ Podsumowując wszystkie najważniejsze wyniki osiągnięte w tym podrozdziale pr
 		  \hline 
 
 	          SVM  & Tak & 76.9\% & 0.49 & 0.78 & 0.81 \\
-		 \hline \\ \hline
+		 \hline \hline
 
 	          DT  & Nie & 81.6\% & 0.46 & 0.89 & 0.81 \\
 		  \hline
@@ -911,10 +911,40 @@ Podsumowując wszystkie najważniejsze wyniki osiągnięte w tym podrozdziale pr
 	\end{threeparttable}
 \end{table}
 Jak można zauważyć, dla niezbalansowanych danych dobrze prezentują się modele maszyny wektorów nonych, lasu losowego oraz AdaBoost, co jest oczekiwanym efektem, gdyż są to bardzo popularne algorytmy, ogólnie uważane za solidne. Natomiast dla danych zbalansowanych bezsprzecznie najlepszym modelem jest perceptron wielowarstwowy, który osiągnął najlepsze wartości dla wszystkich metryk. 
-TODO ponizej
-% PORÓWNANIE CZASÓW {FIT, SCORE}
-% PORÓWNANIE DOKŁADNOCI (WYKRESIK JAK POWYZEJ)
-% TABELKA JAK W COLABIE
+
+Oprócz tego szerokiego porównania modeli na podstawie metryk wydajności przygotowano również wykresy przedstawiająca uśrednione czasy uczenia oraz czasy zwracania wyników dla poszczególnych modeli. 
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{rys.56.fit.times}
+    \caption{Uśrednione czasy uczenia dla poszczególnych modeli. Czasy obliczono dla danych niezbalansowanych. Źródło: opracowanie własne (z wykorzystaniem biblioteki \ita{matplotlib})}
+    \label{rys.56.fit.times}
+\end{figure}
+Jak możemy zauważyć, zdecydowanie najdłużej trwa wytrenowanie modelu perceptronu wielowarstwowego, co jest zrozumiałe ze względu na to, że jest to tak naprawdę sieć neuronowa z wieloma neuronami na warstwę oraz setkami iteracji. Następnie mamy modele maszyny wektorów nośnych oraz lasu losowego. SVM opiera się na funkcji jądra (ang. \ita{kernel function}) i dla dużych danych może działać powoli. Natomiast las losowy składa się z setek pojedynczych modeli (tzw. słabych klasyfikatorów), w tym przypadku są to tzw. kikuty decyzyjne, a więc drzewa decyzyjne o głębokości równej jeden. Uczenie modelu RFC twa ponad 400 razy dłużej niż pojedyncze drzewo decyzyjne, co by się zgadzało z tym, że w testach wykorzystano model lasu losowego z 473 drzewami. Następnie mamy model AdaBoost. Ten model również składa się z wielu słabych klasyfikatorów i również są to kikuty decyzyjne. Ponieważ jest ich 50, jego czas uczenia też jest odpowiednio dłuższy. Pozostałe dwa modele, tj. drzewo decyzyjne i regresja logistyczna mają zdecydowanie najkrótsze czasy uczenia (bliskie zera). Są to najprostsze modele niewymagające wielu obliczeń. W tym przypadku badania potwierdziły to, co znaliśmy z teorii. Poniżej znajduje się wykres dot. czasów uzyskania wyników dla tych samych modeli.
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{rys.57.score.times}
+    \caption{Uśrednione czasy zwracania wyników dla poszczególnych modeli. Czasy obliczono dla danych niezbalansowanych. Źródło: opracowanie własne (z wykorzystaniem biblioteki \ita{matplotlib})}
+    \label{rys.57.score.times}
+\end{figure}
+W przypadku tego wykresu wyniki również pokrywają się z oczekiwaniami. Na pierwszy rzut oka może dziwić tak niski czas zwracania wyniku dla sieci neuronowej, aczkolwiek sieci neuronowe są bardzo szybkie, jeżeli chcemy otrzymać predykcję dla pojedynczej instancji wejściowej. Jest to tak naprawdę kilka działań mnożenia i otrzymujemy wynik. Natomiast najdłużej należy czekać na wynik lasu losowego. Jest to zrozumiałe, gdyż składa się on z ponad 450 drzew decyzyjnych. Następnie mamy modele SVM oraz AdaBoost. Wytłumaczenie dla AdaBoosta jest analogiczne do przypadku lasu losowego. Natomiast ponownie najkrócej należy oczekiwać na wyniki pojedynczego drzewa decyzyjnego oraz regresji logistycznej. Jak wiadomo są to algorytmy bardzo proste matematycznie.
+
+Podsumowując, w zależności od wymagań użytkownik powinien samodzielnie wybrać który algorytm będzie miał najlepsze zastosowanie. W naszym przypadku, gdzie danych nie było zbyt dużo oraz nie były bardzo skomplikowane, tak naprawdę wszystkie klasyfikatory spełniły swoje wymagania. Natomiast, jak pokazały badania, modele te różnią się między sobą i dla dużych danych te różnice czasowe mogą stać się bardzo duże i mieć ogromne znaczenie dla całego procesu (uczenia jak i ewaluacji).
+%\begin{figure}[!h]
+%    \centering
+%    \includegraphics[width=0.5\textwidth]{rys.58.accuracies}
+%    \caption{}
+%    \label{rys.58.accuracies}
+%\end{figure}
+
+%%%%%%%%%% SIECI NEURONOWE %%%%%%%%%%%%
+\subsection{Sieci neuronowe}
+\label{binary.ann.with.structures}
+
+
+
+%%%%%%%%%% HYBRYDOWE PODEJŚCIE %%%%%%%%%%%%
+\subsection{Podejście hybrydowe}
+\label{binary.ann.with.structures}
 
 %5.5. Omówienie wyników / całościowe
 
