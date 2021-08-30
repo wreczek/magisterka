@@ -450,8 +450,8 @@ Dodatkowo, aby nie zwiększać sztucznie dokładności ze względu na podobieńs
 
 Porównując wyniki otrzymane w tych trzech eksperymentach można dojść z penwością do kilku wniosków. Po pierwsze, widać wyraźnie, że wyniki pomiędzy modelami drzew oraz maszyny wektorów znacząco się różnią. W pierwszym eksperymencie wyniki dla SVM są lepsze od 1 do nawet 12 punktów procentowych. W pozostałych dwóch eksperymentach wyniki dla SVM są znacznie gorsze od tych dla lasu losowego, w ekstremalnym przypadku aż o 30 punktów procentowych. Po drugie, można zauważyć, że w większości przypadków wyniki dla momentów Hu są najgorsze, co można wytłumaczyć tym, iż jest to najprostsza metoda. Natomiast widzimy również wpływ augmentacji danych, jak również zaszumienia danych. Można przyjąć, iż najbardziej wiarygodne wyniki otrzymaliśmy w trzecim eksperymencie, gdyż, przede wszystkim, skuteczność algorytmu nie pokrywa się ze stosunkiem liczebności klas, oraz wyniki nie różnią się między sobą w niewytłumaczalny sposób. Mimo wszystko, ciężko do końca ocenić co tak naprawdę wpłynęło na te wyniki. Dodatkowo to podejście ma bardzo niską interpretowalność, tzn. ciężko ocenić dlaczego model wybrał jedną decyzję, zamiast innej. Natomiast atutem tego podejścia jest czas wykonywania (czas uczenia modeli). Mimo ustawienia parametrów SVM na wiele iteracji, a także ustawienie stosunkowo dużej liczby drzew dla algorytmu lasu losowego, czas uczenia tych modeli jest rzędu kilkunastu sekund. Jak widzimy, już nawet najprostsze metody dają pewne pozytywne rezultaty, dlatego zdecydowano się na nieco bardziej złożoną strategię, która być może podniesie skuteczność.
 
-\subsection{Klasyfikatory klasyczne i liczba struktur na obrazach}
-\label{Klasyfikacja za pomocą liczby struktur}
+\subsection{Klasyfikacja za pomocą liczby struktur}
+\label{Klasyfikacja za pomocą liczby struktur} % cha6
 
 W następnym kroku przetestowano skuteczność klasycznych klasyfikatorów w ocenie jakości odlewów (tj. predykcji wytrzymałości na rozciąganie odlewów). Jako dane wejściowe zastosowano liczbę struktur poszczególnych klas (rys. \ref{fig:mesh14}), które są pozyskiwane w procesoe przedstawionym w rozdz. \ref{sec:klasyfikacja_struktur}. Stąd na wejście klasycznych klasyfikatorów jest podawana tablica siedmiu liczb, z czego każda z tych liczb odpowiada liczebności odpowiedniej klasy (tj. liczba „zerowa"~odpowiada liczebności obiektów klasy „0"~itd.) i na podstawie tych danych starają się przewidzieć wytrzymałość na rozciąganie odlewów przedstawianych na zdjęciach, których te dane dotyczą. 
 \begin{figure}[h]
@@ -940,11 +940,32 @@ Podsumowując, w zależności od wymagań użytkownik powinien samodzielnie wybr
 \subsection{Sieci neuronowe}
 \label{binary.ann.with.structures}
 
-
+Gdy mamy do czynienia z klasyfikacją obrazów, zwyczajowym już podejściem jest zastosowanie sieci neuronowych. Od wielu lat jest to metoda dająca najwyższe skuteczności i wciąż jest rozwijana. Dlatego postaramy się ją również zastosować w naszych badaniach. Ze względu na to, iż nie posiadamy danych w liczbie dziesiątek tysięcy, wykorzystamy technikę zwaną uczeniem przez transfer (rozdz. \ref{cha:cha3.5}). W skrócie polega ona na tym, iż na sieć neuronową trenowaną na milionach przykładów oraz wielu klasach nakładamy kilka dodatkowych warstw i staramy się ją douczyć do własnych celów. W ten sposób korzystamy z już posiadanej wiedzy przez tę sieć neuronową. W naszych badaniach użyjemy sieć VGG19. Oprócz tego nałożymy na sam koniec sieci trzy dodatkowe warstwy i będą to jedyne trenowalne warstwy w naszej architekturze. Ponadto zostanie zastosowany tzw. \bo{dropout}, a więc losowane usuwanie pojedynczych neuronów w sieci w trakcie uczenia, co przeciwdziała nadmiernemu dopasowaniu. Wartości hiperparametrów zostały wybrane na drodze optymalizacji wykorzystując bibliotekę \ita{optuna}. W ramach przypomnienia, najlepszą skuteczność jak do tej pory uzyskaliśmy za pomocą MLP, które również jest siecią neuronową, a wyniosła ona $80.6\%$. Dlatego oczekujemy wzrostu skuteczności, jak również wartości pozostałych metryk. 
+Po przeprowadzeniu badań otrzymano następujące wyniki:
+\begin{itemize}
+	\item dokładność – $83.2\%$,
+	\item średnia wartość precyzji – $0.88$,
+	\item wartość funkcji straty logistycznej – $0.45$,
+	\item wartość metryki F1 – $0.81$.
+\end{itemize}
+Jak widzimy są to najwyższe jak do tej pory wyniki dla danych zbalansowanych, co jest oczekiwanym wynikiem. Aczkolwiek można byłoby spodziewać się większej skuteczności ze względu na to, iż jest to ogromna sieć, która posiada wcześniejsze warstwy miała wytrenowane na milionach przykładów. Stąd w następnym, ostatnim już podrozdziale postaramy się połączyć podejścia, tzn. wykorzystamy dwie sieci neuronowe (do zliczania struktur oraz do klasyfikacji wytrzymałości) oraz klasyczny klasyfikator. W ten sposób model będzie miał więcej informacji na wejściu i być może poprawi to jego skuteczność. 
 
 %%%%%%%%%% HYBRYDOWE PODEJŚCIE %%%%%%%%%%%%
 \subsection{Podejście hybrydowe}
 \label{binary.ann.with.structures}
 
-%5.5. Omówienie wyników / całościowe
-
+Ostatnim przebadanym podejściem jest połączenie sieci neuronowych z klasycznymi klasyfikatorami. Sieć neuronowa nie ma wiedzy o tym, jakie struktury znajdują się na obrazach, natomiast klasyczne klasyfikatory nie dostają na wejście pikseli, a więc również mają ograniczone dane. Stąd pojawił się pomysł, aby wynik klasyfikacji sieci neuronowej dołączyć do liczby struktur (która de facto również jest zliczana przez sieć neuronową), a następnie to wejście w postaci ośmiu liczb (w rozdz. \ref{Klasyfikacja za pomocą liczby struktur} było ich siedem) klasyfikować za pomocą klasycznych modeli. W ten sposób w pełni wykorzystamy korzyści jakie dają nam zarówno sieci neuronowe, jak i klasyczne klasyfikatory. Schemat został przedstawiony na rys. \ref{rys.59.hybrid.diagram}. 
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=0.6\textwidth]{rys.59.hybrid.diagram}
+    \caption{Schemat blokowy przedstawiające działanie klasyfikacji wytrzymałości na rozicąganie na podstawie liczności struktur poszczególnych klas a także wyniku klasyfikacji sieci neuronowej. Źródło: opracowanie własne (z wykorzystaniem \ita{diagrams.net})}
+    \label{rys.59.hybrid.diagram}
+\end{figure}
+Można byłoby się spodziewać, iż to podejście będzie przynajmniej tak dobre, jak sama sieć neuronowa klasyfikująca wytrzymałość, gdyż tutaj wykorzystujemy jej predykcję. Tak jak poprzednio, obliczono wartości najważniejszych metryk i prezentują się one następująco:
+\begin{itemize}
+	\item dokładność – $83.2\%$,
+	\item średnia wartość precyzji – $0.82$,
+	\item wartość funkcji straty logistycznej – $0.47$,
+	\item wartość metryki F1 – $0.83$.
+\end{itemize}
+Jak więc widzimy, wyniki są bardzo zbliżone do tych otrzymanych przez sieć neuronową VGG19 (rozdz. \ref{binary.ann.with.structures}). Mimo, iż zostały połączone dwa najlepsze podejścia nie udało sę osiągnąć lepszych wyników, aczkolwiek dokładność osiągnęła taki sam poziom jak najlepszy model dla danych zbalansowanych. Z racji ograniczonych zasobów czasowych autor nie mógł kontynuować dalszych badań, aczkolwiek podejście hybrydowe wydaje się mieć potencjał i warto byłoby go rozwinąć w przyszłości.
