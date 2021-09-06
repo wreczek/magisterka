@@ -3,6 +3,8 @@
 \chapter{Stan badań}
 \label{cha:stan.badan}
 
+W tym rozdziale postaramy się pokazać w jaki sposób badacze podchodzili do problemów powiązanych z tematem niniejszej pracy a także postaramy się rozszerzyć te podejścia.
+
 \section{Powiązane prace – zarys historyczny}
 \label{sec:zarys.historyczny}
 
@@ -10,12 +12,12 @@
 \label{sec:liczba.ferrytowa}
 
 Przewidywanie własności mechanicznych produktów odlewniczych za pomocą metod uczenia maszynowego ma niemal tak długą historię, jak sama dziedzina uczenia maszynowego. Już w~jednej z~pierwszych prac naukowych na ten temat \cite{Olson85} mówiono o~tym, że przyszłe techniki predykcyjne będą opierać się raczej na wyrażeniach matematycznych czy sztucznej inteligencji niż na diagramach. 
-Ówcześnie do przewidywania fazy mikrostruktury spoiny metalu wykorzystywano właśnie diagramy (\ref{fig:mesh1}), lecz jak łatwo się domyślić, jest to podejście mało praktyczne. Stąd nacisk na wykorzystywanie jak najbardziej wszechstronnych wyrażeń ilościowych do przewidywania mikrostruktury jako funkcji m.in. składu.
+Ówcześnie do przewidywania fazy mikrostruktury spoiny metalu wykorzystywano właśnie diagramy (rys. \ref{fig:mesh1}), lecz jak łatwo się domyślić, jest to podejście mało praktyczne. Stąd nacisk na wykorzystywanie jak najbardziej wszechstronnych wyrażeń ilościowych do przewidywania mikrostruktury jako funkcji m.in. składu.
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=1\textwidth]{rys.1.WRC.Delong.png}
-    \caption{Przykładowy schemat do wyznaczania ferrytu $ \delta $ z~granicami składu (DeLong, 1973)}
+    \caption{Przykładowy schemat do wyznaczania ferrytu $ \delta $ z~granicami składu \cite{DeLong73}}
     \label{fig:mesh1}
 \end{figure}
 
@@ -25,7 +27,7 @@ W pracy Babu i~in. \cite{Babu13} przedstawiono wyniki aproksymacji punktowej, kt
 \begin{figure}[h]
     \centering
     \includegraphics[width=1\textwidth]{rys.2.WRC.Kotecki.png}
-    \caption{Diagram WRC-1992 (Kotecki \& Siewert, 1992)}
+    \caption{Diagram WRC-1992 \cite{Kotecki92}}
     \label{fig:mesh2}
 \end{figure}
 
@@ -38,25 +40,25 @@ W pracy Babu i~in. \cite{Babu13} przedstawiono wyniki aproksymacji punktowej, kt
 \label{eq2}
 	Ni_{eq} = Ni+35C+20N+0.25Cu
 \end{equation}
-gdzie symbole pierwiastków przedstawiają procent wagi każdego pierwiastka.
-W kolejnej pracy \cite{Vitek03.I} dotyczącej predykcji FN ci sami autorzy wykorzystali sieć neuronową, która na wejściu przyjmowała procent wagowy $13$ pierwiastków ($Fe$, $Cr$, $Ni$, $C$, $N$, $Mo$, $Mn$, $Si$, $Cu$, $Ti$, $Nb$, $V$~i~$Co$), czyli warstwa z~$13$ neuronami, następnie warstwa ukryta z~sześcioma neuronami, natomiast na wyjściu był pojedynczy neuron, który zwracał liczbę ferrytową (rys. \ref{fig:mesh3}).
+gdzie symbole pierwiastków przedstawiają procentowy udział wagi każdego pierwiastka.
+W kolejnej pracy \cite{Vitek03.I} dotyczącej predykcji FN ci sami autorzy wykorzystali sieć neuronową, która na wejściu przyjmowała procentowy udział wagi $13$ pierwiastków ($Fe$, $Cr$, $Ni$, $C$, $N$, $Mo$, $Mn$, $Si$, $Cu$, $Ti$, $Nb$, $V$~i~$Co$), czyli posiadała warstwę wejściową z~$13$ neuronami, następnie warstwę ukrytą z~sześcioma neuronami, natomiast na wyjściu był pojedynczy neuron, który zwracał liczbę ferrytową (rys. \ref{fig:mesh3}).
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=1\textwidth]{rys.3.ORFN.Vitek.2003.png}
-    \caption{Model sieci neuronowej ORFN (Vitek, 2003)}
+    \caption{Model sieci neuronowej ORFN \cite{Vitek03.I, Vitek03.II}}
     \label{fig:mesh3}
 \end{figure}
 
-Wyniki zostały przedstawione w~\cite{Vitek03.II} i~jak się okazało, testowana sieć zwracała lepsze wyniki od jakichkolwiek dotychczasowych podejść z~błędem RMS mniejszym o~$50\%$ od poprzedniej najlepszej metody. 
+Wyniki zostały przedstawione w~\cite{Vitek03.II} i~jak się okazało, testowana sieć zwracała lepsze wyniki od jakichkolwiek dotychczasowych podejść z~błędem RMS (średnia kwadratowa od ang. \textit{root mean square}) mniejszym o~$50\%$ od poprzedniej najlepszej metody. 
     W~ostatnim przytoczonym artykule dotyczącym predykcji FN \cite{Vasudevan13} również zastosowano sieć neuronową, a~konkretnie bayesowską sieć neuronową (BNN). Na wejściu mamy taką samą warstwę, jak w~poprzedniej pracy, natomiast tutaj jest więcej neuronów w~warstwie ukrytej. Poprawa wyników względem poprzedniej pracy wynosi około $15\%$ (błąd RMS) testując na niezależnym zbiorze danych nieużywanych w~szkoleniu.
 
 \subsection{Predykcja własności mechanicznych odlewów}
 \label{sub:predykcja.1}
 
-Początki rozwoju i~przetwarzania materiałów nie były łatwe. Mimo wielu przeprowadzonych badań naukowych nad materiałami wciąż pozostaje wiele problemów, w~przypadku których brakuje metod ilościowych. Tyczy się to głównie predykcji takich parametrów konstrukcyjnych jak wytrzymałość na rozciąganie, trwałość, twardość itp. Pierwsze badania dotyczące własności mechanicznych odlewów przyjmujące podejście ilościowe brały pod uwagę szczegółowy skład chemiczny oraz takie parametry jak rekrystalizacja, proces starzenia, zakres pracy na zimno, temperatura badania czy szybkość odkształcania \cite{Bhadeshia07, Badmos13}. W~obydwu tych pracach zastosowano sieci neuronowe oraz uzasadniono, że modele matematyczne sobie nie radzą z~wymienionymi wyżej parametrami. Standardowo zastosowano sieć, w~której na wejściu podawano procent wagowy pierwiastków w~badanym materiale. 
+Początki rozwoju i~przetwarzania materiałów nie były łatwe. Mimo wielu przeprowadzonych badań naukowych nad materiałami wciąż pozostaje wiele problemów, w~przypadku których brakuje metod ilościowych. Tyczy się to głównie predykcji takich parametrów konstrukcyjnych jak wytrzymałość na rozciąganie, trwałość, twardość itp. Pierwsze badania dotyczące własności mechanicznych odlewów przyjmujące podejście ilościowe brały pod uwagę szczegółowy skład chemiczny oraz takie parametry jak rekrystalizacja, proces starzenia, zakres pracy na zimno, temperatura badania czy szybkość odkształcania \cite{Bhadeshia07, Badmos13}. W~obydwu tych pracach zastosowano sieci neuronowe oraz uzasadniono, że modele matematyczne nie radzą sobie z~wymienionymi wyżej parametrami. Standardowo zastosowano sieć, w~której na wejściu podawano procent wagowy pierwiastków w~badanym materiale. 
 
-Jedną z~głównych własności mechanicznych jest wytrzymałość na rozciąganie (ang. \textit{ultimate tensile strength}, UTS), która jest badana od wielu lat. Po fazie odlewu inżynierowie wykorzystują w~swoich obliczeniach tę i~inne wartości w~celu obliczenia odkształcania się, funkcji przyłożonego obciążenia, czasu i~wiele innych. Jest ona jednym z~ważniejszych czynników do uwzględnienia, gdyż niewystarczająca wartość wytrzymałości może mieć fatalne skutki (jak np. zawalenie się konstrukcji). Innym powodem może być to, iż jedynym sposobem na zbadabie wartości wytrzymałości jest przeprowadzenie badań niszczących, co powoduje wzrost kosztów produkcji \cite{Santos09}. Jednym ze sposobów analizy wartości UTS jest predykcja za pomocą wartości różnych właściwości odlewu. W~przywołanej wcześniej pracy \cite{Santos09} oraz \cite{Nieves09} są to skład chemiczny, rozmiar odlewu, prędkość chłodzenia, obróbka termiczna. Mając dane w~postaci wartości rozdzielonych przecinkiem (CSV, od ang. \textit{comma-separated values}) można skorzystać z~klasycznych metod klasyfikacji statystycznej, jak klasyfikacja liniowa, $k$ najbliższych sąsiadów, drzewa decyzyjne czy sieci bayesowskie \cite{wiki:klas.stat}. W~przytoczonej pracy skupiono się na sieciach bayesowskich. Wyniki są optymistyczne: dokładność na poziomie ponad 82\% oraz błędy MAE (średni błąd bezwzględny, od ang. \textit{mean absolute error}) oraz średni błąd kwadratowy (MSE, od ang. \textit{mean square error}) na poziomie odpowiednio $0.2$ oraz $0.35$. Inne przetestowane metody w~tym artykule to $k$ najbliższych sąsiadów (KNN, od ang. \textit{k-Nearest Neighbors}) oraz sztuczne sieci neuronowe (ANN, od ang. \textit{artificial neural networks}), które osiągnęły podobne, aczkolwiek nieco gorsze wyniki. 
+Jedną z~głównych własności mechanicznych jest wytrzymałość na rozciąganie (ang. \textit{ultimate tensile strength}, UTS), która jest badana od wielu lat. Po fazie odlewu inżynierowie wykorzystują w~swoich obliczeniach tę i~inne wartości w~celu obliczenia odkształcania się w zależności od funkcji przyłożonego obciążenia, czasu i~wielu innych. Jest ona jednym z~ważniejszych czynników do uwzględnienia, gdyż niewystarczająca wartość wytrzymałości może mieć fatalne skutki (jak np. zawalenie się konstrukcji). Innym powodem może być to, iż jedynym sposobem na zbadanie wartości wytrzymałości jest przeprowadzenie badań niszczących, co powoduje wzrost kosztów produkcji \cite{Santos09}. Jednym ze sposobów analizy wartości UTS jest predykcja za pomocą wartości różnych właściwości odlewu. W~przywołanej wcześniej pracy \cite{Santos09} oraz \cite{Nieves09} są to skład chemiczny, rozmiar odlewu, prędkość chłodzenia, obróbka termiczna. Mając dane w~postaci wartości rozdzielonych przecinkiem (CSV, od ang. \textit{comma-separated values}) można skorzystać z~klasycznych metod klasyfikacji statystycznej, jak klasyfikacja liniowa, $k$ najbliższych sąsiadów, drzewa decyzyjne czy sieci bayesowskie \cite{wiki:klas.stat}. W~przytoczonej pracy skupiono się na sieciach bayesowskich. Wyniki są optymistyczne: dokładność na poziomie ponad 82\% oraz błędy MAE (średni błąd bezwzględny, od ang. \textit{mean absolute error}) oraz średni błąd kwadratowy (MSE, od ang. \textit{mean square error}) na poziomie odpowiednio $0.2$ oraz $0.35$. Inne przetestowane metody w~tym artykule to $k$ najbliższych sąsiadów (KNN, od ang. \textit{k-Nearest Neighbors}) oraz sztuczne sieci neuronowe (ANN, od ang. \textit{artificial neural networks}), które osiągnęły podobne, aczkolwiek nieco gorsze wyniki. 
 Wytrzymałość na rozciąganie można przewidywać na podstawie dwóch różnych źródeł danych wejściowych \cite{Yang16}:
 \begin{itemize}
 \item
@@ -67,7 +69,7 @@ dane na temat mikrostruktury.
 
 \noindent W~pracy tej jako dane wejściowe wykorzystano skład chemiczny, specyfikacje geometryczne oraz zmienne dotyczące procesu rolowania, natomiast modelem użytym do predykcji wartości wytrzymałości na rozciąganie była ponownie bayesowska sieć neuronowa. Sieć ta składała się z~jednej warstwy ukrytej, która z~kolei składała się z~siedmiu neuronów. Jak stwierdzają autorzy, sieć BNN lepiej się sprawdza w~tym celu od tradycyjnych sieci neuronowych, a~to ze względu na wyższą odporność na nadmierne dopasowanie (ang. \textit{overfitting}), szczególnie w~przypadku, gdy ilość danych jest znacznie ograniczona i~nie mamy możliwości zgromadzenia dużej ilości wysokiej jakości danych.
     
-Bardzo podobne podejście zastosowano w~pracy \cite{Wang20}, gdzie użyto sieci neuronowej, a~na jej wejściu podawano 20 zmiennych, takich jak skład chemiczny, warunki obróbki cieplnej czy temperatura badania. W~ten sposób uzyskano $93\%$ wartości współczynnika R-kwadrat dla granicy plastyczności (YS, od ang. \textit{yield strength}) oraz UTS.
+Bardzo podobne podejście zastosowano w~pracy \cite{Wang20}, gdzie użyto sieci neuronowej, a~na jej wejściu podawano 20 zmiennych, takich jak skład chemiczny czy warunki obróbki cieplnej, ale również czynniki typu temperatura badania, gdyż warunku eksploatacji również mają wpływ na właściwości wytrzymałościowe. W~ten sposób uzyskano $93\%$ wartości współczynnika R-kwadrat dla granicy plastyczności (YS, od ang. \textit{yield strength}) oraz UTS.
 
 \subsection{Predykcja błędów w~produkcji odlewniczej}
 \label{sub:predykcja.2}
@@ -91,7 +93,7 @@ Kolejna przeanalizowana praca \cite{Azimi18} dotyczy klasyfikacji mikrostruktura
 \begin{figure}[h]
     \centering
     \includegraphics[width=1\textwidth]{rys.4.VGG.schema.png}
-    \caption{Klasyfikacja oparta na obiektach przy użyciu CNN. Obiekty są wycinane z~obrazów a~następnie klasyfikowane przez wytrenowane CNN (VGG16). Rozmiar wejściowy jest z~góry określony (Azimi et al., 2018)}
+    \caption{Klasyfikacja oparta na obiektach przy użyciu CNN. Obiekty są wycinane z~obrazów a~następnie klasyfikowane przez wytrenowane CNN (VGG16). Rozmiar wejściowy jest z~góry określony \cite{Azimi18}}
     \label{fig:mesh4}
 \end{figure}
 
@@ -99,7 +101,7 @@ Kolejna przeanalizowana praca \cite{Azimi18} dotyczy klasyfikacji mikrostruktura
 \begin{figure}[h]
     \centering
     \includegraphics[width=1\textwidth]{rys.5.segmentacja.jpg}
-    \caption{Klasyfikacja mikrostrukturalna oparta na segmentacji z~maksymalną liczbą głosów. Obraz wejściowy jest przycinany, wycinki są przekazywane do sieci FCNN. Następnie segmentowane wycinki są zszywane razem. W~ostatnim kroku stosowane jest głosowanie dla wynikowego zszytego obrazu (Azimi et al., 2018)}
+    \caption{Klasyfikacja mikrostrukturalna oparta na segmentacji z~maksymalną liczbą głosów. Obraz wejściowy jest przycinany, wycinki są przekazywane do sieci FCNN. Następnie segmentowane wycinki są zszywane razem. W~ostatnim kroku stosowane jest głosowanie dla wynikowego zszytego obrazu \cite{Azimi18}}
     \label{fig:mesh5}
 \end{figure}
 Dzięki takiemu podejściu udało się poprawić najlepszy dotychczas wynik aż o~45 punktów procentowych~(sic!). Wyniki wszystkich przetestowanych metod zostały przedstawione w~tab. \ref{tab:tab1}.
