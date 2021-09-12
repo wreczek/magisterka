@@ -1,7 +1,7 @@
 \chapter{Uczenie maszynowe}
 \label{cha:ucz.masz}
 
-Uczenie maszynowe (ML, od ang. \textit{machine learning}) to nauka o~algorytmach komputerowych, które automatycznie ulepszają się dzięki doświadczeniu i~wykorzystaniu danych \cite{Mitchell97}. Algorytmy uczenia maszynowego są budowane na podstawie przykładowych danych, zwanych „danymi szkoleniowymi”, w~celu prognozowania lub podejmowania decyzji bez bezpośredniego zaprogramowania do tego \cite{Koza96}. Natomiast nieco bardziej techniczną definicję uczenia maszynowego przedstawił Tom Mitchell w~1997 roku: \textit{Mówimy, że program komputerowy uczy się na podstawie doświadczenia $E$ w~odniesieniu do jakiegoś zadania $T$ i~pewnej miary wydajności $P$, jeśli jego wydajność (mierzona przez $P$) wobec zadania $T$ wzrasta wraz z~nabywaniem doświadczenia $E$}.
+Uczenie maszynowe (ML, od ang. \textit{machine learning}) to nauka o~algorytmach komputerowych, które automatycznie ulepszają się dzięki doświadczeniu i~wykorzystaniu danych \cite{Mitchell97}. Algorytmy uczenia maszynowego są budowane na podstawie przykładowych danych, zwanych „danymi szkoleniowymi”, w~celu prognozowania lub podejmowania decyzji bez bezpośredniego zaprogramowania do tego \cite{Koza96}. Natomiast nieco bardziej techniczną definicję uczenia maszynowego przedstawił Tom Mitchell w~1997 roku: „\textit{Mówimy, że program komputerowy uczy się na podstawie doświadczenia $E$ w~odniesieniu do jakiegoś zadania $T$ i~pewnej miary wydajności $P$, jeśli jego wydajność (mierzona przez $P$) wobec zadania $T$ wzrasta wraz z~nabywaniem doświadczenia $E$}”.
 
 Dyscyplina uczenia maszynowego wykorzystuje różne podejścia do uczenia modeli wykonywania zadań, w~przypadku których nie jest dostępny w~pełni zadowalający algorytm. Wstęp do uczenia maszynowego wraz z~wyjaśnieniem pojęć podstawowych został przedstawiony w~rozdziale \ref{cha:pojecia}. Główne nurty zostały zaprezentowane w~rozdziale \ref{cha:cha3.2}. Natomiast w~kolejnych podrozdziałach zostały zaprezentowane metody dotyczące przygotowannia danych. Ostatnie podrozdziały dotyczą metod  uczenia maszynowego, które zostały wykorzystane w~trakcie badań.
 
@@ -253,7 +253,7 @@ Natomiast posiadają też wady, takie jak \cite{wiki:dec.tree}:
 	\item może wystąpić problem nadmiernego dopasowania się do danych.
 \end{itemize}
 Pomimo tych wad klasyfikator ten zostanie wykorzystany w~badaniach, głównie ze względu właśnie na jego bardzo łatwą interpretowalność.
-Jako ciekawostkę można dodać, że drzewa decyzyjne składają się na algorytm lasu losowego (ang. \textit{random forest}), który zostanie omówiony w~podrozdziale (\ref{cha:Las losowy}).
+Jako ciekawostkę można dodać, że drzewa decyzyjne składają się na algorytm lasu losowego (ang. \textit{random forest}), który zostanie omówiony w~kolejnym podrozdziale (\ref{cha:Las losowy}).
 
 % ################ LAS LOSOWY ################
 \subsection{Las losowy}
@@ -261,7 +261,7 @@ Jako ciekawostkę można dodać, że drzewa decyzyjne składają się na algoryt
 
 Jak zostało wspomniane wyżej, drzewa decyzyjne mogą zbyt mocno dopasować się do danych treningowych. Jednym z~rozwiązań jest technika \textbf{lasów losowych} (ang. \textit{random forest}, RFC), która polega na tworzeniu wielu drzew decyzyjnych, a~następnie klasyfikacji w~drodze głosowania \cite{Grus18}, a~więc jako odpowiedź jest generowana dominanta klas (klasyfikacja) lub średnia przewidywana wartość (regresja) \cite{Ho95}. Istnieje kilka różnych algorytmów tworzenia lasów losowych. Jednym z~nich jest \textbf{agregacja} (ang. \textit{bagging}, \textit{bootstrap aggregating}). Polega on na tym, iż wielokrotnie wybiera się losowe podzbiory zestawu uczącego ze zwracaniem (ang. \textit{sampling with replacement}) w~celu dopasowania do każdego takiego zbioru nowego drzewa \cite{Sawka18}. Dzięki temu podejściu zmniejsza się wariancja modelu bez zwiększania obciążenia \cite{Ramchandani18}, gdyż pojedyncze drzewa decyzyjne nie są ze sobą skorelowane (dzięki uczeniu ich na różnych zbiorach danych). Następnie, w~celu klasyfikacji, wszystkie pojedyncze drzewa zwracają wynik, który jest uśredniony. Dodatkowo, aby jeszcze mocniej zmniejszyć korelację między drzewami, w~przypadku lasów losowych korzysta się ze zmodyfikowanego algorytmu trenowania drzewa, gdzie przy każdym kolejnym węźle jest wybierany losowy podzbiór cech. Dzięki temu, jeśli w~danych występuje cecha, która jest silnym predyktorem dla zmiennej przewidywanej, jej wykorzystanie w~różnych drzewach zostanie ograniczone, tym samym dalej zmniejszając korelację między nimi.
 
-Innym podejściem jest \textbf{wzmacnianie} (ang. \textit{boosting}) \cite{aporras}. Główną różnicą między agregacją a~wzmacnianiem jest to, iż w~przypadku tego pierwszego każde drzewo jest uczone niezależnie od pozostałych i~ten etap może być przeprowadzony równolegle. Natomiast w~przypadku drugiego algorytmu uczenie pojedynczych drzew następuje sekwencyjnie i~każdy kolejny klasyfikator bierze pod uwagę wyniki poprzedniego klasyfikatora. Danym błędnie sklasyfikowanym przypisuje się większą wagę, tym samym kolejne modele zwracają większą uwagę na trudne danye. Jednakże w~przypadku wzmacniania klasyfikacja odbywa się nieco inaczej, gdyż tutaj również mamy wagi, które są przypisywane klasyfikatorom w~trakcie uczenia – im lepszy klasyfikator, tym większe wagi otrzymuje. Dzięki zastosowaniu jednego z~tych dwóch podejść zwiększa się stabilność modelu. Jednakże jeżeli mamy do czynienia z~danymi, dla których pojedyncze drzewo osiąga słabe wyniki, wtedy rozwiązaniem może być zastosowanie wzmacniania. Jeżeli zaś problemem jest nadmierne dopasowanie się drzewa do danych, wtedy pomocne może się okazać zastosowanie agregacji.
+Innym podejściem jest \textbf{wzmacnianie} (ang. \textit{boosting}) \cite{aporras}. Główną różnicą między agregacją a~wzmacnianiem jest to, iż w~przypadku tego pierwszego każde drzewo jest uczone niezależnie od pozostałych i~ten etap może być przeprowadzony równolegle. Natomiast w~przypadku drugiego algorytmu uczenie pojedynczych drzew następuje sekwencyjnie i~każdy kolejny klasyfikator bierze pod uwagę wyniki poprzedniego klasyfikatora. Danym błędnie sklasyfikowanym przypisuje się większą wagę, tym samym kolejne modele zwracają większą uwagę na trudne dane. Jednakże w~przypadku wzmacniania klasyfikacja odbywa się nieco inaczej, gdyż tutaj również mamy wagi, które są przypisywane klasyfikatorom w~trakcie uczenia – im lepszy klasyfikator, tym większe wagi otrzymuje. Dzięki zastosowaniu jednego z~tych dwóch podejść zwiększa się stabilność modelu. Jednakże jeżeli mamy do czynienia z~danymi, dla których pojedyncze drzewo osiąga słabe wyniki, wtedy rozwiązaniem może być zastosowanie wzmacniania. Jeżeli zaś problemem jest nadmierne dopasowanie się drzewa do danych, wtedy pomocne może się okazać zastosowanie agregacji.
 
 % ############### KNN #######################
 
@@ -324,7 +324,7 @@ logit(p_{i}) = ln( \frac {p_{i}} {1-p_{i}}) = \beta_{1}x_{1, i}+\dots+\beta_{k}x
 	H=-\sum \limits_{c=1}^{M}y_{o,c}log(p_{o,c})
 \end{equation}
 
-\noindent gdzie $M$ oznacza liczbę klas, $y$ to wskaźnik binarny ($0$ gdy predykcja $c$ jest niezgodna z obserwacją $c$ lub 1 w przeciwnym przypadku) oraz $p$ to przewidywane prawdopodobieństwo przypisania klasy $c$ obserwacji $o$.
+\noindent gdzie $M$ oznacza liczbę klas, $y$ to wskaźnik binarny ($0$, gdy predykcja $c$ jest niezgodna z obserwacją $c$ lub 1 w przeciwnym przypadku) oraz $p$ to przewidywane prawdopodobieństwo przypisania klasy $c$ obserwacji $o$.
 
 Regresja logistyczna jest bardzo skuteczna dla prostych zbiorów danych, a~także w~przypadku zbiorów liniowo separowalnych. Dodatkowo jej współczynniki mogą być interpretowane jako wskaźniki ważności cech, dlatego również zostanie uwzględniona w~badaniach.
 
@@ -519,13 +519,17 @@ Hiperparametry zostały omówione w~rozdz. \ref{cha:Siecineuronowe}. Przypomnijm
 
 Sprawdzian krzyżowy (ang. \ita{cross-validation}) jest to metoda statystyczna, w~której dzieli się próbę statystyczną na podzbiory, po czym przeprowadza się analizy, ale tylko na niektórych z~nich. Te, które się wykorzystuje nazywane są zbiorem uczącym, natomiast pozostałe dane służą do weryfikacji poprawności wyników i~nazywane są one danymi testowymi. Istnieje wiele rodzajów walidacji krzyżowej, aczkolwiek w~niniejszej pracy został wykorzystany jeden, a~mianowicie sprawdzian $k$-krotny. Polega on na podziale oryginalnej próby na \ita{k} podzbiorów, po czym kolejno każdy z~nich występuje jako zbiór testowy, podczas gdy pozostałe razem jako zbiór uczący. Następnie wykonuje się analizę (\ita{k} razy), a~uzyskane \ita{k} rezultaty łączy się, np. uśredniając wyniki, dzięki czemu są one bardziej wiarygodne, a~także otrzymujemy jeden wynik.
 
-%\subsubsection{}
-%\label{}
+\subsubsection{Strata logistyczna}
+\label{log.loss}
 
-
-%\subsubsection{}
-%\label{}
-
-
-%\subsubsection{}
-%\label{}
+W pracy jako metrykę oceny wydajności klasyfikatora wykorzystano stratę logistyczną (ang. \ita{log-loss}), której wzór podano poniżej (\ref{log.loss.eq}):
+\begin{equation}
+\label{log.loss.eq}
+%logit(p_{i}) = ln( \frac {p_{i}} {1-p_{i}}) = \beta_{1}x_{1, i}+\dots+\beta_{k}x_{k, i}
+L_{log}(y, p) = -(y log(p) + (1-y)log(1-p))
+\end{equation}
+gdzie:
+\begin{eqwhere}[2cm]
+	\item $y$ oznacza prawdziwą wartość etykiety ($0$ lub $1$ dla klasyfikacji binarnej),
+	\item $p$ to prawdopodobieństwo $P(y=1)$.
+\end{eqwhere}
