@@ -110,7 +110,7 @@ Poniższe obrazki (rys. \ref{fig:mesh26} i~\ref{fig:mesh27}) przedstawiają dzia
 	\caption{\label{fig:mesh26}Działanie filtra Canny'ego. Każda wykryta struktura jest zaznaczona innym kolorem. Źródło: opracowanie własne}
 \end{figure}
 Struktury na obrazku oznaczone tym samym kolorem (a zatem uznane jako pojedynczy obiekt) są wycinane i~umieszczane na białym tle. Zostaną one wykorzystane do trenowania modeli kategoryzacji w~kolejnych fazach. Z~drugiej strony, jak widać na powyższym obrazie, wadą tej techniki jest to, że struktury są czasami ze sobą połączone, a~następnie traktowane przez algorytm jako jedna całość. Dzieje się tak najczęściej w~przypadku klas I~i~II (rys. \ref{fig:mesh14}), które są rozciągnięte na zdjęciach i~często się stykają ze sobą. 
-\begin{figure}[!h]
+\begin{figure}[h]
 	\centering
 	\begin{subfigure}{0.29\textwidth}
 	    \centering
@@ -216,19 +216,19 @@ Z drugiej strony wyniki wydają się być znacznie lepsze przy wykorzystaniu dan
 A więc, jak możemy zauważyć, manipulacja danymi nie wpłynęła pozytywnie na wynik klasyfikacji. W~związku z~tym dalsze badania zostaną przeprowadzone na architekturze, dla której osiągnięto najlepsze wyniki. Biorąc pod uwagę niezbalansowanie klas oraz to, iż te dane były przygotowywane ręcznie przez autora tej pracy (który nie jest specjalistą w~dziedzinie metalurgii), w~celu poprawy wyników tej klasyfikacji najprawdopodobniej konieczne jest, aby przygotował je ekspert w~tej dziedzinie. Można to zadanie potraktować jako dalszą część prac, które byłyby rozszerzeniem niniejszej pracy. W~dalszych badaniach zostanie wykorzystana architekturu wraz z~danymi, dla których otrzymano najwyższe wyniki, tj. sieć neuronowa VGG19 wraz z~pierwotnie przygotowanymi obrazami struktur.
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.50\textwidth]{rys.33.diagram.kolowy.legenda.png} % 52
+    \includegraphics[width=0.35\textwidth]{rys.33.diagram.kolowy.legenda.png} % 52
     \caption{Legenda użytych kolorów w~celu oznaczenia struktur na obrazach, które należą do różnych klas. Żródło: opracowanie własne (z wykorzystaniem biblioteki \ita{matplotlib})}
     \label{rys.33.diagram.kolowy.legenda.png}
 \end{figure}
 Na rys \ref{rys.33.diagram.kolowy.legenda.png} została przedstawiona legenda. Każdy z~siedmiu kolorów przedstawionych na wykresie kołowym odpowiada jednej z~siedmiu klas strukur (zgodnie z~opisem na diagramie). Kolory te zostały dobrane za pomocą generatora wizualnie odmiennych kolorów (\href{https://mokole.com/palette.html}{mokole.com}), aby były jak najbardziej wyraziste. Poniżej przedstawiono przykłady klasyfikacji struktur z~wykorzystaniem opisanych powyżej metod. Na tych obrazach (rys. \ref{rys.34} - \ref{rys.38}) 
 \begin{figure}[h]
 	\centering
-	\begin{subfigure}{0.42\textwidth}
+	\begin{subfigure}{0.4\textwidth}
 	    \centering
 	    \includegraphics[width=1\textwidth]{rys.34a.pokolorowane.struktury.png}
 	    \subcaption{\label{subfigure_a}Wykryte, sklasyfikowane i~ubarwione struktury}
 	\end{subfigure}
-	\begin{subfigure}{0.42\textwidth}
+	\begin{subfigure}{0.4\textwidth}
 	    \centering
 	    \includegraphics[width=1\textwidth]{rys.34b.oryginalne.zdjecie.png}
 	    \subcaption{\label{subfigure_b}Zdjęcie mikrostruktury}
@@ -238,12 +238,12 @@ Na rys \ref{rys.33.diagram.kolowy.legenda.png} została przedstawiona legenda. K
 obowiązuje schemat, iż po prawej stronie znajduje się oryginalne zdjęcie mikrostruktury, natomiast po lewej stronie znajduje się to samo zdjęcie, z~tym że obecne tam struktury zostały pokolorowane zgodnie z~legendą (rys.~\ref{rys.33.diagram.kolowy.legenda.png}). Są to przykładowe zdjęcia, które 
 \begin{figure}[h]
 	\centering
-	\begin{subfigure}{0.42\textwidth}
+	\begin{subfigure}{0.4\textwidth}
 	    \centering
 	    \includegraphics[width=1\textwidth]{rys.35a.pokolorowane.struktury.png}
 	    \subcaption{\label{subfigure_a}Wykryte, sklasyfikowane i~ubarwione struktury}
 	\end{subfigure}
-	\begin{subfigure}{0.42\textwidth}
+	\begin{subfigure}{0.4\textwidth}
 	    \centering
 	    \includegraphics[width=1\textwidth]{rys.35b.oryginalne.zdjecie.png}
 	    \subcaption{\label{subfigure_b}Zdjęcie mikrostruktury}
@@ -253,12 +253,12 @@ obowiązuje schemat, iż po prawej stronie znajduje się oryginalne zdjęcie mik
 dobrze reprezentują cały proces, który wygląda w~ten sposób, że dla każdego zdjęcia wejściowego przeprowadzane są operacje opisane w~rozdziale \ref{wycinanie.struktur}, a~następnie są one klasyfikowane przez architekturę przedstawioną
 \begin{figure}[h]
 	\centering
-	\begin{subfigure}{0.41\textwidth}
+	\begin{subfigure}{0.4\textwidth}
 	    \centering
 	    \includegraphics[width=1\textwidth]{rys.36a.pokolorowane.struktury.png}
 	    \subcaption{\label{subfigure_a}Wykryte, sklasyfikowane i~ubarwione struktury}
 	\end{subfigure}
-	\begin{subfigure}{0.41\textwidth}
+	\begin{subfigure}{0.4\textwidth}
 	    \centering
 	    \includegraphics[width=1\textwidth]{rys.36b.oryginalne.zdjecie.png}
 	    \subcaption{\label{subfigure_b}Zdjęcie mikrostruktury}
@@ -268,12 +268,12 @@ dobrze reprezentują cały proces, który wygląda w~ten sposób, że dla każde
 w~tym rozdziale. W~związku z~tym mogą wystąpić błędy, jak brak wykrycia danej struktury bądź źle sklasyfikowanie struktury.
 \begin{figure}[h]
 	\centering
-	\begin{subfigure}{0.41\textwidth}
+	\begin{subfigure}{0.4\textwidth}
 	    \centering
 	    \includegraphics[width=1\textwidth]{rys.37a.pokolorowane.struktury.png}
 	    \subcaption{\label{subfigure_a}Wykryte, sklasyfikowane i~ubarwione struktury}
 	\end{subfigure}
-	\begin{subfigure}{0.41\textwidth}
+	\begin{subfigure}{0.4\textwidth}
 	    \centering
 	    \includegraphics[width=1\textwidth]{rys.37b.oryginalne.zdjecie.png}
 	    \subcaption{\label{subfigure_b}Zdjęcie mikrostruktury}
@@ -282,12 +282,12 @@ w~tym rozdziale. W~związku z~tym mogą wystąpić błędy, jak brak wykrycia da
 \end{figure}
 \begin{figure}[!h]
 	\centering
-	\begin{subfigure}{0.41\textwidth}
+	\begin{subfigure}{0.4\textwidth}
 	    \centering
 	    \includegraphics[width=1\textwidth]{rys.38a.pokolorowane.struktury.png}
 	    \subcaption{\label{subfigure_a}Wykryte, sklasyfikowane i~ubarwione struktury}
 	\end{subfigure}
-	\begin{subfigure}{0.41\textwidth}
+	\begin{subfigure}{0.4\textwidth}
 	    \centering
 	    \includegraphics[width=1\textwidth]{rys.38b.oryginalne.zdjecie.png}
 	    \subcaption{\label{subfigure_b}Zdjęcie mikrostruktury}
@@ -345,7 +345,7 @@ Pierwszym podejściem było wykorzystanie tekstur Haralicka i~momentów Hu do zi
 	\caption{\label{fig:mesh20}Dwa przykładowe zdjęcia mikrostruktur. Ich tekstury i~znajdujące się tam kształty diametralnie się różnią. Źródło: \cite{Pirowski17}}
 \end{figure}
 W pierwszym eksperymencie wykorzystano tekstury Haralicka, momenty Hu, a~także modele maszyny wektorów nośnych (SVM) oraz lasów losowych (RF, RFC). Testy zostały przeprowadzone na zbiorze danych klasyfikowanych ze względu na wytrzymałość na rozciąganie. Niestety taka konfiguracja modeli i~metod nie przyniosła oczekiwanych rezultatów. Testy przeprowadzono z~wykorzystaniem sprawdzianu krzyżowego (ang. \ita{cross-validation}), a~dokładnie sprawdzian \ita{k}-krotny (rozdz. \ref{cross.validation}).
-\begin{table}[!h]
+\begin{table}[h]
 	\centering
 	\begin{threeparttable}
 		\caption{Wyniki klasyfikacji binarnej z~użyciem klasycznych klasyfikatorów, z~wykorzystaniem momentów Hu oraz tekstur Haralicka. Źródło: opracowanie własne}
@@ -382,7 +382,7 @@ W pierwszym eksperymencie wykorzystano tekstury Haralicka, momenty Hu, a~także 
 		\end{tablenotes}
 	\end{threeparttable}
 \end{table}
-Następnie te \ita{k} rezultatów jest uśrednianych. Wykorzystano domyślne wartości parametrów bez wykorzystania strojenia parametrów, gdyż wyniki te są o wiele gorsze niż w przypadku innych metod.
+Następnie te \ita{k} rezultatów jest uśrednianych. Zastosowano domyślne wartości parametrów bez wykorzystania strojenia parametrów, gdyż wyniki te są o wiele gorsze niż w przypadku innych metod.
 Wyniki zaprezentowano w~tabeli \ref{hu_haralick_table}.
 \begin{table}[h]
 	\centering
@@ -455,7 +455,7 @@ Porównując wyniki otrzymane w~tych trzech eksperymentach można dojść z~pewn
 \label{Klasyfikacja za pomocą liczby struktur} % cha6
 
 W następnym kroku przetestowano skuteczność klasycznych klasyfikatorów w~ocenie jakości odlewów (tj. predykcji wytrzymałości na rozciąganie odlewów). Jako dane wejściowe zastosowano liczbę struktur poszczególnych klas (rys. \ref{fig:mesh14}), które są pozyskiwane w~procesie przedstawionym w~rozdz. \ref{sec:klasyfikacja_struktur}. Stąd na wejście klasycznych klasyfikatorów jest podawana tablica siedmiu liczb, z~czego każda z~tych liczb odpowiada liczebności odpowiedniej klasy (tj. liczba „zerowa"~odpowiada liczebności obiektów klasy „0"~itd.) i~na podstawie tych danych starają się przewidzieć wytrzymałość na rozciąganie odlewów przedstawianych na zdjęciach, których te dane dotyczą. 
-\begin{figure}[!h]
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.65\textwidth]{rys.41.flowchart.diagram.png}
     \caption{Schemat blokowy przedstawiający działanie klasyfikacji wytrzymałości na rozciąganie na podstawie liczności struktur poszczególnych klas. Żródło: opracowanie własne (z wykorzystaniem \href{https://www.lucidchart.com}{lucidchart})}
@@ -468,7 +468,7 @@ W~tym celu wykorzystano najpopularniejsze klasyfikatory, jak maszyna wektorów n
 \subsubsection{Klasyfikator SVM}
 \label{structures.with.svm}
 
-Jako pierwsze zostanie omówione podejście, w~którym jako klasycznego klasyfikatora użyto SVM, czyli maszynę wektorów nośnych (rozdz. \ref{cha:Maszyna wektorów nośnych}). Schemat ogólny został przedsawiony na rys. \ref{rys.41.flowchart.diagram.png}. W~pierwszej kolejności przebadano strategię, w~której na wejście SVM podawano bezwzględną liczbę struktur poszczególnych klas. Badania przeprowadzono wykorzystując walidację krzyżową (rozdz. \ref{cross.validation}) oraz przeszukiwanie siatki (rozdz. \ref{Optymalizacja hiperparametrów}). Użyto już gotowej implementacji z~biblioteki \ita{scikit-learn} pod nazwą \ita{GridSearchCV}, który obsługuje te dwie rzeczy naraz. W~rezultacie otrzymano model, w którym wartości najważniejszych parametrów były następujące: stropień (ang. \ita{degree}) wyniósł 3 oraz jądro (ang. \ita{kernel}) ustawiono na \ita{rbf}. Model ten osiągnął $83.3\%$ dokładności dla danych testowych oraz około cztery punkty procentowe więcej dla danych treningowych ($86.7\%$). Wartość straty logistycznej wyniosła $0.39$. To oznacza, że nie doszło do przetrenowania, ani niedotrenowania modelu do danych, czemu też zapobiega sprawdzian krzyżowy. W~każdym razie wyniki wydają się być wysokie, tym bardziej, że opierają się na modelu, który miał mniejszą skuteczność (o pół punktu procentowego). Poniżej przedstawiono wykres krzywej Precision-Recall, który wskazuje jaka jest precyzja modelu (ang. \ita{precision}) przy zadanej czułości (ang. \ita{recall}). 
+Jako pierwsze zostanie omówione podejście, w~którym jako klasycznego klasyfikatora użyto SVM, czyli maszynę wektorów nośnych (rozdz. \ref{cha:Maszyna wektorów nośnych}). Schemat ogólny został przedsawiony na rys. \ref{rys.41.flowchart.diagram.png}. W~pierwszej kolejności przebadano strategię, w~której na wejście SVM podawano bezwzględną liczbę struktur poszczególnych klas. Badania przeprowadzono wykorzystując walidację krzyżową (rozdz. \ref{cross.validation}) oraz przeszukiwanie siatki (rozdz. \ref{Optymalizacja hiperparametrów}). Użyto już gotowej implementacji z~biblioteki \ita{scikit-learn} pod nazwą \ita{GridSearchCV} (domyślne wartości parametrów), który obsługuje te dwie rzeczy naraz. W~rezultacie otrzymano model, w którym wartości najważniejszych parametrów były następujące: stropień (ang. \ita{degree}) wyniósł 3 oraz jądro (ang. \ita{kernel}) ustawiono na \ita{rbf}. Model ten osiągnął $83.3\%$ dokładności dla danych testowych oraz około cztery punkty procentowe więcej dla danych treningowych ($86.7\%$). Wartość straty logistycznej wyniosła $0.39$. To oznacza, że nie doszło do przetrenowania, ani niedotrenowania modelu do danych, czemu też zapobiega sprawdzian krzyżowy. W~każdym razie wyniki wydają się być wysokie, tym bardziej, że opierają się na modelu, który miał mniejszą skuteczność (o pół punktu procentowego). Poniżej (rys. \ref{rys.42.krzywa.precision.recall.png}) przedstawiono wykres krzywej Precision-Recall, który wskazuje jaka jest precyzja modelu (ang. \ita{precision}) przy zadanej czułości (ang. \ita{recall}). 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.62\textwidth]{rys.42.krzywa.precision.recall.png}
@@ -494,7 +494,7 @@ Jednakże dane są mocno niezbalansowane, co zostało pokazane w~rozdz. \ref{sec
     \caption{Tablica pomyłek dla klasyfikacji wytrzymałości na rozciąganie odlewów. Dane zostały zbalansowane. Źródło: opracowanie własne (z wykorzystaniem biblioteki \ita{seaborn})}
     \label{rys.44.confusion.matrix.svm.balanced}
 \end{figure}
-W tym celu wykorzystano najprostszą technikę równoważenia zbiorów, a~mianowicie wyeliminowano z~danych nadmiarowe przykłady nadreprezentowanej klasy. W~ten sposób mamy teraz 1337 przykładów zarówno mikrostruktur wysokiej, jak i~niskiej wytrzymałości. Jednakże po zbalansowaniu klas problem nadal występuje (rys. \ref{rys.44.confusion.matrix.svm.balanced}). Przeprowadzono te same testy i~wartości wszystkich metryk się pogorszyły, mimo że tablica pomyłek po tym zabiegu wygląda nieco lepiej. Stąd wiadomo, że przesunięcie w~stronę klasy wysokich wytrzymałości nie jest kwestią niezbalansowania klas. Co jest przyczyną tego stanu rzeczy postaramy się dogłębniej wyjaśnić przy okazji testów kolejnych klasyfikatorów klasycznych, w~tym bardziej interpretowalnych (m.in. drzewa decyzyjne) w~kolejnych podrozdziałach.
+W tym celu wykorzystano najprostszą technikę równoważenia zbiorów, a~mianowicie w sposób losowy wyeliminowano z~danych nadmiarowe przykłady nadreprezentowanej klasy. W~ten sposób mamy teraz 1337 przykładów zarówno mikrostruktur wysokiej, jak i~niskiej wytrzymałości. Jednakże po zbalansowaniu klas problem nadal występuje (rys. \ref{rys.44.confusion.matrix.svm.balanced}). Przeprowadzono te same testy i~wartości wszystkich metryk się pogorszyły, mimo że tablica pomyłek po tym zabiegu wygląda nieco lepiej. Stąd wiadomo, że przesunięcie w~stronę klasy wysokich wytrzymałości nie jest kwestią niezbalansowania klas. Co jest przyczyną tego stanu rzeczy postaramy się dogłębniej wyjaśnić przy okazji testów kolejnych klasyfikatorów klasycznych, w~tym bardziej interpretowalnych (m.in. drzewa decyzyjne) w~kolejnych podrozdziałach.
 
 Podsumowując wyniki badań dla SVM przygotowano szkic, w~którym są przedstawione zbiorczo zebrane wyniki (tab. \ref{svm.binary.summary.table}). 
 \begin{table}[h]
@@ -545,11 +545,11 @@ Ponownie rozpoczniemy od zaprezentowania wyników, gdy jako dane wejściowe wyko
     \caption{Wizualizacja drzewa decyzyjnego. Warunek jest przedstawiony w~pierwszym wierszu pierwszego klocka decyzyjnego. Sprawdzamy, czy struktur III typu jest mniej lub równo $2.5$. Na tej podstawie jest wyznaczana wytrzymałość odlewu. Źródło: opracowanie własne (z wykorzystaniem biblioteki \ita{graphviz})}
     \label{rys.45.decision.tree.depth.1}
 \end{figure}
-W pierwszej kolejności przeprowadzono badania dla drzew o~głębokości równej jeden. Dla takich drzew średnia dokładność modelu wynosi $78\%$, co już jest bardzo dobrym wynikiem. Wizualizacja takiego drzewa została przedstawiona na rys. \ref{rys.45.decision.tree.depth.1}. 
+Eksperymenty rozpoczęto na danych oryginalnych, tj. niezbalansowanych, co można zauważyć na poniższych rysunkach (\ref{rys.45.decision.tree.depth.1}, \ref{rys.46.decision.tree.depth.2}). W pierwszej kolejności przeprowadzono badania dla drzew o~głębokości równej jeden. Dla takich drzew średnia dokładność modelu wynosi $78\%$, co już jest bardzo dobrym wynikiem. Wizualizacja takiego drzewa została przedstawiona na rys. \ref{rys.45.decision.tree.depth.1}. 
 Jak możemy zauważyć, najważniejsze są tutaj struktury typu III (rys. \ref{fig:mesh14}). Biorąc pod uwagę tylko ten jeden typ struktur otrzymujemy dokładność na wspomnianym poziomie $78\%$. Zobaczmy teraz jak prezentują się wyniki dla drzewa o~głębokości równej dwa. Otóż dokładność wyniosła $81.2\%$, natomiast wizualizacja została przedstawiona na rys. \ref{rys.46.decision.tree.depth.2}. 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.85\textwidth]{rys.46.decision.tree.depth.2}
+    \includegraphics[width=0.8\textwidth]{rys.46.decision.tree.depth.2}
     \caption{Wizualizacja drzewa decyzyjnego o~głębokości równej dwa. Źródło: opracowanie własne (z wykorzystaniem bibliteki \ita{graphviz})}
     \label{rys.46.decision.tree.depth.2}
 \end{figure}
@@ -558,18 +558,18 @@ Jak możemy zauważyć, klasa III jest ponownie najważniejszą klasą, natomias
 Tymczasem przejdziemy do kolejnego algorytmu generowania drzewa decyzyjnego. Obok algorytmu CART przetestowano również algorytm ID3, którego implementacja została zaczerpnięta z~biblioteki \ita{decision-tree-id3}. 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.55\textwidth]{rys.47.cart.vs.id3.czas.uczenia}
-    \caption{Wykres przedstawiający czas uczenia modeli skonstruowanych przy pomocy różnych algorytmów generowania drzewa, w~zależności od jego głębokości. Źródło: opracowanie własne (z wykorzystaniem biblioteki \ita{matplotlib})}
+    \includegraphics[width=0.5\textwidth]{rys.47.cart.vs.id3.czas.uczenia}
+    \caption{Wykres przedstawiający średni czas uczenia modeli skonstruowanych przy pomocy różnych algorytmów generowania drzewa, w~zależności od jego głębokości. Źródło: opracowanie własne (z wykorzystaniem biblioteki \ita{matplotlib})}
     \label{rys.47.cart.vs.id3.czas.uczenia}
 \end{figure}
-Skonfrontowano ze sobą takie cechy, jak czas uczenia, czas zwracania wyników czy też dokładność. W~pierwszej kolejności przyjrzymy się czasom uczenia tych modeli w~zależności od wykorzystanego alogrytmu oraz głębokości drzew. Na rys. \ref{rys.47.cart.vs.id3.czas.uczenia} przedstawiono wyniki tego porównania.
+Skonfrontowano ze sobą takie cechy, jak czas uczenia, czas zwracania wyników czy też dokładność. Ukazane wyniki na wszystkich poniższych wykresach dotyczą uśrednionych wartości otrzymanych z~pomocą kroswalidacji. W~pierwszej kolejności przyjrzymy się czasom uczenia tych modeli w~zależności od wykorzystanego alogrytmu oraz głębokości drzew. Na rys. \ref{rys.47.cart.vs.id3.czas.uczenia} przedstawiono wyniki tego porównania.
 Jak możemy zauważyć, czas uczenia jest wyraźnie dłuższy dla algorytmu ID3 i~rośnie wraz ze wzrostem głębokości drzewa. Jest to znana własność tych algorytmów, gdyż na ogół algorytm CART działa szybciej, szczególnie gdy korzystamy z~zoptymalizowanej wersji algorytmu CART. 
 
 Następną metryką jest czas uzyskania wyniku. Wyniki tego porównania przedstawiono na rys. \ref{rys.48.cart.vs.id3.czas.wyniku}. 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.5\textwidth]{rys.48.cart.vs.id3.czas.wyniku}
-    \caption{Wykres przedstawiający czas uzyskania wyniku przez modele skonstruowane przy pomocy różnych algorytmów generowania drzewa, w~zależności od jego głębokości. Źródło: opracowanie własne (z wykorzystaniem biblioteki \ita{matplotlib})}
+    \caption{Wykres przedstawiający średni czas uzyskania wyniku przez modele skonstruowane przy pomocy różnych algorytmów generowania drzewa, w~zależności od jego głębokości. Źródło: opracowanie własne (z wykorzystaniem biblioteki \ita{matplotlib})}
     \label{rys.48.cart.vs.id3.czas.wyniku}
 \end{figure}
 Jak możemy zauważyć na wykresie, również w~tym zestawieniu lepiej prezentuje się algorytm CART. Jego wyjście jest zwracane niemal natychmiast, natomiast na wyniki drzewa zbudowanego za pomocą algorytmu ID3 trzeba czekać dłużej i~czas ten wydłuża się jeszcze bardziej, gdy obsługujemy głębsze drzewa. 
@@ -585,14 +585,14 @@ Otóz postaramy się zbadać który algorytm generuje bardziej dokładne drzewa 
 Jak wiadomo, różne algorytmy generowania drzewa stosują różne kryteria podziału drzewa. I~tak algorytm ID3 wykorzystuje entropię (ang. \ita{entropy}) lub też przyrost informacji (ang. \ita{information gain}). Z~drugiej strony algorytm CART może korzystać przykładowo z~miary nieczystości Giniego (ang. \ita{Gini impurity}). Stąd mogą wynikać rozbieżności w~dokładności tych drzew. Na rys. \ref{rys.49.cart.vs.id3.dokladnosc} przedstawiono porównanie tych wyników. 
 Widzimy, że orientacyjnie wyniki są bardzo zbliżone. Nie można jednoznacznie stwierdzić które z~tych podejść jest dokładniejsze, gdyż w~zależności od głębokości raz jeden, raz drugi model osiąga nieznacznie lepsze wyniki. Jednakże biorąc pod uwagę poprzednie czynniki wydaje się, że algorytm CART może być faktycznie lepszym wyborem, głównie, jeśli trenujemy głębokie drzewo i~zależy nam na czasie, uwzględniając w~tym czas uzyskania wyników.
 
-Na koniec, zanim przedstawimy tabelę podsumowująca wszystkie testy związane z~drzewem decyzyjnym, przyjrzymy się jeszcze wynikom osiąganym za pomocą drzewa decyzyjnego skonstruowanego przy pomocy algorytmu CART, gdy uprzednio zbalansujemy dane. 
-Rys. \ref{rys.50.decision.tree.depth2.balanced} przedstawia wizualizację drzewa skonstruowanego za pomocą algorytmu CART używając optymalizacji hiperparametrów. Dokładność tego modelu wynosi $73.5\%$, a~więc zanotowaliśmy spadek o~$7.7$ punktu procentowego. 
+Na koniec, zanim przedstawimy tabelę podsumowująca wszystkie testy związane z~drzewem decyzyjnym, przyjrzymy się jeszcze wynikom osiąganym za pomocą drzewa decyzyjnego skonstruowanego przy pomocy algorytmu CART, gdy uprzednio zbalansujemy dane. Tym razem zdecydowano się na proste usunięcie danych z klasy nadreprezentowanej (przykłady o wysokiej wytrzymałości na rozciąganie).
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.85\textwidth]{rys.50.decision.tree.depth2.balanced}
+    \includegraphics[width=0.65\textwidth]{rys.50.decision.tree.depth2.balanced}
     \caption{Wizualizacja drzewa decyzyjnego o~głębokości równej dwa. Dodatkowo zbalansowano dane oraz użyto optymalizacji hiperparametrów. Źródło: opracowanie własne (z wykorzystaniem biblioteki \ita{graphviz})}
     \label{rys.50.decision.tree.depth2.balanced}
 \end{figure}
+Rys. \ref{rys.50.decision.tree.depth2.balanced} przedstawia wizualizację drzewa skonstruowanego za pomocą algorytmu CART używając optymalizacji hiperparametrów. Dokładność tego modelu wynosi $73.5\%$, a~więc zanotowaliśmy spadek o~$7.7$ punktu procentowego. 
 Możemy zauważyć, iż liczność struktury typu III jest tu decydująca. Gdy jest tych struktur pewna ilość (więcej niż dwie), to wtedy z~dużą pewnością możemy stwierdzić, iż struktura ma małą wytrzymałość na rozciąganie. W~przeciwnym przypadku (a więc gdy struktur jest mniej niż trzy) klasyfikacja nie jest już taka dokładna. Stąd można wyciągnąć wnioski, iż obecność struktur typu III powoduje, że struktura ma niską wytrzymałość na rozciąganie.
 \begin{figure}[h]
     \centering
@@ -602,7 +602,7 @@ Możemy zauważyć, iż liczność struktury typu III jest tu decydująca. Gdy j
 \end{figure}
 Tablica pomyłek została przedstawiona na rys. \ref{rys.51.confusion.matrix.dt.balanced}. Jak można zauważyć, klasyfikacja jest nieco przesunięta w~stronę wysokiej wytrzymałości (klasa 1). Można to wytłumaczyć przy pomocy wizualizacji drzewa (rys. \ref{rys.50.decision.tree.depth2.balanced}). Gdy struktur typu III jest mniej niż trzy, dokładność naszej klasyfikacji wynosi około $69\%$ (lewe poddrzewo). A~ponieważ większość obecnych tam struktur ma wysoką wytrzymałość, stąd przesunięcie w~kierunku tej klasy. Natomiast widzimy również spadki skuteczności w~wykrywaniu wysokiej wytrzymałości, co nastąpiło wskutek ograniczenia liczby danych o~tej własności. O~ile wyniki są teraz bardziej wiarygodne, o~tyle widzimy, że za pomocą samych liczności struktur nie jestemy w~stanie stwierdzić z~bardzo wysoką skutecznością jaka jest wytrzymałość tej struktury. Stąd teza, iż sieci neuronowe oceniające tę cechę odlewów na podstawie pikseli mogą osiągać wyższe skuteczności wydaje się jeszcze bardziej prawdopodobna. 
 
-Jako podsumowanie prac z~drzewami decyzyjnymi zostaje przedstawiony szkic (tab. \ref{dt.binary.summary.table}), który zawiera wyniki większości wartych uwagi testów, również tych, które nie zostały tutaj bliżej opisane.
+Jako podsumowanie prac z~drzewami decyzyjnymi zostaje przedstawiony szkic (tab. \ref{dt.binary.summary.table}), który zawiera wyniki większości testów wartych uwagi , również tych, które nie zostały tutaj bliżej opisane.
 \begin{table}[h]
 	\centering
 	\begin{threeparttable}
@@ -661,14 +661,14 @@ Jako podsumowanie prac z~drzewami decyzyjnymi zostaje przedstawiony szkic (tab. 
 		\end{tablenotes}
 	\end{threeparttable}
 \end{table}
-Oczywiście najlepsze wyniki otrzymujemy dla głębszych drzew. Jednakże warto zwrócić uwagę przede wszystkim na dwie rzeczy. Po pierwsze, po zbalansowaniu danych zanotowaliśmy znaczny spadek skuteczności, co już zostałe omówione wyżej w~tym podrozdziale. Po drugie, najwyższą dokładność uzyskujemy dla danych w~postaci bezwzględnej liczności struktur poszczególnych klas, nieco gorsze wyniki, gdy na wejściu podajemy procentowy udział struktur poszczególnych klas, a~najgorsze wyniki, gdy użyjemy funkcji softmax. Poniekąd jest zrozumiałe, że dla funkcji softmax otrzymujemy nieco gorsze wyniki, gdyż usuwa ona z~danych pewną informację. Natomiast spadek dla danych w~postaci procentowego udziału jest nietypowy, aczkolwiek podobne wyniki uzyskano dla modelu SVM. Proste wytłumaczenie może opierać się na tym, iż tak na prawdę większy wpływ na wytrzymałość struktur ma to, czy struktury konkretnej klasy w~ogóle wystąpiły niż stosunek ich liczności względem pozostałych klas.
+Oczywiście najlepsze wyniki otrzymujemy dla głębszych drzew. Jednakże warto zwrócić uwagę przede wszystkim na dwie rzeczy. Po pierwsze, po zbalansowaniu danych zanotowaliśmy znaczny spadek skuteczności, co już zostałe omówione wyżej w~tym podrozdziale. Po drugie, najwyższą dokładność uzyskujemy dla danych w~postaci bezwzględnej liczności struktur poszczególnych klas, nieco gorsze wyniki, gdy na wejściu podajemy procentowy udział struktur poszczególnych klas, a~najgorsze wyniki, gdy użyjemy funkcji softmax. Poniekąd jest zrozumiałe, że dla funkcji softmax otrzymujemy nieco gorsze wyniki, gdyż usuwa ona z~danych pewną informację. Natomiast spadek dla danych w~postaci procentowego udziału jest nietypowy, aczkolwiek podobne wyniki uzyskano dla modelu SVM. Proste wytłumaczenie może opierać się na tym, iż tak naprawdę większy wpływ na wytrzymałość struktur ma ich bezwzględna ilość oraz to, czy struktury konkretnej klasy w~ogóle wystąpiły niż stosunek ich liczności względem pozostałych klas.
 
 %%%%%%%%%% LAS LOSOWY %%%%%%%%%
 \subsubsection{Las losowy}
 \label{structures.with.rfc}
 
 Kolejny klasyfikator klasyczny, którego możliwości w~ocenie wytrzymałości na rozciąganie odlewów zostały przebadane, to las losowy (rozdz. \ref{cha:Las losowy}). 
-\begin{figure}[!h]
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.35\textwidth]{rys.52.confusion.matrix.rfc.unbalanced}
     \caption{Tablica pomyłek dla klasyfikacji wytrzymałości na rozciąganie odlewów wykorzystując las losowy. Testy przeprowadzono na danych niezbalansowanych. Źródło: opracowanie własne (z wykorzystaniem biblioteki \ita{seaborn})}
@@ -684,7 +684,7 @@ Zbalansowane dane są tworzone na tej samej zasadzie, co w~rozdz. \ref{structure
     \label{rys.53.confusion.matrix.rfc.balanced}
 \end{figure}
 Wyniki, jakie udało się osiągnąć dla tego zestawienia, to dokładność na poziomie $80.9\%$, średnia wartość precyzji na poziomie $0.85$, wartość funkcji straty logistycznej na poziomie $0.47$ oraz wartość metryki F1 na poziomie $0.81$. Jak więc widzimy, zanotowano spadek tych metryk, jednakże nie jest on tak duży, jak w~przypadku drzew decyzyjnych (rozdz. \ref{structures.with.dt}). 
-\begin{table}[!h]
+\begin{table}[h]
 	\centering
 	\begin{threeparttable}
 		\caption{Podsumowanie wyników klasyfikacji binarnej z~użyciem lasu losowego w~celu predykcji wytrzymałości na rozciąganie odlewów. Źródło: opracowanie własne}
@@ -725,7 +725,7 @@ Jak możemy zauważyć, tendencja skuteczności względem różnych typów wejś
 
 Następnym modelem, który został przetestowany jest regresja logistyczna (rozdz. \ref{Regresja logistyczna}). Trzymając się schematu z~poprzednich podrozdziałów, ponownie przedstawimy szczegółowe wyniki dla danych w~postaci liczności klas dla danych niezbalansowanych i~zbalansowanych, po czym na końcu rozdziału zostanie przedstawiona tabela podsumowująca większość prac z~użyciem tego modelu. 
 Jak się okazało, nieco nieoczekiwanie, wyniki dla regresji logistycznej były całkiem przyzwoite. Otóż zaczynając od danych niezbalansowanych, otrzymaliśmy następujące wyniki: $83.1\%$ dokładności, $0.91$ średniej wartości prezycji, $0.41$ wartości funkcji straty logistycznej oraz $0.88$ wartości metryki F1. Na rys. \ref{rys.54.confusion.matrix.logit.unbalanced} 
-\begin{figure}[!h]
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.35\textwidth]{rys.54.confusion.matrix.logit.unbalanced}
     \caption{Tablica pomyłek dla klasyfikacji wytrzymałości na rozciąganie odlewów dla regresji logistycznej. Wykorzystano dane niezbalansowane. Źródło: opracowanie własne (z wykorzystaniem biblioteki \ita{seaborn})}
@@ -740,14 +740,14 @@ Natomiast dla danych zbalansowanych otrzymaliśmy następujące wyniki:
 	\item wartość metryki F1 – $0.8$.
 \end{itemize}
 Tablica pomyłek zaprezentowana została na rys. \ref{rys.55.confusion.matrix.logit.balanced}. 
-\begin{figure}[!h]
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.35\textwidth]{rys.55.confusion.matrix.logit.balanced}
     \caption{Tablica pomyłek dla klasyfikacji wytrzymałości na rozciąganie odlewów dla regresji logistycznej. Wykorzystano dane zbalansowane. Źródło: opracowanie własne (z wykorzystaniem biblioteki \ita{seaborn})}
     \label{rys.55.confusion.matrix.logit.balanced}
 \end{figure}
 Ponownie widzimy, iż zbalansowanie danych powoduje, że wartości metryk nieco spadają, ale tym razem spadki te są mniejsze niż w~przypadku poprzednich klasyfikatorów. W~tab. \ref{logit.binary.summary.table} przedstawiono najważniejsze wyniki osiągnięte z~wykorzystaniem regresji logistycznej.
-\begin{table}[!h]
+\begin{table}[h]
 	\centering
 	\begin{threeparttable}
 		\caption{Podsumowanie wyników klasyfikacji binarnej z~użyciem regresji logistycznej w~celu predykcji wytrzymałości na rozciąganie odlewów. Źródło: opracowanie własne}
@@ -793,7 +793,7 @@ Kolejnym przetestowanym modelem był perceptron wielowarstwowy (rozdz. \ref{cha:
 \end{itemize}
 Oprócz dokładności, wartości wszystkich pozostałych metryk są najlepsze w~porównaniu do innych modeli.
 W poniższej tabeli (tab. \ref{mlp.summary.table}) przedstawiono wszystkie istotne wyniki osiągnięte z~wykorzystaniem tego modelu.
-\begin{table}[!h]
+\begin{table}[h]
 	\centering
 	\begin{threeparttable}
 		\caption{Podsumowanie wyników klasyfikacji binarnej z~użyciem perceptronu wielowarstwowego w~celu predykcji wytrzymałości na rozciąganie odlewów. Źródło: opracowanie własne}
@@ -832,7 +832,7 @@ Wyniki dla danych zbalansowanych przedstawiają się następująco:
 	\item wartość metryki F1 – $0.88$.
 \end{itemize}
 Jest to najwyższa dokładność jaką udało się uzyskać dla tego typu danych.
-\begin{table}[!h]
+\begin{table}[h]
 	\centering
 	\begin{threeparttable}
 		\caption{Podsumowanie wyników klasyfikacji binarnej z~użyciem algorytmu AdaBoost w~celu predykcji wytrzymałości na rozciąganie odlewów. Źródło: opracowanie własne}
@@ -863,8 +863,8 @@ Warto tutaj zwrócić uwagę na dane zbalansowane. Jak można zauważyć, nastą
 \subsubsection{Podsumowanie}
 \label{structures.summary}
 
-Podsumowując wszystkie najważniejsze wyniki osiągnięte w~tym podrozdziale przygotowano tabelę (tab. \ref{structures.summary.table}). Zawarto w~niej najlepsze osiągnięte wyniki przez wszystkie przetestowane modele na danych zarówno zbalansowanych, jak i~niezbalansowanych, wykorzystując optymalizację hiperparametrów oraz kroswalidację. Uwzględnione zostały również modele, których przebieg badań nie został szczegółowo opisany w~powyższych podrozdziałach. 
-\begin{table}[!h]
+Podsumowując wszystkie najważniejsze wyniki osiągnięte w~tym podrozdziale przygotowano tabelę (tab. \ref{structures.summary.table}). Zawarto w~niej najlepsze osiągnięte wyniki przez wszystkie przetestowane modele na danych zarówno zbalansowanych, jak i~niezbalansowanych, wykorzystując optymalizację hiperparametrów oraz kroswalidację. Ponownie wykorzystano dane dotyczące wytrzymałości na rozciąganie, natomiast optymalizację hiperparametrów przeprowadzono raz jeszcze użyto  \ita{Optunę}. Uwzględnione zostały również modele, których przebieg badań nie został szczegółowo opisany w~powyższych podrozdziałach. 
+\begin{table}[h]
 	\centering
 	\begin{threeparttable}
 		\caption{Podsumowanie wyników klasyfikacji binarnej dla wszystkich wykorzystanych klasyfikatorów. W~zestawieniu przedstawiono najlepsze wyniki, które udało się osiągnąć dla poszczególnych modeli dla danych niezbalansowanych oraz zbalansowanych. Źródło: opracowanie własne}
@@ -917,14 +917,14 @@ Jak można zauważyć, dla niezbalansowanych danych dobrze prezentują się mode
 Oprócz tego szerokiego porównania modeli na podstawie metryk wydajności przygotowano również wykresy przedstawiająca uśrednione czasy uczenia oraz czasy zwracania wyników dla poszczególnych modeli. 
 \begin{figure}[!h]
     \centering
-    \includegraphics[width=0.5\textwidth]{rys.56.fit.times}
+    \includegraphics[width=0.45\textwidth]{rys.56.fit.times}
     \caption{Uśrednione czasy uczenia dla poszczególnych modeli. Czasy obliczono dla danych niezbalansowanych. Źródło: opracowanie własne (z wykorzystaniem biblioteki \ita{matplotlib})}
     \label{rys.56.fit.times}
 \end{figure}
 Jak możemy zauważyć, zdecydowanie najdłużej trwa wytrenowanie modelu perceptronu wielowarstwowego, co jest zrozumiałe ze względu na to, że jest to tak naprawdę sieć neuronowa z~wieloma neuronami na warstwę oraz setkami iteracji. Następnie mamy modele maszyny wektorów nośnych oraz lasu losowego. SVM opiera się na funkcji jądra (ang. \ita{kernel function}) i~dla dużych danych może działać powoli. Natomiast las losowy składa się z~setek pojedynczych modeli (tzw. słabych klasyfikatorów), w~tym przypadku są to tzw. kikuty decyzyjne, a~więc drzewa decyzyjne o~głębokości równej jeden. Uczenie modelu RFC twa ponad 400 razy dłużej niż pojedyncze drzewo decyzyjne, co by się zgadzało z~tym, że w~testach wykorzystano model lasu losowego z~473 drzewami. Następnie mamy model AdaBoost. Ten model również składa się z~wielu słabych klasyfikatorów i~również są to kikuty decyzyjne. Ponieważ jest ich 50, jego czas uczenia też jest odpowiednio dłuższy. Pozostałe dwa modele, tj. drzewo decyzyjne i~regresja logistyczna mają zdecydowanie najkrótsze czasy uczenia (bliskie zera). Są to najprostsze modele niewymagające wielu obliczeń. W~tym przypadku badania potwierdziły to, co znaliśmy z~teorii. Poniżej znajduje się wykres dot. czasów uzyskania wyników dla tych samych modeli.
-\begin{figure}[!h]
+\begin{figure}[h]
     \centering
-    \includegraphics[width=0.5\textwidth]{rys.57.score.times}
+    \includegraphics[width=0.45\textwidth]{rys.57.score.times}
     \caption{Uśrednione czasy zwracania wyników dla poszczególnych modeli. Czasy obliczono dla danych niezbalansowanych. Źródło: opracowanie własne (z wykorzystaniem biblioteki \ita{matplotlib})}
     \label{rys.57.score.times}
 \end{figure}
@@ -933,11 +933,11 @@ W przypadku tego wykresu wyniki również pokrywają się z~oczekiwaniami. Na pi
 Podsumowując, w~zależności od wymagań użytkownik powinien samodzielnie wybrać który algorytm będzie miał najlepsze zastosowanie. W~naszym przypadku, gdzie danych nie było zbyt dużo oraz nie były bardzo skomplikowane, tak naprawdę wszystkie klasyfikatory spełniły swoje wymagania. Natomiast, jak pokazały badania, modele te różnią się między sobą i~dla dużych danych te różnice czasowe mogą stać się bardzo duże i~mieć ogromne znaczenie dla całego procesu (uczenia jak i~ewaluacji).
 
 %%%%%%%%%% SIECI NEURONOWE %%%%%%%%%%%%
-\subsection{Sieci neuronowe}
+\subsection{Całościowa analiza obrazów z użyciem sieci neuronowych}
 \label{binary.ann.with.structures}
 
 Gdy mamy do czynienia z~klasyfikacją obrazów, zwyczajowym już podejściem jest zastosowanie sieci neuronowych. Od wielu lat jest to metoda dająca najwyższe skuteczności i~wciąż jest rozwijana. Dlatego postaramy się ją również zastosować w~naszych badaniach. Ze względu na to, iż nie posiadamy danych w~liczbie dziesiątek tysięcy, wykorzystamy technikę zwaną uczeniem przez transfer (rozdz. \ref{cha:cha3.5}). W~skrócie polega ona na tym, iż na sieć neuronową trenowaną na milionach przykładów oraz wielu klasach nakładamy kilka dodatkowych warstw i~staramy się ją douczyć do własnych celów. W~ten sposób korzystamy z~już posiadanej wiedzy przez tę sieć neuronową. W~naszych badaniach użyjemy sieć VGG19. Oprócz tego nałożymy na sam koniec sieci trzy dodatkowe warstwy i~będą to jedyne trenowalne warstwy w~naszej architekturze. Ponadto zostanie zastosowany tzw. \bo{dropout}, a~więc losowane usuwanie pojedynczych neuronów w~sieci w~trakcie uczenia, co przeciwdziała nadmiernemu dopasowaniu. Wartości hiperparametrów zostały wybrane na drodze optymalizacji wykorzystując bibliotekę \ita{optuna}. W~ramach przypomnienia, najlepszą skuteczność jak do tej pory uzyskaliśmy za pomocą MLP, które również jest siecią neuronową, a~wyniosła ona $80.6\%$. Dlatego oczekujemy wzrostu skuteczności, jak również wartości pozostałych metryk. 
-Po przeprowadzeniu badań otrzymano następujące wyniki:
+Eksperymenty przeprowadzono z użyciem danych zbalansowanych za pomocą techniki obracania (rozdz. \ref{sec:augmentacja}). Wyniki są następujące:
 \begin{itemize}
 	\item dokładność – $83.2\%$,
 	\item średnia wartość precyzji – $0.88$,
@@ -951,17 +951,17 @@ Jak widzimy są to najwyższe jak do tej pory wyniki dla danych zbalansowanych, 
 \label{binary.ann.with.structures}
 
 Ostatnim przebadanym podejściem jest połączenie sieci neuronowych z~klasycznymi klasyfikatorami. Sieć neuronowa nie ma wiedzy o~tym, jakie struktury znajdują się na obrazach, natomiast klasyczne klasyfikatory nie dostają na wejście pikseli, a~więc również mają ograniczone dane. Stąd pojawił się pomysł, aby wynik klasyfikacji sieci neuronowej dołączyć do liczby struktur (która de facto również jest zliczana przez sieć neuronową), a~następnie to wejście w~postaci ośmiu liczb (w rozdz. \ref{Klasyfikacja za pomocą liczby struktur} było ich siedem) klasyfikować za pomocą klasycznych modeli. W~ten sposób w~pełni wykorzystamy korzyści jakie dają nam zarówno sieci neuronowe, jak i~klasyczne klasyfikatory. Schemat został przedstawiony na rys. \ref{rys.59.hybrid.diagram}. 
-\begin{figure}[!h]
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.6\textwidth]{rys.59.hybrid.diagram}
     \caption{Schemat blokowy przedstawiający działanie klasyfikacji wytrzymałości na rozicąganie na podstawie liczności struktur poszczególnych klas a~także wyniku klasyfikacji sieci neuronowej. Źródło: opracowanie własne (z wykorzystaniem \ita{diagrams.net})}
     \label{rys.59.hybrid.diagram}
 \end{figure}
-Można byłoby się spodziewać, iż to podejście będzie przynajmniej tak dobre, jak sama sieć neuronowa klasyfikująca wytrzymałość, gdyż tutaj wykorzystujemy jej predykcję. Tak jak poprzednio, obliczono wartości najważniejszych metryk i~prezentują się one następująco:
+Można byłoby się spodziewać, iż to podejście będzie przynajmniej tak dobre, jak sama sieć neuronowa klasyfikująca wytrzymałość, gdyż tutaj wykorzystujemy jej predykcję. Tak jak poprzednio, eksperymenty przeprowadzono na danych zbalansowanych za pomocą techniki obracania (rozdz. \ref{sec:augmentacja}). Wartości najważniejszych metryk prezentują się następująco:
 \begin{itemize}
 	\item dokładność – $83.2\%$,
 	\item średnia wartość precyzji – $0.82$,
 	\item wartość funkcji straty logistycznej – $0.47$,
 	\item wartość metryki F1 – $0.83$.
 \end{itemize}
-Jak więc widzimy, wyniki są bardzo zbliżone do tych otrzymanych przez sieć neuronową VGG19 (rozdz. \ref{binary.ann.with.structures}). Mimo, iż zostały połączone dwa najlepsze podejścia nie udało sę osiągnąć lepszych wyników, aczkolwiek dokładność osiągnęła taki sam poziom jak najlepszy model dla danych zbalansowanych. Z~racji ograniczonych zasobów czasowych autor nie mógł kontynuować dalszych badań, aczkolwiek podejście hybrydowe wydaje się mieć potencjał i~warto byłoby go rozwinąć w~przyszłości.
+Jak więc widzimy, wyniki są bardzo zbliżone do tych otrzymanych przez sieć neuronową VGG19 (rozdz. \ref{binary.ann.with.structures}). Mimo, iż zostały połączone dwa najlepsze podejścia nie udało się osiągnąć lepszych wyników, aczkolwiek dokładność osiągnęła taki sam poziom jak najlepszy model dla danych zbalansowanych. Z~racji ograniczonych zasobów czasowych autor nie mógł kontynuować dalszych badań, aczkolwiek podejście hybrydowe wydaje się mieć potencjał i~warto byłoby go rozwinąć w~przyszłości.
